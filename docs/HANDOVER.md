@@ -4,6 +4,9 @@ Everything a fresh session needs to start work here. Written 2026-09-25, the day
 the parent project was submitted, by the Claude Code session that did most of
 this month's CV work.
 
+**Updated 2026-09-26:** board ordered (§8.1); the build machine is now the
+Vivobook under WSL2, not the RTX 4060 laptop (§8).
+
 Read §6 before writing any code. It is the only decision that is still open, and
 it changes what the README may claim.
 
@@ -46,7 +49,10 @@ parent's status.
 **`test/` is gitignored in the parent and therefore absent here.** That is where
 almost everything this fork needs actually lives:
 
-| what | where (on the build machine) | why it matters |
+Parent clone on the Vivobook: `C:\Users\LAN\Documents\GitHub\Physics-Experiment-Assistant\`
+(from WSL2: `/mnt/c/Users/LAN/Documents/GitHub/Physics-Experiment-Assistant/`).
+
+| what | where (in the parent clone) | why it matters |
 | :-- | :-- | :-- |
 | 126 recorded sessions, ~65 GB | `test/output/live_*/` | every frame this project has ever seen |
 | fixtures | `test/fixtures/` | `bench_0908`, `one_droplet_slow`, the panel sweeps |
@@ -55,7 +61,9 @@ almost everything this fork needs actually lives:
 | the live-path check | `test/tools/live_check.py` | where the baseline number comes from |
 
 Copy what you need in deliberately, and decide per item whether it belongs in
-git. The 65 GB does not; a sampled, labelled subset does.
+git. The 65 GB does not; a sampled, labelled subset does. From WSL2, read the
+65 GB in place through `/mnt/c/`; do not copy it into the Linux filesystem (C:
+had 46 GB free on 2026-09-26).
 
 The labelled data itself **is** tracked, under
 `cv/for_report/detection_accuracy/` — that came across with the clone.
@@ -172,7 +180,8 @@ name explicitly.
 is the artefact — classical / FP32 / INT8 across latency, FPS, memory and
 accuracy. Three rows beat one, and you get B for free on the way to A.
 
-The board purchase is not blocked by this; RK3588 is right either way.
+The board was ordered on 2026-09-26 without waiting on this (§8.1); it serves
+either option.
 
 ---
 
@@ -198,12 +207,32 @@ The board purchase is not blocked by this; RK3588 is right either way.
 
 ## 8. Environment
 
-- **Build on the x86_64 machine (RTX 4060) under WSL2 Ubuntu 22.04.** Not the
-  ARM64 Vivobook: RKNN-Toolkit2 supports Linux x86_64/ARM64 and Windows x86_64,
-  and Windows ARM64 is not on that list. The Vivobook runs classical CV fine
-  (~28.7 fps measured) — it is the toolchain, not the compute.
-- **Docker is optional.** Worth it only if host dependency conflicts appear; the
-  conversion toolchain pins specific Python and numpy versions.
+- **Build on the Vivobook under WSL2 Ubuntu** (ASUS Vivobook S15 S5507QA,
+  Snapdragon X Elite, Windows 11 ARM64). This supersedes the 2026-09-25 plan to
+  build on the RTX 4060 machine. RKNN-Toolkit2 ships Linux ARM64 packages as well
+  as x86_64 (`rknn-toolkit2/packages/arm64` in airockchip/rknn-toolkit2, checked
+  2026-09-26); only native Windows on ARM is unsupported, and WSL2 is Linux. The
+  Vivobook runs classical CV fine (~28.7 fps measured).
+  - No CUDA on the Vivobook: training runs on the CPU. Slower, and fine for a
+    ~24×24 patch classifier. The RTX 4060 machine stays available for faster
+    training and for x86-only tools (reflashing, §8.1).
+- **WSL2 is not installed yet (2026-09-26).** Virtualization is already on.
+  `wsl --install` plus a reboot takes ~30 min; the toolchain (Python, PyTorch CPU,
+  RKNN-Toolkit2) adds 1–2 h, mostly downloads, and an estimated 5–10 GB of disk.
+  Planned for an overnight run or a millikan-edge time block, before or when the
+  board arrives. Not needed for the arrival checks (they run on the board, over
+  SSH from Windows); needed before training.
+- **The code already runs on Linux.** The Windows-only parts of `cv/` — the
+  camera backend choice in `cv/source.py`, the DPI call in `cv/pipeline.py`, the
+  `winsound` beep — sit behind `sys.platform` checks or a `try`. Two exceptions:
+  `cv/UVC_check.py` hard-codes DirectShow and needs a Linux path before it is used
+  on the board, and the 30 fps Media Foundation result in `cv/source.py` is a
+  Windows measurement — on the board OpenCV uses V4L2, so capture fps must be
+  measured again (it belongs in the benchmark anyway). `app_js/wrapper.py` is
+  pywin32-only and out of scope.
+- **Docker:** not needed to start. Recommended after the FP32 result: put the
+  conversion toolchain in a Dockerfile so its pinned Python and numpy versions
+  travel with the repo — that is most of the "reproducible" criterion in §9.
 - **Expect the RKNN toolchain to be the schedule risk**, not the model. Thin
   documentation, rough edges.
 - **Claude Code on a VPN machine:** a 403 on `/login` means the terminal is going
@@ -214,13 +243,58 @@ The board purchase is not blocked by this; RK3588 is right either way.
   proxy comes up. A working extend script is at `test/clash_extend_script.js` in
   the parent.
 
+### 8.1 The board — ordered 2026-09-26
+
+**Dingchang (定昌) DC-AI588S V02: RK3588S, 8 GB RAM, 32 GB eMMC**, ordered with a
+12 V adapter. Expected around 2026-09-28 (listing estimate).
+
+| | |
+| :-- | :-- |
+| NPU | 6 TOPS, INT4/INT8/INT16. Identical on every RK3588/RK3588S; the listing's "AI" tag names the board line, not a better chip |
+| CPU | 4× Cortex-A76 + 4× Cortex-A55, up to 2.4 GHz |
+| OS | **Ubuntu, installed by the vendor before shipping; version not confirmed.** The spec sheet lists only Android 12, so Ubuntu rests on the vendor's word until the board boots |
+| camera | 1× USB 3.0 + 1× USB 2.0 host (MIPI CSI also present) |
+| power | 12 V DC, 5.5×2.5 mm barrel, 3–5 A. The USB-C port is OTG (debug, flashing), not power. All USB ports share 3 A |
+| storage | 32 GB eMMC; M.2 2242 PCIe SSD slot; TF card up to 128 GB |
+| display, network | 1× HDMI (the product photo shows two; the spec sheet says one); gigabit Ethernet |
+| spec sheet | [`docs/DC-AI588S-V02_spec.pdf`](DC-AI588S-V02_spec.pdf) — vendor 产品规格书 V1.0, 2026-01-04 |
+
+**The listing excludes 7-day no-reason returns.** A return needs the board to
+differ from the order (e.g. no Ubuntu), so run the checks below the day it
+arrives. Support for images and the SDK is the vendor's after-sales engineers.
+
+**Arrival checks** (~1 h, on the board):
+
+| check | how | if it fails |
+| :-- | :-- | :-- |
+| Ubuntu, and which | `lsb_release -a` | Android → return. 20.04 and 22.04 are fine. 18.04's Python 3.6 is too old for RKNN-Toolkit-Lite2 (needs ≥ 3.7): workable, but ask for a newer image |
+| NPU driver | `dmesg \| grep -i rknpu` prints a version | Nothing → ask support for an image with the driver; return if none comes within a few days. An old version is not a fault: pin the RKNN runtime, and the host toolkit, to a matching version |
+| camera | plug into USB 3.0, `ls /dev/video*`, grab one frame with OpenCV | Try the USB 2.0 port; `v4l2-ctl --list-devices` |
+| NPU runs | `pip install rknn-toolkit-lite2`, run its bundled ResNet example | Almost always a runtime/driver version mismatch → match the versions, or ask support |
+
+Return only if it is not Ubuntu or the NPU cannot be used at all; everything else
+is fixable. Once it passes, write the Ubuntu version, `uname -r`, the NPU driver
+version and the RKNN runtime version into the repo — they are part of
+"reproducible".
+
+**Reflashing, only if ever needed:**
+
+1. **USB stick** — the spec sheet lists PC/U盘 upgrade; get the image and steps
+   from vendor support. Needs no driver on any laptop.
+2. **`rkdeveloptool`** (open source) on Linux — from WSL2 through usbipd-win,
+   which has an ARM64 build.
+3. **Rockchip RKDevTool on x86 Windows** — the RTX 4060 machine, not the
+   Vivobook: Windows on ARM cannot load x86/x64 kernel drivers.
+
 ---
 
 ## 9. Timeline and definition of done
 
 | date | item |
 | :-- | :-- |
-| 28 Sep 2026 | order the RK3588 (Orange Pi 5 or Firefly ROC-RK3588) |
+| 26 Sep 2026 | ✓ board ordered: DC-AI588S, RK3588S 8+32G (§8.1) |
+| ~28 Sep 2026 | board arrives → arrival checks the same day (§8.1) |
+| before training | install WSL2 and the toolchain on the Vivobook (§8) |
 | Oct 2026 – Jan 2027 | build window |
 | **Jan 2027** | **MUST: inference running on the board, numbers recorded** |
 | Nov–Dec 2026 | BEST: README with the before/after table, demo video |
