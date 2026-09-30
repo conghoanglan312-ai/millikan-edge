@@ -7,8 +7,11 @@ this month's CV work.
 **Updated 2026-09-26:** board ordered (§8.1); the build machine is now the
 Vivobook under WSL2, not the RTX 4060 laptop (§8).
 
-Read §6 before writing any code. It is the only decision that is still open, and
-it changes what the README may claim.
+**Updated 2026-09-29:** the board arrived and passed (§8.1); the "before" numbers
+are frozen (§3); §4's plan for auto-labels was wrong about where the data is and is
+rewritten; **§11 is where the work stands and the decisions waiting on the owner.**
+
+Read §6 and §11 before writing any code.
 
 ---
 
@@ -97,6 +100,13 @@ problem independently dated.
 `cv/for_report/detection_accuracy/` into the fork's own results directory before
 touching the pipeline, so the "before" column cannot drift.
 
+*Done 2026-09-29* — `results/baseline/`, indexed in `results/README.md`. `live_check`
+re-run: still 3.11 against 0.87. The labels stay where they are and are pinned by
+hash instead of copied; the evaluation region and predictions are frozen in
+`eval_bench_0908.npz`. `edge/score.py` reproduces §8.5 of the parent's report to the
+decimal, and scores the **current** code's detector at **81.0% precision, 95.8%
+recall, 1.35 false detections a frame** — the row a classifier has to beat.
+
 ---
 
 ## 4. The labelled set — counted 2026-09-25
@@ -122,16 +132,50 @@ focus and noise are shared.
 
 ### Getting the rest without going back to the lab
 
-The lab is **not** needed. Confirmed tracks label themselves:
+The lab is still **not** needed, but the plan written here on 2026-09-25 was wrong
+about where the data is (checked 2026-09-29):
 
-- **positives** — any track the tracker confirmed (`CONFIRM_POINTS = 6` sightings)
-  and especially any that completed a legal fall; `falls.csv` in every session
-  folder gives the column, the frame span and the outcome
-- **negatives** — `REJECT_POINTS` records every blob the gates threw out, with
-  the gate that rejected it
+- **The 126 sessions cannot be used.** Each holds only `annotated_multi.mp4` — the
+  ROI with the overlay burned in, so every tracked droplet carries a ring and a crop
+  of it carries its own label — plus `falls.csv` (no frame spans) and `rejects.txt`
+  (counts per gate, not positions). `REJECT_POINTS` lives one frame in memory and is
+  never written out.
+- **Raw frames exist only in `test/fixtures`**, dated from the frame files:
 
-Estimated **~2 hours** to write the extractor, minutes to run it across 126
-sessions, plus an hour if you want to eyeball a sample before trusting it.
+| fixture | captured | frames | droplets? | role |
+| :-- | :-- | --: | :-- | :-- |
+| `bench_0908` | 09-08 11:51 | 56,543 | yes | **test** — hand-labelled |
+| `live_20260903_noisy` | 09-03 | 471 | yes | **eval** — `live_check`'s phantom rate; keep out of training |
+| `one_droplet_slow` | 09-05 15:03 | 27,585 | yes | pool (saved pre-cropped; ROI from `roi.txt`, as `check.py` does) |
+| `one_droplet_full` | 09-05 15:30 | 10,026 | a few | pool |
+| `spray_labelled_0907` | 09-07 11:43 | 1,592 | yes | pool |
+| `zoom_labelled_0907` | 09-07 12:28 | 5,368 | yes | pool |
+| `voltage_sweep_0907` | 09-07 17:08 | 1,575 | **none** | pool |
+| `panel_sweep_0908` | 09-08 17:33 | 15,896 | **none** | pool |
+| `panel_sweep2_0908` | 09-08 21:25 | 12,771 | **none** | pool |
+| `panel_sweep3_0909` | 09-09 17:04 | 37,367 | **none** | pool |
+
+The sweeps are recordings of the voltage panel with nothing sprayed: every blob the
+detector keeps in them is a phantom **with certainty**, which makes them the cleanest
+negatives there are.
+
+`edge/autolabel.py` replays a fixture through the unmodified pipeline (wrapped from
+outside, as the parent's `detacc_replay.py` does) and writes every contour — kept,
+or rejected and by which gate — with a 32×32 crop of frame and background, labelled
+from the tracker afterwards. All ten fixtures but `live_20260903_noisy` have been
+run; the output is in `data/autolabel/` (gitignored, ~230 MB), with contact sheets
+in `data/autolabel/sheets/`.
+
+**The tracker's "confirmed" is not a clean positive label**, measured two ways:
+
+- against the hand labels on `bench_0908`: confirmed blobs are droplets **93.3%** of
+  the time (85% on tracks of 6–50 sightings, 94.5% at 50+); kept-but-unconfirmed
+  blobs are droplets **32%** of the time, so they are **not** safe negatives
+- on `one_droplet_slow`, the noisy 09-05 session, by contrast against the sweeps'
+  certain phantoms (peak over background noise in the crop): only **49%** of
+  confirmed crops stand above the phantoms' 95th percentile — 19–32% on tracks
+  under 200 sightings, 96% at 200+. The tracker there kept phantom tracks alive for
+  up to 200 sightings, which is §3's problem again. `spray_labelled_0907`: 94%.
 
 Use the hand-labelled `bench_0908` set as the **held-out test set** — it is
 independent of the tracker, which the auto-labels are not.
@@ -243,16 +287,16 @@ either option.
   proxy comes up. A working extend script is at `test/clash_extend_script.js` in
   the parent.
 
-### 8.1 The board — ordered 2026-09-26
+### 8.1 The board — ordered 2026-09-26, arrived and passed 2026-09-29
 
-**Dingchang (定昌) DC-AI588S V02: RK3588S, 8 GB RAM, 32 GB eMMC**, ordered with a
-12 V adapter. Expected around 2026-09-28 (listing estimate).
+**Dingchang (定昌) DC-AI588S V02: RK3588S, 8 GB RAM, 32 GB eMMC**, with a 12 V
+adapter.
 
 | | |
 | :-- | :-- |
 | NPU | 6 TOPS, INT4/INT8/INT16. Identical on every RK3588/RK3588S; the listing's "AI" tag names the board line, not a better chip |
 | CPU | 4× Cortex-A76 + 4× Cortex-A55, up to 2.4 GHz |
-| OS | **Ubuntu, installed by the vendor before shipping; version not confirmed.** The spec sheet lists only Android 12, so Ubuntu rests on the vendor's word until the board boots |
+| OS | Ubuntu 22.04.5 LTS, installed by the vendor (the spec sheet lists only Android 12) |
 | camera | 1× USB 3.0 + 1× USB 2.0 host (MIPI CSI also present) |
 | power | 12 V DC, 5.5×2.5 mm barrel, 3–5 A. The USB-C port is OTG (debug, flashing), not power. All USB ports share 3 A |
 | storage | 32 GB eMMC; M.2 2242 PCIe SSD slot; TF card up to 128 GB |
@@ -277,6 +321,37 @@ is fixable. Once it passes, write the Ubuntu version, `uname -r`, the NPU driver
 version and the RKNN runtime version into the repo — they are part of
 "reproducible".
 
+**Results, 2026-09-29 — passed; nothing to return:**
+
+| | |
+| :-- | :-- |
+| OS | Ubuntu 22.04.5 LTS, kernel `6.1.118` aarch64, GNOME desktop, user `ztl`; Docker installed |
+| NPU driver | **0.9.8** (`/sys/kernel/debug/rknpu/version`). The `can't request region` lines in `dmesg` are harmless: the NPU runs |
+| RKNN runtime | `librknnrt` **2.3.2**, preinstalled — so the host RKNN-Toolkit2 must be **2.3.2** too |
+| NPU runs (C) | Rockchip's `rknn_common_test`, MobileNetV1 INT8: **2.95 ms/inference (~338 FPS)**, dog image → dog class |
+| NPU runs (Python) | RKNN-Toolkit-Lite2 2.3.2, bundled ResNet18: "space shuttle" at 0.9997 |
+| Python | 3.10.12; installed offline: numpy 1.26.4, opencv-python-headless 4.10.0.84, pandas 2.2.3, scipy 1.15.3, rknn-toolkit-lite2 2.3.2 (+ psutil, ruamel.yaml). No pip came with the image; pip 26.2.1 was bootstrapped from its own wheel |
+| RAM, disk | 7.7 GiB; 29 GB root, 21 GB free |
+| CPU | 8 cores, governor `performance` |
+| camera | **not tested — no camera to hand.** `uvcvideo` is built into the kernel, and `v4l2-ctl`, `ffmpeg`, `gst-launch-1.0` are present, so any UVC camera should appear as `/dev/video*` |
+
+**Access without a network: ADB over the USB-C port.** Board USB-C → laptop USB-A.
+It enumerates as `2207:0006` "rk3xxx"; Windows binds its in-box WinUSB driver by
+itself, and `adb shell` is a root shell with no password. `adb push` moves files at
+~33 MB/s. Google's platform-tools (x64) run fine on the Vivobook. The board has no
+Wi-Fi, and no Ethernet cable was needed for any of the above: packages are
+downloaded on the laptop (`pip download --platform manylinux2014_aarch64
+--python-version 310`) and pushed. Staging lives in `/root/edge_setup/` and
+`/root/millikan-edge/` on the board.
+
+**No RTC battery:** the clock comes up wrong after a power loss. Set it before
+anything that timestamps: `adb shell "date -s @$(date +%s)"`.
+
+**Reset, 2026-09-29 ~23:12 — a loose adapter plug.** The board lost power twice in a
+row and a file it had just written came back empty. The owner found the adapter
+loose; not a board fault. Keep the habit it taught: `sync` after writing results on
+the board.
+
 **Reflashing, only if ever needed:**
 
 1. **USB stick** — the spec sheet lists PC/U盘 upgrade; get the image and steps
@@ -293,7 +368,8 @@ version and the RKNN runtime version into the repo — they are part of
 | date | item |
 | :-- | :-- |
 | 26 Sep 2026 | ✓ board ordered: DC-AI588S, RK3588S 8+32G (§8.1) |
-| ~28 Sep 2026 | board arrives → arrival checks the same day (§8.1) |
+| 29 Sep 2026 | ✓ board arrived; arrival checks passed except the camera (§8.1) |
+| 29 Sep 2026 | ✓ "before" numbers frozen; auto-labels extracted from every raw fixture (§3, §4, §11) |
 | before training | install WSL2 and the toolchain on the Vivobook (§8) |
 | Oct 2026 – Jan 2027 | build window |
 | **Jan 2027** | **MUST: inference running on the board, numbers recorded** |
@@ -328,3 +404,86 @@ From the parent, because they earned their place:
   after every change.
 - **The operator's observation is evidence.** When the bench and the logs
   disagree, the bench is right and the logs need explaining.
+
+---
+
+## 11. Where the work stands — 2026-09-29
+
+### Built
+
+| path | what |
+| :-- | :-- |
+| `edge/common.py` | paths, the fixture registry (dates, roles), the parent's matching rule |
+| `edge/score.py` | **the fork's gate** (§10's "fixed labelled set and a score"): any row of predictions against the hand labels, all rows by the same code |
+| `edge/autolabel.py` | replay → every contour, 32×32 crops, tracker labels. **Validated:** with its hooks in place `one_droplet_slow` gives the same 52 traverses and the same 14 kinematically legal falls as the parent's unhooked `check.py` on the same code, which passes |
+| `edge/contact_sheet.py` | 96-crop sheets per class, for eyeballing labels |
+| `edge/bench_detect.py` | `detectDroplets()` latency on fixed frames, any machine |
+| `results/` | the frozen baseline, scores and latencies — indexed in `results/README.md` |
+
+### Numbers so far
+
+| | |
+| :-- | :-- |
+| classical detector, current code, `bench_0908` | precision 81.0%, recall 95.8%, F1 87.8%, **1.35 false detections a frame** |
+| phantom rate, `live_check` | **3.11** detections a frame against the 0.87 bar |
+| `detectDroplets()` latency | board CPU 4.62 ms (noisy) / 5.70 ms (typical); Vivobook 2.02 / 2.92 ms; identical detection counts on both |
+| NPU sanity | MobileNetV1 INT8 2.95 ms on the board |
+
+### Labels available (every raw fixture but the eval one)
+
+| | count, excluding `bench_0908` |
+| :-- | --: |
+| confirmed-track crops, any length | 17,936 |
+| …on tracks of ≥ 50 sightings | 13,044 |
+| …on tracks of ≥ 200 sightings | 5,519 |
+| kept blobs in the droplet-free sweeps — certain phantoms | 2,809 |
+| gate-rejected crops (sampled, ≤ 40 a frame) | 226,753 |
+
+How clean "confirmed" is depends on the session, measured as the share of crops
+whose peak stands above the sweeps' phantom 95th percentile (a proxy — a defocused
+real droplet fails it too): `spray_labelled_0907` 94%, `one_droplet_full` 85%,
+`one_droplet_slow` 49%, `zoom_labelled_0907` 21%; at ≥ 200 sightings every session
+is 85–98%. On `bench_0908`, where there is truth, confirmed blobs are 93.3% droplets.
+
+`one_droplet_slow` also shows the phantom problem at the level of results: the
+current code finds 14 kinematically legal falls where the operator timed 5 (the
+five are all kept; the nine extra are unverified — other droplets or phantom
+tracks).
+
+### Decisions waiting on the owner
+
+1. **§6, option A** — confirm before any training code is written.
+2. **What counts as a positive.** Track length is the lever: ≥ 200 sightings is
+   clean everywhere (5,519 crops); ≥ 50 gives 13,044 but lets the noisy sessions'
+   phantom tracks in.
+3. **What counts as a negative.** The sweeps' kept blobs and the gate rejects are
+   safe. Kept-but-unconfirmed blobs from droplet sessions are **not** — on
+   `bench_0908` a third of them are droplets.
+4. **Train/validation split by day.** Positives exist on 09-05 and 09-07 only (the
+   09-08 morning session is the test set); the negatives-only sweeps add 09-08
+   evening and 09-09.
+
+### Next, needing only minutes of the owner
+
+- WSL2 and the toolchain on the Vivobook (§8): an admin prompt, a reboot, an
+  Ubuntu user name; the rest runs unattended. RKNN-Toolkit2 must be 2.3.2 (§8.1).
+- **Live, not only replayed (2026-09-30).** The fork's claim is real-time on an edge
+  device, so replays alone undersell it. The plan:
+  - **Recorded fixtures stay the source of every published number** — they are what
+    makes the table reproducible by someone else.
+  - **No webcam.** The live path accepts a camera only if its picture shows the
+    reticle (`LiveSource.accept` = `autoROI`), so a webcam cannot run the pipeline
+    live; it could only time capture.
+  - **A short lab trip after the owner's vacation, for the dongle.** The apparatus's BNC composite output
+    (视频输出) reaches the laptop through a converter that Windows recognised with
+    no driver installed — which on Windows means USB video class, which the board's
+    kernel has built in (§8.1). Very likely fine, never tried; the dongle's model is
+    not recorded anywhere. Take the board, its 12 V adapter, the laptop and the USB-C
+    cable; dongle into the board's USB 3.0 port; over ADB: `v4l2-ctl --list-devices`,
+    `--list-formats-ext`, real FPS per format (MJPG vs YUYV), `autoROI` accepts the
+    frame, a short live run. ~30 min. Optional, same trip: record raw sessions with
+    droplets (`test/tools/raw_capture.py`) — positives currently come from only two
+    days (§11).
+  - **One lab session at the end**, once INT8 runs on the board: the board live on
+    the apparatus, a few falls against a stopwatch, the demo video. That is the
+    headline, and the tie to the parent's real-time claim.
