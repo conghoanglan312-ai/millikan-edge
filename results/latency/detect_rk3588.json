@@ -1,0 +1,27 @@
+{
+ "machine": "aarch64",
+ "node": "RK3588",
+ "board": "DC-AI588S (RK3588S), Ubuntu 22.04.5, kernel 6.1.118, CPU governor performance",
+ "run": "2026-09-29 ~23:10 CST, board idle otherwise, 41.6 C before / 46.2 C after",
+ "note": "transcribed from the console: the board reset seconds after the run and the file it wrote was left empty",
+ "python": "3.10.12",
+ "opencv": "4.10.0",
+ "numpy": "1.26.4",
+ "cv2_threads": 8,
+ "noisy": {
+  "frames": 451,
+  "median_ms": 4.55,
+  "p90_ms": 4.9,
+  "mean_ms": 4.62,
+  "fps": 216.3,
+  "detections_per_frame": 3.1
+ },
+ "bench150": {
+  "frames": 130,
+  "median_ms": 5.39,
+  "p90_ms": 7.02,
+  "mean_ms": 5.7,
+  "fps": 175.3,
+  "detections_per_frame": 18.49
+ }
+}

@@ -1,0 +1,17 @@
+# live_check.py -- the phantom-rate bar (HANDOVER §3), run 2026-09-29 before any change
+# command: python test/tools/live_check.py   (in the parent clone, fixture live_20260903_noisy)
+# cv/pipeline.py git blob: 08d980253b76d818475a1dee7b66c7d2fb95171b  (identical in parent and fork)
+# python 3.11.9 | opencv 5.0.0 | numpy 2.4.6 | Windows 11 ARM64, Snapdragon X Elite
+
+noisy fixture: 471 frames, grid 11 rows at 61.0 px/div, ROI 907x645
+
+detections/frame   floor on   3.11  (baseline 0.87)
+                   floor off 376.45  (baseline 123.59)
+*** the noise floor is no longer holding ***
+
+field readout:
+   live_20260903_fieldoff     -> True   ok
+   live_20260903_noisy        -> None   ok
+   live_20260903_quiet        -> None   ok
+
+VERDICT: FAIL

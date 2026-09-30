@@ -1,0 +1,26 @@
+{
+ "machine": "AMD64",
+ "node": "LAPTOP-61JBE0FS",
+ "board": "ASUS Vivobook S15 S5507QA, Snapdragon X Elite X1E78100, Windows 11 ARM64",
+ "note": "x64 (AMD64) CPython running under Windows-on-ARM emulation; run 2026-09-29 with no other replays running",
+ "python": "3.11.9",
+ "opencv": "5.0.0",
+ "numpy": "2.4.6",
+ "cv2_threads": 12,
+ "noisy": {
+  "frames": 451,
+  "median_ms": 2.0,
+  "p90_ms": 2.14,
+  "mean_ms": 2.02,
+  "fps": 495.8,
+  "detections_per_frame": 3.1
+ },
+ "bench150": {
+  "frames": 130,
+  "median_ms": 2.74,
+  "p90_ms": 3.79,
+  "mean_ms": 2.92,
+  "fps": 342.3,
+  "detections_per_frame": 18.49
+ }
+}
