@@ -40,6 +40,9 @@ FIXTURE_INFO = {
     "panel_sweep_0908":    ("2026-09-08 17:33", "pool"),
     "panel_sweep2_0908":   ("2026-09-08 21:25", "pool"),
     "panel_sweep3_0909":   ("2026-09-09 17:04", "pool"),
+    # From 2026-10-09 every recording names its unit (HANDOVER §4): row from the
+    # professor's seat, then position left to right as seen from it.
+    "unit2-4_1009":        ("2026-10-09 16:51", "pool"),     # unit 2-4, sprays, field off
 }
 
 # Saved already ROI-cropped (a bug in the first raw_capture.py), so the ROI comes from

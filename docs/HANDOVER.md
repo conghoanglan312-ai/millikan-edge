@@ -154,6 +154,13 @@ about where the data is (checked 2026-09-29):
 | `panel_sweep_0908` | 09-08 17:33 | 15,896 | **none** | pool |
 | `panel_sweep2_0908` | 09-08 21:25 | 12,771 | **none** | pool |
 | `panel_sweep3_0909` | 09-09 17:04 | 37,367 | **none** | pool |
+| `unit2-4_1009` | 10-09 16:51 | 24,277 | yes — sprays, field off | pool; unit 2-4. 77,568 confirmed crops, 67,819 on tracks ≥ 200 sightings (87% above the phantom level) — more than all earlier recordings together |
+
+**Apparatus numbering (from 2026-10-09):** the lab has 16 units in 4 rows of 4. A unit
+is `row-position`: row counted from the professor's seat (1–4), position counted left
+to right as seen from the professor's seat (1–4). Record the unit with every new
+recording; the fixtures above predate this and their units are unknown. 2026-10-09:
+unit **2-4** (unit 2-3 showed no droplets when sprayed; dropped).
 
 The sweeps are recordings of the voltage panel with nothing sprayed: every blob the
 detector keeps in them is a phantom **with certainty**, which makes them the cleanest
@@ -260,12 +267,14 @@ either option.
   - No CUDA on the Vivobook: training runs on the CPU. Slower, and fine for a
     ~24×24 patch classifier. The RTX 4060 machine stays available for faster
     training and for x86-only tools (reflashing, §8.1).
-- **WSL2 is not installed yet (2026-09-26).** Virtualization is already on.
-  `wsl --install` plus a reboot takes ~30 min; the toolchain (Python, PyTorch CPU,
-  RKNN-Toolkit2) adds 1–2 h, mostly downloads, and an estimated 5–10 GB of disk.
-  Planned for an overnight run or a millikan-edge time block, before or when the
-  board arrives. Not needed for the arrival checks (they run on the board, over
-  SSH from Windows); needed before training.
+- **WSL2 installed 2026-09-30:** Ubuntu 22.04, aarch64, Python 3.10.12 — the
+  board's Python. No reboot was needed. Default user `lan` (passwordless sudo; set
+  one with `passwd`). Toolchain in `~/venvs/rknn`, installed by `edge/setup_wsl.sh`
+  in ~4 min: RKNN-Toolkit2 **2.3.2** (matches the board's runtime), torch 2.2.0,
+  onnx 1.16.1, onnxoptimizer 0.3.8 (no ARM64 wheel — built from source, hence
+  `build-essential cmake`), numpy 1.26.4. `pip freeze` in `~/rknn-pkg/freeze.txt`.
+  From Git Bash, call it with `MSYS_NO_PATHCONV=1 wsl.exe ...`, or `/mnt/c/...`
+  paths get rewritten into Windows ones.
 - **The code already runs on Linux.** The Windows-only parts of `cv/` — the
   camera backend choice in `cv/source.py`, the DPI call in `cv/pipeline.py`, the
   `winsound` beep — sit behind `sys.platform` checks or a `try`. Two exceptions:
@@ -333,7 +342,7 @@ version and the RKNN runtime version into the repo — they are part of
 | Python | 3.10.12; installed offline: numpy 1.26.4, opencv-python-headless 4.10.0.84, pandas 2.2.3, scipy 1.15.3, rknn-toolkit-lite2 2.3.2 (+ psutil, ruamel.yaml). No pip came with the image; pip 26.2.1 was bootstrapped from its own wheel |
 | RAM, disk | 7.7 GiB; 29 GB root, 21 GB free |
 | CPU | 8 cores, governor `performance` |
-| camera | **not tested — no camera to hand.** `uvcvideo` is built into the kernel, and `v4l2-ctl`, `ffmpeg`, `gst-launch-1.0` are present, so any UVC camera should appear as `/dev/video*` |
+| camera | **The lab's capture dongle works (2026-10-09):** MacroSilicon `345f:2109`, UVC 1.00 → `/dev/video0`, no driver needed. 1280×720: **MJPG 30.0 fps, YUYV 22.9 fps** (measured 10 s each, OpenCV V4L2). `autoROI` finds the reticle at x21 y36 909×645, 61.0 px/div — the same framing as `bench_0908`. Used in the **USB 2.0** port: the dongle is too thick for the USB 3.0 port next to the USB-C cable. MJPG is compressed and every recorded fixture is uncompressed, so which one the live path uses is a decision, not a default |
 
 **Access without a network: ADB over the USB-C port.** Board USB-C → laptop USB-A.
 It enumerates as `2207:0006` "rk3xxx"; Windows binds its in-box WinUSB driver by
@@ -370,7 +379,7 @@ the board.
 | 26 Sep 2026 | ✓ board ordered: DC-AI588S, RK3588S 8+32G (§8.1) |
 | 29 Sep 2026 | ✓ board arrived; arrival checks passed except the camera (§8.1) |
 | 29 Sep 2026 | ✓ "before" numbers frozen; auto-labels extracted from every raw fixture (§3, §4, §11) |
-| before training | install WSL2 and the toolchain on the Vivobook (§8) |
+| 30 Sep 2026 | ✓ WSL2 and the RKNN toolchain installed on the Vivobook (§8) |
 | Oct 2026 – Jan 2027 | build window |
 | **Jan 2027** | **MUST: inference running on the board, numbers recorded** |
 | Nov–Dec 2026 | BEST: README with the before/after table, demo video |
@@ -452,21 +461,44 @@ tracks).
 
 ### Decisions waiting on the owner
 
-1. **§6, option A** — confirm before any training code is written.
-2. **What counts as a positive.** Track length is the lever: ≥ 200 sightings is
-   clean everywhere (5,519 crops); ≥ 50 gives 13,044 but lets the noisy sessions'
-   phantom tracks in.
-3. **What counts as a negative.** The sweeps' kept blobs and the gate rejects are
-   safe. Kept-but-unconfirmed blobs from droplet sessions are **not** — on
-   `bench_0908` a third of them are droplets.
-4. **Train/validation split by day.** Positives exist on 09-05 and 09-07 only (the
-   09-08 morning session is the test set); the negatives-only sweeps add 09-08
-   evening and 09-09.
+1. ~~**§6, option A**~~ — **decided 2026-09-30: A**, train the classifier.
+2. ~~Positives, negatives, split~~ — **decided 2026-10-09**, on the owner's blind
+   review of 236 tracks (`data/review/REPORT.md`; droplets per 20 shown, by track
+   length 6–49 / 50–199 / 200+): spray 19 / 18 / 20, unit 2-4 11 / 11 / 17,
+   one_droplet_slow 0 / 2 / 19, zoom 0 / 0 / 9 of 16.
+   - **Positives:** spray, every confirmed track; unit 2-4, one_droplet_slow and
+     one_droplet_full, tracks ≥ 200 sightings; zoom, none.
+   - **Negatives:** the phantom tracks the review found (zoom confirmed < 200,
+     one_droplet_slow confirmed < 50), kept blobs in the droplet-free sweeps, and
+     gate rejects.
+   - **Split by day:** train 10-09 (unit 2-4), 09-05, 09-09 — 71,659 positive /
+     201,974 negative crops; validate 09-07, 09-08 evening — 2,143 / 88,588; test
+     `bench_0908` (09-08 morning, hand labels) only.
+   - Unit 2-4 is 95% of the positives: cap crops per track and balance recordings.
+
+### Ready to train (2026-10-09)
+
+- `edge/dataset.py` → `data/dataset/` (gitignored): train 78,484 crops (32,468
+  droplet / 46,016 noise), validate 41,038 (1,831 / 39,207); per-recording table in
+  `data/dataset/SUMMARY.md`.
+- `edge/train.py`, in WSL: 15,345-parameter conv net on the 24×24 frame-minus-
+  background centre; class- and recording-balanced sampling; the best epoch is
+  chosen on validation AP only. Smoke run passed, ONNX exported, and RKNN-Toolkit2
+  2.3.2 converted that ONNX for rk3588 (FP16; it logs `E RKNN: Unkown op target: 0`
+  yet returns 0 and writes the .rknn — check on the board).
+- Full run: `wsl -d Ubuntu-22.04 -- bash -c "~/venvs/rknn/bin/python
+  /mnt/c/Users/LAN/millikan-edge/edge/train.py"` — estimated ~1 h on the CPU.
+- **Trained 2026-10-09** (`results/fp32/`): 40 epochs, ~58 s each. Best epoch 26 on
+  validation: AP 0.957, AUC 0.998; at 0.5 it passes 97.2% of droplets, 2.2% of the
+  review's phantom tracks, 1.2% of sweep blobs, 0.8% of gate rejects. Crop-level and
+  validation-only — next is the classifier in the pipeline, scored on the test set.
 
 ### Next, needing only minutes of the owner
 
-- WSL2 and the toolchain on the Vivobook (§8): an admin prompt, a reboot, an
-  Ubuntu user name; the rest runs unattended. RKNN-Toolkit2 must be 2.3.2 (§8.1).
+- ~~WSL2 and the toolchain~~ — done 2026-09-30 (§8).
+- **Track review** (~9 min): `python edge/review_tracks.py review` — 176 blind clips
+  of confirmed tracks from the three droplet recordings, y / n / u per clip; then
+  `report`. It settles decisions 2 and 4 with a person's eye instead of a proxy.
 - **Live, not only replayed (2026-09-30).** The fork's claim is real-time on an edge
   device, so replays alone undersell it. The plan:
   - **Recorded fixtures stay the source of every published number** — they are what
