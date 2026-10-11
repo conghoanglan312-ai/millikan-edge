@@ -1,0 +1,24 @@
+{
+ "calibrationCrops": 499,
+ "valCrops": 41038,
+ "rknnBytes": 77317,
+ "fp32": {
+  "ap": 0.9568210344619839,
+  "auc": 0.9976744726073155,
+  "pass rate, droplet": 0.9721463681048608,
+  "pass rate, phantom track": 0.021549747822099955,
+  "pass rate, sweep blob": 0.012096774193548387,
+  "pass rate, gate reject": 0.008448291141110094
+ },
+ "int8": {
+  "ap": 0.9581785223608739,
+  "auc": 0.9977895196631493,
+  "pass rate, droplet": 0.973784817039869,
+  "pass rate, phantom track": 0.02200825309491059,
+  "pass rate, sweep blob": 0.015120967741935484,
+  "pass rate, gate reject": 0.009039080731397513
+ },
+ "agreement@0.5": 0.9989278229933233,
+ "max |p_int8 - p_fp32|": 0.2821839451789856,
+ "mean |p_int8 - p_fp32|": 0.0018544906051829457
+}

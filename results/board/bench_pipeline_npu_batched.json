@@ -1,0 +1,1 @@
+{"variant": "npu-int8-batched", "fixture": "spray_labelled_0907", "frames": 1592, "framesDetected": 1592, "wall_s": 65.4, "wall_ms_per_frame": 41.1, "fps_overall": 24.3, "detect_ms_median": 8.92, "detect_ms_mean": 9.988, "detect_ms_p90": 16.257, "gateCalls": 41520, "npuCalls": 2141, "falls": 17, "peakMB": 200.3}

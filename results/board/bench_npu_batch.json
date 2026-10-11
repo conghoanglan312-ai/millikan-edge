@@ -1,0 +1,1 @@
+{"batch1": {"output_shape": [1, 1], "call_ms_median": 0.1925, "per_crop_ms": 0.1925}, "batch8": {"output_shape": [8, 1], "call_ms_median": 0.5133, "per_crop_ms": 0.0642}, "batch16": {"output_shape": [16, 1], "call_ms_median": 0.8225, "per_crop_ms": 0.0514}, "batch32": {"output_shape": [32, 1], "call_ms_median": 1.4475, "per_crop_ms": 0.0452}}
