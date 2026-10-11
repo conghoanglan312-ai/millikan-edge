@@ -13,6 +13,8 @@ curl -sSfLO $B/arm64_requirements_cp310.txt
 curl -sSfLO $B/rknn_toolkit2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
 pip install -r arm64_requirements_cp310.txt
 pip install rknn_toolkit2-2.3.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+# cv/pipeline.py imports pandas, and replays run in this venv too
+pip install "pandas<2.3"
 python -c "from rknn.api import RKNN; import torch, onnx, numpy; print('rknn-toolkit2 OK | torch', torch.__version__, '| onnx', onnx.__version__, '| numpy', numpy.__version__)"
 pip freeze > ~/rknn-pkg/freeze.txt
 echo "== done $(date)"

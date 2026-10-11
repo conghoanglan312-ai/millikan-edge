@@ -80,6 +80,11 @@ and it is documented, measured, and unsolved.**
 
 - `test/tools/live_check.py` fails its own acceptance bar: **3.11 detections a
   frame against a 0.87 baseline** on the worst-case fixture.
+  *Correction 2026-10-10:* that fixture contains real droplets (field on, falling
+  in one column), and `live_check` counts every detection, so 3.11 vs 0.87 is not a
+  pure phantom count. The classifier removes 484 of its 1,465 blobs (3.11 → 2.08 a
+  frame), and by eye those 484 are the noise (`results/fp32/PHANTOM_RATE.md`). The
+  hand-labelled score is the one that separates phantoms from droplets.
 - The square lands on noise. The whole of 2026-09-21/22 went into guarding
   *around* it — a minimum track age before anything may be picked, an area
   tolerance for measuring tracks, a cap on how many re-acquisitions a fall may
@@ -492,6 +497,30 @@ tracks).
   validation: AP 0.957, AUC 0.998; at 0.5 it passes 97.2% of droplets, 2.2% of the
   review's phantom tracks, 1.2% of sweep blobs, 0.8% of gate rejects. Crop-level and
   validation-only — next is the classifier in the pipeline, scored on the test set.
+
+### First before/after (2026-10-10) — `results/fp32/README.md`
+
+- Classifier in the pipeline (`edge/gate.py`, from outside `cv/`), threshold 0.5.
+  **Detector stage on the test set: false detections 1.35 → 0.45 a frame,
+  precision 81.0 → 92.6%, recall 95.8 → 93.3%, F1 87.8 → 93.0%.** All 19 legal
+  falls kept, durations within 0.04 s. Tracker stage about unchanged. Kept variant:
+  classifier *after* the gates ("replacing" them lost a legal fall).
+- `live_check` fixture: 3.11 → 2.08 a frame; the removed third is the noise (§3).
+- INT8 (`results/int8/`): same decision as FP32 on 99.89% of validation crops,
+  AP 0.9582 vs 0.9568 — on the RKNN simulator. Next: the NPU on the board.
+- Replays of `bench_0908` run on Windows: from WSL, reading the 21 GB of PNGs across
+  `/mnt/c` was twelve times slower.
+
+### On the board (2026-10-11) — `results/board/README.md`
+
+- INT8 on the real NPU = FP32 on 99.90% of validation crops.
+- One crop per NPU call loses to the CPU (0.31 vs 0.12 ms): a 15k-parameter model is
+  all call overhead. Batched (one model per batch size 8/16/32, NHWC input) it is
+  0.045 ms a crop. `rknn_batch_size` gave wrong answers; the batch is baked into the
+  ONNX export instead (`edge/convert_batched.py`).
+- Whole pipeline, dense spray (26 blobs a frame): classical 38.3 ms/frame, 175 MB;
+  classifier INT8 on the NPU, batched, 41.1 ms/frame, 200 MB; detector + gate 8.9 ms
+  median (p90 16.3) — inside a 30 fps budget. Same 17 falls in every variant.
 
 ### Next, needing only minutes of the owner
 

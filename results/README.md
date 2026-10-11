@@ -23,3 +23,23 @@ so a changed label file shows up as a changed hash.
 | :-- | :-- | :-- |
 | `detect_rk3588.json` | `detectDroplets()` per frame on the board's CPU: noisy fixture 4.62 ms mean (216 FPS), typical frames 5.70 ms (175 FPS) | `edge/bench_detect.py` on the RK3588S |
 | `detect_vivobook.json` | the same frames on the laptop (x64 Python under emulation): 2.02 ms (496 FPS) and 2.92 ms (342 FPS). Identical detection counts on both machines | `edge/bench_detect.py` |
+
+## `fp32/` — the patch classifier, trained 2026-10-09
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `README.md`, `metrics.json`, `history.csv`, `model.onnx` | training run and model; validation-only numbers | `edge/train.py` |
+| `DATASET.md` | the crops it was trained and validated on | `edge/dataset.py` |
+| `PHANTOM_RATE.md`, `noisy_kept.jpg`, `noisy_dropped.jpg` | `live_check`'s fixture: 3.11 → 2.08 detections a frame; what was dropped (noise) and kept (droplets) | `edge/phantom_rate.py` |
+
+## `int8/` — quantized for the RK3588 NPU
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `model_int8.rknn`, `QUANTIZATION.md`, `quantization.json` | INT8 vs FP32 on validation crops, RKNN simulator: AP 0.9582 vs 0.9568, same decision on 99.89% | `edge/convert.py` |
+
+## `board/` — measured on the RK3588S, 2026-10-11
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `README.md` + JSON | INT8 on the real NPU agrees with FP32 on 99.90%; NPU per-crop cost 0.193 ms alone, 0.045 ms in batches of 32; whole pipeline: classical 38.3 ms/frame, classifier on the NPU (batched) 41.1 ms/frame, detector + gate 8.9 ms median | `edge/board_bench.py`, `edge/npu_batch.py` |

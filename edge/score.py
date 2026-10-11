@@ -15,6 +15,9 @@ Rows scored:
                                proves this port is faithful
   classical, current code      data/autolabel/bench_0908.npz from edge/autolabel.py,
                                i.e. the cv/pipeline.py the classifier will be put into
+  replays                      data/replays/*.npz from edge/replay.py: classical and
+                               the FP32 classifier (after / replacing the gates), all
+                               in one environment -- see REPLAYS
 """
 import argparse
 import hashlib
@@ -167,9 +170,8 @@ def pct(v, c = None):
     return s if c is None else "%s (%.1f–%.1f)" % (s, 100 * c[0], 100 * c[1])
 
 
-def current(T):
-    """The current code's detector and tracker stages, from edge/autolabel.py."""
-    path = os.path.join(C.DATA, "autolabel", "bench_0908.npz")
+def stages(T, path, name):
+    """Detector and tracker stages of one replay (edge/autolabel.py or edge/replay.py)."""
     if not os.path.exists(path):
         return []
     z = np.load(path)
@@ -180,8 +182,18 @@ def current(T):
     s = z["sightings"]
     s = s[s[:, 4] >= int(z["confirmPoints"])]
     trk = np.stack([s[:, 0], s[:, 2] + dx, s[:, 3] + dy], axis = 1)
-    return [("classical detector, current code", byFrame(det)),
-            ("classical tracker, current code", byFrame(trk))]
+    return [("%s — detector" % name, byFrame(det)), ("%s — tracker" % name, byFrame(trk))]
+
+
+# Replays scored besides the frozen 09-11 rows: (file, row name).  All of them ran in
+# the same environment -- Windows, x64 Python 3.11, OpenCV 5.0 -- so classical vs
+# classifier differs only in the gate.  (WSL was tried first: reading 21 GB of PNGs
+# across /mnt/c ran at a twelfth of the speed.)
+REPLAYS = ((os.path.join(C.DATA, "autolabel", "bench_0908.npz"),
+            "classical, current code"),
+           (os.path.join(C.DATA, "replays", "after.npz"), "FP32 classifier after the gates"),
+           (os.path.join(C.DATA, "replays", "replace.npz"),
+            "FP32 classifier replacing area + circularity"))
 
 
 def sha(path):
@@ -205,7 +217,8 @@ def main():
             ("classical tracker, 2026-09-11 code", byFrame(z["trk"][z["trk"][:, 4] == 0])),
             ("rings shown to the operator, 2026-09-11 code",
              byFrame(z["ring"][z["ring"][:, 3] == 9]))]
-    rows += current(T)
+    for path, name in REPLAYS:
+        rows += stages(T, path, name)
     L = ["# Detection accuracy on bench_0908 — the fork's gate", "",
          "%d hand-labelled frames, after the blind review, inside the detection area; "
          "phases weighted by share of session time; 95%% bootstrap intervals (%d "

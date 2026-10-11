@@ -20,3 +20,27 @@ on the hand labels and by `live_check.py` on the phantom fixture.
 
 Files: `model.onnx` (15,345 parameters, input 1×1×24×24), `metrics.json`,
 `history.csv`, `DATASET.md` (the crops it was trained and validated on).
+
+## The test — bench_0908 hand labels, scored once (2026-10-10)
+
+The classifier in the pipeline, threshold 0.5, both variants fixed before scoring;
+`TEST_SCORE_bench_0908.md` has every row with 95% intervals. Same environment for
+all rows (Windows, OpenCV 5.0).
+
+| detector stage | precision | recall | F1 | false / frame | missed / frame |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| classical, current code | 81.0% (72.0–88.3) | 95.8% (94.1–97.3) | 87.8% | 1.35 | 0.25 |
+| **classifier after the gates** | **92.6% (90.4–94.7)** | 93.3% (91.3–95.4) | **93.0%** | **0.45** | 0.40 |
+| classifier replacing area + circularity | 90.0% (87.2–92.6) | 95.1% (93.5–96.6) | 92.4% | 0.64 | 0.30 |
+
+- **False detections a frame fall by two-thirds** (1.35 → 0.45) for 2.5 points of
+  recall; the precision intervals do not overlap.
+- **Measurements are unchanged.** "After the gates" keeps all 19 legal falls of the
+  session, each within 0.04 s of the classical duration, from the same 165
+  traverses. "Replacing" loses one (38.86 s) and adds 5 traverses.
+- **The tracker stage barely moves** (F1 90.0 → 89.6; precision 95.0 → 97.2, recall
+  85.5 → 83.2): the tracker was already filtering most phantoms by persistence. What
+  the classifier changes is how much noise reaches it — 0.45 instead of 1.35 false
+  blobs a frame to associate, coast and discard.
+
+Kept variant for INT8 and the board: **after the gates**.
