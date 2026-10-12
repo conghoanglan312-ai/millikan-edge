@@ -522,6 +522,33 @@ tracks).
   classifier INT8 on the NPU, batched, 41.1 ms/frame, 200 MB; detector + gate 8.9 ms
   median (p90 16.3) — inside a 30 fps budget. Same 17 falls in every variant.
 
+### Live on the board, window on the laptop (2026-10-11)
+
+`python edge/live_viewer.py [--record]` — the whole live session from the laptop:
+the board runs the pipeline (classifier INT8 on the NPU, batched, after the gates)
+with its window streamed over the USB-C cable, and clicks and `q` go back. Click a
+droplet to pick it, as in the parent's window. `--record` saves what you see as MP4
+in `data/live/`; the board's session folder (falls.csv, report) is copied there too.
+`--source frames:/root/test/fixtures/spray_labelled_0907` rehearses on a recording.
+
+- Board side `edge/live_board.py`: takes over the pipeline's window calls from
+  outside `cv/` (imshow → stream, setMouseCallback → laptop clicks, waitKey → laptop
+  keys). The parent's `--publish` stream was sent before the HUD, and its remote
+  clicks needed a real window.
+- Chinese HUD text (平衡/提升) is drawn with Noto Sans CJK on the board: `cv2.putText`
+  draws `?` for it — in the parent's own window too.
+- Rehearsed 2026-10-11 on `spray_labelled_0907`: ~11 frames a second in the viewer,
+  a laptop click picked the droplet under it, clean stop on `q`.
+- 2026-10-12, owner's hands-on test: clicks, timer, HUD all fine, but choppy — 7.9
+  updates a second, 31% of gaps over 150 ms (measured from their screen recording).
+  Cause: the pipeline shows every 2nd frame (`SHOW_EVERY`, set for the parent's
+  14 ms Windows imshow). `live_board.py` sets `P.SHOW_EVERY = 1`: 21.8 updates a
+  second, gap median 44 ms, p90 59 ms on the same recording. The viewer prints this
+  smoothness line at the end of every session.
+- At the bench: dongle → board **USB 2.0** port (the USB 3.0 port fouls the USB-C
+  plug), board USB-C → laptop USB-A, 12 V seated. `adb` lives in
+  `data/tools/platform-tools/` (gitignored).
+
 ### Next, needing only minutes of the owner
 
 - ~~WSL2 and the toolchain~~ — done 2026-09-30 (§8).
