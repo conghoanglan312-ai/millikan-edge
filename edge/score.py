@@ -180,6 +180,8 @@ def stages(T, path, name):
     kept = z["gate"] == 0
     det = np.stack([z["frame"][kept], z["x"][kept] + dx, z["y"][kept] + dy], axis = 1)
     s = z["sightings"]
+    if not len(s):                        # an offline filter has no tracker stage
+        return [("%s — detector" % name, byFrame(det))]
     s = s[s[:, 4] >= int(z["confirmPoints"])]
     trk = np.stack([s[:, 0], s[:, 2] + dx, s[:, 3] + dy], axis = 1)
     return [("%s — detector" % name, byFrame(det)), ("%s — tracker" % name, byFrame(trk))]
@@ -193,7 +195,13 @@ REPLAYS = ((os.path.join(C.DATA, "autolabel", "bench_0908.npz"),
             "classical, current code"),
            (os.path.join(C.DATA, "replays", "after.npz"), "FP32 classifier after the gates"),
            (os.path.join(C.DATA, "replays", "replace.npz"),
-            "FP32 classifier replacing area + circularity"))
+            "FP32 classifier replacing area + circularity"),
+           # edge/int8_test.py: the classical blobs at the labelled frames, filtered
+           # by each model's decision -- like for like between FP32 and INT8
+           (os.path.join(C.DATA, "replays", "filter_fp32.npz"),
+            "FP32 classifier after the gates, offline filter"),
+           (os.path.join(C.DATA, "replays", "filter_int8.npz"),
+            "INT8 classifier (RKNN simulator) after the gates, offline filter"))
 
 
 def sha(path):

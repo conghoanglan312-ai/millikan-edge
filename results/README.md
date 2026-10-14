@@ -37,6 +37,8 @@ so a changed label file shows up as a changed hash.
 | file | what | made by |
 | :-- | :-- | :-- |
 | `model_int8.rknn`, `QUANTIZATION.md`, `quantization.json` | INT8 vs FP32 on validation crops, RKNN simulator: AP 0.9582 vs 0.9568, same decision on 99.89% | `edge/convert.py` |
+| `TEST_SCORE_bench_0908.md` | INT8 on the test set: F1 92.9%, 0.48 false detections a frame (FP32 92.6% / 0.49, same filter) | `edge/int8_test.py`, `edge/score.py` |
+| `model_int8_b8/16/32.rknn` | batched models for the NPU gate | `edge/convert_batched.py` |
 
 ## `board/` — measured on the RK3588S, 2026-10-11
 
