@@ -549,6 +549,22 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   plug), board USB-C → laptop USB-A, 12 V seated. `adb` lives in
   `data/tools/platform-tools/` (gitignored).
 
+### Without the board (2026-10-14)
+
+- **INT8 on the test set** (`results/int8/QUANTIZATION.md`, `edge/int8_test.py`):
+  the classical blobs at the labelled frames filtered by each model, INT8 from the
+  RKNN simulator — INT8 92.1% precision / 93.7% recall / F1 92.9% / 0.48 false a
+  frame, FP32 92.0 / 93.3 / 92.6 / 0.49 by the same filter; same decision on 99.49%
+  of 1,568 test blobs. The filter sits within 0.04 false a frame of the full replay.
+- **Labelling tool for the unseen units:** `edge/label.py sample|label|review
+  <recording>` — the parent's `detacc_label.py`, same screens and keys, made
+  general: 100 frames from four equal slices of the session plus 10 unannounced
+  repeats; labels saved to `labels/<recording>/` (tracked). Run `sample` once per
+  unseen unit after recording, then `label` (about 2 h a unit). Scoring an unseen
+  unit still needs its replay and detection-area geometry — to build after the
+  recordings exist.
+- **README.md** written: problem, results, what the board taught, how to reproduce.
+
 ### Next, needing only minutes of the owner
 
 - ~~WSL2 and the toolchain~~ — done 2026-09-30 (§8).

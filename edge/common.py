@@ -89,6 +89,15 @@ def loadJson(path, default = None):
         return json.load(f)
 
 
+def saveJson(path, obj):
+    """Write via a temporary file, so a crash mid-write never leaves half a label file."""
+    os.makedirs(os.path.dirname(path), exist_ok = True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding = "utf-8") as f:
+        json.dump(obj, f, indent = 1)
+    os.replace(tmp, path)
+
+
 def _pairs(a, b, radius):
     """Maximum one-to-one matching within `radius`, nearest first among equals."""
     from scipy.optimize import linear_sum_assignment
