@@ -38,13 +38,21 @@ PER_TRACK = 20
 PER_GATE = 5000
 SHAPE_GATES = ("area<min", "area>max", "circularity")
 
+# 2026-10-15: four more units for training.  Units 1-3 and 3-2 of that day are the
+# unseen-unit test (common.FIXTURE_INFO role "unseen") and never appear here.
 SPLIT = {"unit2-4_1009": "train", "one_droplet_slow": "train",
          "one_droplet_full": "train", "panel_sweep3_0909": "train",
+         "unit2-1_1015": "train", "unit3-4_1015": "train",
+         "unit4-1_1015": "train", "unit4-2_1015": "train",
          "spray_labelled_0907": "val", "zoom_labelled_0907": "val",
          "voltage_sweep_0907": "val", "panel_sweep_0908": "val",
          "panel_sweep2_0908": "val"}
 POSITIVE_ALL = {"spray_labelled_0907"}
-POSITIVE_LONG = {"unit2-4_1009", "one_droplet_slow", "one_droplet_full"}
+# Tracks of 200+ sightings: in every 10-15 unit their crops stand far brighter than
+# the short tracks' (median peak 70-103 vs 14-43 over background); on unit 2-1, the
+# noisiest, short tracks sit at the noise level (14-15) -- the 10-09 review's rule.
+POSITIVE_LONG = {"unit2-4_1009", "one_droplet_slow", "one_droplet_full",
+                 "unit2-1_1015", "unit3-4_1015", "unit4-1_1015", "unit4-2_1015"}
 PHANTOM_BELOW = {"zoom_labelled_0907": 200, "one_droplet_slow": 50}
 SWEEPS = {"panel_sweep_0908", "panel_sweep2_0908", "panel_sweep3_0909",
           "voltage_sweep_0907"}

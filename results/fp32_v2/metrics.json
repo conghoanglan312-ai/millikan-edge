@@ -1,0 +1,38 @@
+{
+ "best": {
+  "epoch": 30,
+  "ap": 0.9697063687555013,
+  "auc": 0.9979809582983745,
+  "precision@0.5": 0.8514173998044966,
+  "recall@0.5": 0.951392681594757,
+  "pass rate, droplet": 0.951392681594757,
+  "pass rate, phantom track": 0.02177900045850527,
+  "pass rate, sweep blob": 0.008064516129032258,
+  "pass rate, gate reject": 0.005937435382388562
+ },
+ "epochs": 40,
+ "perEpoch": 60000,
+ "batch": 256,
+ "lr": 0.002,
+ "side": 24,
+ "scale": 32.0,
+ "jitter": 3,
+ "torch": "2.2.0",
+ "train": 146026,
+ "val": 41038,
+ "recordings": [
+  "unit2-4_1009",
+  "one_droplet_slow",
+  "one_droplet_full",
+  "panel_sweep3_0909",
+  "unit2-1_1015",
+  "unit3-4_1015",
+  "unit4-1_1015",
+  "unit4-2_1015",
+  "spray_labelled_0907",
+  "zoom_labelled_0907",
+  "voltage_sweep_0907",
+  "panel_sweep_0908",
+  "panel_sweep2_0908"
+ ]
+}

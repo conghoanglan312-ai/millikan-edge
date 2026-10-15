@@ -59,6 +59,28 @@ def freeze():
     print("-> %s" % EVAL)
 
 
+def corrected(points, answers):
+    """One frame's labels [x, y, sure] after the blind review's answers for it:
+    y = a droplet (added, or made sure), n = not one (removed), u = unsure."""
+    pts = [list(p) for p in points]
+    for a in answers:
+        d = [(p[0] - a["x"]) ** 2 + (p[1] - a["y"]) ** 2 for p in pts]
+        k = int(np.argmin(d)) if d and min(d) <= C.MATCH_PX ** 2 else None
+        if a["a"] == "y":
+            if k is None:
+                pts.append([a["x"], a["y"], 1])
+            else:
+                pts[k][2] = 1
+        elif a["a"] == "n":
+            if k is not None:
+                pts.pop(k)
+        elif k is None:
+            pts.append([a["x"], a["y"], 0])
+        else:
+            pts[k][2] = 0
+    return pts
+
+
 class Truth(object):
     """Labels, blind review and detection area, exactly as detacc_score.Data has them."""
 
@@ -100,22 +122,8 @@ class Truth(object):
 
     def truth(self, pos):
         """Sure and unsure labels in ROI pixels, corrected by the blind review."""
-        pts = [list(p) for p in self.labels["items"].get(str(pos), {}).get("points", [])]
-        for a in self.byPos.get(pos, []):
-            d = [(p[0] - a["x"]) ** 2 + (p[1] - a["y"]) ** 2 for p in pts]
-            k = int(np.argmin(d)) if d and min(d) <= C.MATCH_PX ** 2 else None
-            if a["a"] == "y":
-                if k is None:
-                    pts.append([a["x"], a["y"], 1])
-                else:
-                    pts[k][2] = 1
-            elif a["a"] == "n":
-                if k is not None:
-                    pts.pop(k)
-            elif k is None:
-                pts.append([a["x"], a["y"], 0])
-            else:
-                pts[k][2] = 0
+        pts = corrected(self.labels["items"].get(str(pos), {}).get("points", []),
+                        self.byPos.get(pos, []))
         sure = [[p[0] - self.X, p[1] - self.Y] for p in pts if p[2]]
         unsure = [[p[0] - self.X, p[1] - self.Y] for p in pts if not p[2]]
         return (np.array(sure, float).reshape(-1, 2), np.array(unsure, float).reshape(-1, 2))
@@ -201,7 +209,12 @@ REPLAYS = ((os.path.join(C.DATA, "autolabel", "bench_0908.npz"),
            (os.path.join(C.DATA, "replays", "filter_fp32.npz"),
             "FP32 classifier after the gates, offline filter"),
            (os.path.join(C.DATA, "replays", "filter_int8.npz"),
-            "INT8 classifier (RKNN simulator) after the gates, offline filter"))
+            "INT8 classifier (RKNN simulator) after the gates, offline filter"),
+           # the same, for the model retrained 2026-10-15 with four more units
+           (os.path.join(C.DATA, "replays", "filter_fp32_v2.npz"),
+            "FP32 retrained (+4 units), offline filter"),
+           (os.path.join(C.DATA, "replays", "filter_int8_v2.npz"),
+            "INT8 retrained (+4 units, RKNN simulator), offline filter"))
 
 
 def sha(path):

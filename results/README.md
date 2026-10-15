@@ -40,6 +40,20 @@ so a changed label file shows up as a changed hash.
 | `TEST_SCORE_bench_0908.md` | INT8 on the test set: F1 92.9%, 0.48 false detections a frame (FP32 92.6% / 0.49, same filter) | `edge/int8_test.py`, `edge/score.py` |
 | `model_int8_b8/16/32.rknn` | batched models for the NPU gate | `edge/convert_batched.py` |
 
+## `fp32_v2/`, `int8_v2/` — retrained 2026-10-15 with four more apparatus units
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `fp32_v2/metrics.json`, `history.csv`, `model.onnx` | trained on 146,026 crops (v1: 78,484), same validation: AP 0.9697 vs 0.9568, precision@0.5 85.1% vs 82.0%, droplet pass rate 95.1% vs 97.2% | `edge/train.py` |
+| `fp32_v2/DATASET.md` | the crops: v1's recordings plus units 2-1, 3-4, 4-1, 4-2 | `edge/dataset.py` |
+| `fp32_v2/TEST_SCORE_bench_0908.md` | every row on the test session; retrained FP32 92.2 / 93.3 / F1 92.7%, 0.48 false a frame — the same as v1 on this session | `edge/int8_test.py --tag _v2`, `edge/score.py` |
+| `int8_v2/model_int8.rknn`, `QUANTIZATION.md`, `quantization.json` | INT8 vs FP32: AP 0.9713 vs 0.9697, same decision on 99.94% | `edge/convert.py --onnx results/fp32_v2/model.onnx` |
+
+## `unseen/` — units never used in training (1-3, 3-2), waiting on their hand labels
+
+Written by `edge/score_unseen.py` once `labels/unit1-3_1015/` and `labels/unit3-2_1015/`
+are complete; the blind second look's spots come from `edge/score_unseen.py --todo`.
+
 ## `board/` — measured on the RK3588S, 2026-10-11
 
 | file | what | made by |
