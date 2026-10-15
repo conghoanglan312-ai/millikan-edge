@@ -166,6 +166,16 @@ is `row-position`: row counted from the professor's seat (1–4), position count
 to right as seen from the professor's seat (1–4). Record the unit with every new
 recording; the fixtures above predate this and their units are unknown. 2026-10-09:
 unit **2-4** (unit 2-3 showed no droplets when sprayed; dropped).
+2026-10-15: units **2-1, 3-2, 3-4, 4-2, 4-1, 1-3** (`unit<r-p>_1015`, 12–15 min each,
+sprays with the field off, 0 frames dropped). Stored on D:\millikan-fixtures (C: is
+full) and linked into `test/fixtures` by directory junctions. Unit 3-2 showed no
+droplets at first; the owner found the fault and fixed it. Backgrounds range from
+gray 25 to 122 across units; droplets stand 76–139 above them. This completes the
+training data: 7 units. **Held out as the unseen-unit test: 1-3 and 3-2**, drawn at
+random from the six new units (`random.Random(20261015).sample(units, 2)`);
+never trained or tuned on, hand-labelled with `edge/label.py`.
+**Reserved for the live demo (owner, 2026-10-15): units 1-1, 2-2, 3-3, 4-4** —
+never recorded for training, so the demo runs on units the model has never seen.
 
 The sweeps are recordings of the voltage panel with nothing sprayed: every blob the
 detector keeps in them is a phantom **with certainty**, which makes them the cleanest
@@ -564,6 +574,36 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   unit still needs its replay and detection-area geometry — to build after the
   recordings exist.
 - **README.md** written: problem, results, what the board taught, how to reproduce.
+
+### More units, a retrained model, the unseen-unit test (2026-10-15)
+
+- **Six units recorded** (§4): 2-1, 3-4, 4-1, 4-2 train; **1-3 and 3-2 drawn at random
+  as the unseen units**; 1-1, 2-2, 3-3, 4-4 reserved for the live demo.
+- **Auto-labels** for the four training units (`data/autolabel/`): 18,446–39,899
+  confirmed crops each. Unit 2-1 is the noisiest (62,801 tracks against 4,000–16,000
+  elsewhere; noise 5.9 grey levels): its short tracks sit at the noise level (median
+  peak 14–15 over background) while its 200+ tracks peak at 70 — the 10-09 review's
+  rule (positives = tracks of 200+ sightings) separates them, and holds on every unit
+  (200+ tracks 70–103 against 14–55 for shorter ones). No short-track negatives from
+  the new units: no review covers them.
+- **Dataset v2:** 146,026 training crops (69,990 droplet), validation unchanged
+  (41,038). v1 kept as `data/dataset_v1`.
+- **Retrained** (`results/fp32_v2`, `results/int8_v2`): validation AP 0.9697 vs 0.9568,
+  precision@0.5 85.1% vs 82.0%, droplet pass rate 95.1% vs 97.2%. INT8 agrees with FP32
+  on 99.94% of validation crops. On the bench_0908 test session the two models score
+  the same (offline filter: F1 92.7% vs 92.6%, 0.48 vs 0.49 false a frame) — the
+  choice of v2 rests on validation and on the unseen-unit test, not on bench_0908.
+- **The unseen-unit test** (`edge/score_unseen.py`): truth from `labels/<unit>/`
+  (`edge/label.py`, corrected by its blind review); the detection area each unit's
+  gates used, saved by `edge/autolabel.py <unit> --labelled` (both units replayed);
+  rows: classical detector and tracker, and each model as an offline filter; quarters
+  and units weighted equally. `--todo <unit>` writes the blind review's spots once a
+  unit is fully labelled. Owner's deadlines: 1-3 on 10-16, 3-2 on 10-21.
+- `edge/label.py`'s stretch contrast now centres on each recording's own background
+  (backgrounds run from grey 25 to 122 across units; the fixed table turned unit 1-3
+  white). Same table as before at bench_0908's level.
+- Still to do for the board: batched v2 models (`edge/convert_batched.py` reads v1's
+  paths) before the demo.
 
 ### Next, needing only minutes of the owner
 

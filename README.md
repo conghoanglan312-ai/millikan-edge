@@ -105,9 +105,10 @@ python3 edge/board_bench.py ...         # on the board: model, accuracy, pipelin
 
 ## Status
 
-Done: the classifier, INT8 on the NPU, before/after on accuracy, latency and memory.
-Next: recordings from more apparatus units, a test on units never used in training,
-and a live session on the apparatus.
+Done: the classifier, INT8 on the NPU, before/after on accuracy, latency and memory;
+recordings from six more apparatus units and a model retrained on four of them.
+Next: the test on the two units never used in training (hand labels in progress), and
+a live session on units held back for it.
 
 ## Origin
 

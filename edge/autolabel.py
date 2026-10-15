@@ -2,6 +2,7 @@
 
     python edge/autolabel.py panel_sweep3_0909        every 15th frame
     python edge/autolabel.py bench_0908 --labelled    the 150 hand-labelled frames
+    python edge/autolabel.py unit1-3_1015 --labelled  the frames edge/label.py sampled
 
     -> data/autolabel/<fixture>.npz, data/autolabel/<fixture>.json (summary)
 
@@ -74,6 +75,7 @@ def _cut(padded, x, y):
 def detectDroplets(gray, background, s, *a, **k):
     out = origDetect(gray, background, s, *a, **k)
     meta.setdefault("roiW", s["roiW"])
+    meta.setdefault("s", s)             # the detection area, saved with the output
     i = cur["i"]
     if i not in cropFrames:
         return out
@@ -142,6 +144,21 @@ def croppedROI(folder):
     P.fieldWasOff = lambda *a, **k: None
 
 
+def area():
+    """The detection area the gates used, in ROI pixels -- what edge/score_unseen.py
+    blanks, the same fields the parent's detacc_replay.py saves."""
+    s = meta.get("s")
+    if s is None:
+        return {}
+    return {"gridRows": np.array(s["gridRows"], np.float64),
+            "gridCols": np.array(s["gridCols"], np.float64),
+            "clear": np.array([s["gridClear"], s["edgeClear"], s["panelClear"]],
+                              np.float64),
+            "roiWH": np.array([s["roiW"], s["roiH"]], np.float64),
+            "staticMask": np.asarray(s.get("staticMask") if s.get("staticMask") is not None
+                                     else np.zeros((1, 1)), np.uint8)}
+
+
 def label(rowsArr, sightArr):
     """Each kept row's track and label, matched on the exact centre the tracker got."""
     best = {}
@@ -169,14 +186,17 @@ def main():
                                  formatter_class = argparse.RawDescriptionHelpFormatter)
     ap.add_argument("fixture")
     ap.add_argument("--labelled", action = "store_true",
-                    help = "crop exactly the hand-labelled frames (bench_0908)")
+                    help = "crop exactly the hand-labelled frames: bench_0908's, or "
+                           "labels/<fixture>/sample.json from edge/label.py")
     ap.add_argument("--every", type = int, default = EVERY)
     a = ap.parse_args()
 
     folder = C.fixture(a.fixture)
     n = len(np.load(os.path.join(folder, "times.npy")))
     if a.labelled:
-        sample = C.loadJson(os.path.join(C.LABELS, "sample.json"))
+        own = os.path.join(C.REPO, "labels", a.fixture, "sample.json")
+        sample = C.loadJson(own if os.path.exists(own) else
+                            os.path.join(C.LABELS, "sample.json"))
         cropFrames.update(int(it["frame"]) for it in sample["items"])
     else:
         cropFrames.update(range(0, n, a.every))
@@ -214,7 +234,7 @@ def main():
         gates = np.array(GATES), sightings = sightArr.astype(np.float32),
         falls = fallArr, cropFrames = np.array(sorted(cropFrames), np.int32),
         roi = np.array(meta.get("roi", [np.nan] * 5), np.float64),
-        confirmPoints = np.int32(P.CONFIRM_POINTS))
+        confirmPoints = np.int32(P.CONFIRM_POINTS), **area())
     summary = {
         "fixture": a.fixture, "captured": C.FIXTURE_INFO.get(a.fixture, ("?", "?"))[0],
         "role": C.FIXTURE_INFO.get(a.fixture, ("?", "?"))[1],
