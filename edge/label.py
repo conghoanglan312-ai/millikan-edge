@@ -36,7 +36,9 @@ REPEATS = 10            # frames shown a second time, unannounced
 REPEAT_GAP = 30         # ...no sooner than this many screens later
 MIN_GAP_S = 3.0         # two sampled frames at least this far apart
 SEED = 20261014
-STRETCH = np.clip(np.arange(256) * 2.5 - 30, 0, 255).astype(np.uint8)
+STRETCH_GAIN = 2.5
+STRETCH_BG = 45            # where the background lands after the stretch
+STRETCH = None             # per recording, from its background (use())
 
 CONTEXT = 12            # frames either side, for seeing what moves
 SCALE = 1.2             # main view; fits a 1646 x 926 desktop
@@ -81,6 +83,24 @@ def use(recording):
     SAMPLE = os.path.join(FIX["labels"], "sample.json")
     if not os.path.isdir(FIX["folder"]):
         sys.exit("no recording at %s" % FIX["folder"])
+    setStretch()
+
+
+def setStretch():
+    """x2.5 around the recording's own background gray, not a fixed level.
+
+    The parent's table (2.5 v - 30) suited bench_0908, background ~30; units differ
+    (25 to 122 on 2026-10-15) and on a bright one the fixed table saturates to white.
+    Same table as before at a background of 30.
+    """
+    global STRETCH
+    level = 30.0
+    bg = cv2.imread(os.path.join(FIX["folder"], "background.png"), cv2.IMREAD_GRAYSCALE)
+    if bg is not None and os.path.exists(os.path.join(FIX["folder"], "roi.txt")):
+        x, y, w, h = fixtureRoi()
+        level = float(np.median(bg[y:y + h, x:x + w]))
+    STRETCH = np.clip((np.arange(256) - level) * STRETCH_GAIN + STRETCH_BG,
+                      0, 255).astype(np.uint8)
 
 
 def framePath(i):

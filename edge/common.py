@@ -29,6 +29,8 @@ LABELS = os.path.join(REPO, "cv", "for_report", "detection_accuracy")
 #   role "eval"  the phantom-rate fixture behind live_check's 3.11 vs 0.87; kept out
 #                of training so that number stays an honest before/after
 #   role "pool"  available for training/validation; the split is decided by date
+#   role "unseen"  a unit held out of training and tuning, hand-labelled with
+#                edge/label.py: the test on units the model has never seen
 FIXTURE_INFO = {
     "bench_0908":          ("2026-09-08 11:51", "test"),
     "live_20260903_noisy": ("2026-09-03 16:43", "eval"),
@@ -43,6 +45,14 @@ FIXTURE_INFO = {
     # From 2026-10-09 every recording names its unit (HANDOVER §4): row from the
     # professor's seat, then position left to right as seen from it.
     "unit2-4_1009":        ("2026-10-09 16:51", "pool"),     # unit 2-4, sprays, field off
+    # 2026-10-15, sprays with the field off; stored on D: and linked into test/fixtures.
+    # 1-3 and 3-2 drawn at random as the unseen units (HANDOVER §4).
+    "unit2-1_1015":        ("2026-10-15 10:58", "pool"),
+    "unit3-2_1015":        ("2026-10-15 11:31", "unseen"),
+    "unit3-4_1015":        ("2026-10-15 11:46", "pool"),
+    "unit4-2_1015":        ("2026-10-15 12:02", "pool"),
+    "unit4-1_1015":        ("2026-10-15 12:18", "pool"),
+    "unit1-3_1015":        ("2026-10-15 12:35", "unseen"),
 }
 
 # Saved already ROI-cropped (a bug in the first raw_capture.py), so the ROI comes from
