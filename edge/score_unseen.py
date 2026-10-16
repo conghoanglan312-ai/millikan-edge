@@ -12,7 +12,9 @@ For every unit with role "unseen" in common.FIXTURE_INFO whose hand labels exist
           --labelled`; a label or a prediction inside it is not scored, as on bench_0908
   rows    the classical detector and tracker from that replay, and each model filtering
           the classical blobs at the labelled frames -- the offline filter of
-          edge/int8_test.py, within 0.04 false a frame of a full replay on bench_0908
+          edge/int8_test.py, within 0.04 false a frame of a full replay on bench_0908;
+          and the first model's INT8 decisions once edge/int8_test.py --fixtures has
+          run on every unit
 The sample is 25 frames from each quarter of a session, so each quarter weighs the
 same, and each unit weighs the same in the pooled row.  95% bootstrap intervals,
 resampling frames within each (unit, quarter).
@@ -33,6 +35,9 @@ SCALE = 32.0                # edge/train.py: the model sees (frame - background)
 MODELS = (("FP32 classifier, first model", os.path.join(C.RESULTS, "fp32", "model.onnx")),
           ("FP32 classifier, retrained with four more units",
            os.path.join(C.DATA, "models", "fp32_v2_20261015", "model.onnx")))
+# edge/int8_test.py --fixtures <units>: the first model's INT8 decisions, RKNN simulator
+INT8 = ("INT8 classifier, first model (RKNN simulator)",
+        os.path.join(C.DATA, "replays", "filter_int8_%s.npz"))
 
 
 class Unit(object):
@@ -156,7 +161,9 @@ def writeTodo(u, rows):
     """The blind second look's spots: every place a row and the labels disagree --
     the parent's detacc_score.makeReview.  A prediction with no label (false, or a
     droplet the labeller missed) and a label nothing found (missed, or not a droplet)
-    look the same to the reviewer, in random order, with no row named."""
+    look the same to the reviewer, in random order, with no row named.  A spot inside
+    the area the gates leave out is skipped: perFrame never scores it, so its answer
+    could not change a number."""
     out = []
     for it in u.items:
         s, n = u.truth(it["pos"])
@@ -165,6 +172,7 @@ def writeTodo(u, rows):
             p = pred.get(it["frame"], np.zeros((0, 2)))
             m = C.match(p, s, n)
             cand += [tuple(p[k]) for k in m["fpIdx"]] + [tuple(s[k]) for k in m["fnIdx"]]
+        cand = [c for c, b in zip(cand, u.blanked(cand)) if not b]
         kept = []
         for x, y in cand:
             fx, fy = x + u.X, y + u.Y
@@ -182,6 +190,40 @@ def writeTodo(u, rows):
     C.saveJson(path, {"rows": "classical detector and tracker, every model's detector",
                       "radius": C.MATCH_PX, "items": [out[k] for k in order]})
     print("%d spots to review -> %s" % (len(out), path))
+
+
+KINDS = ("a hand label some row missed",
+         "a detection with no label that a model kept",
+         "a detection with no label that no model kept")
+
+
+def near(pts, x, y):
+    return len(pts) > 0 and bool((((pts - (x, y)) ** 2).sum(axis = 1)
+                                  <= C.MATCH_PX ** 2).any())
+
+
+def reviewCounts(u, modelPreds):
+    """The blind review's answers inside the detection area, by where each spot came
+    from -- the source the reviewer was not shown."""
+    frame = {it["pos"]: it["frame"] for it in u.items}
+    out = {k: {"y": 0, "n": 0, "u": 0} for k in KINDS}
+    for pos, answers in u.byPos.items():
+        if pos not in frame:
+            continue
+        labels = np.array([p[:2] for p in u.labels["items"].get(str(pos), {})
+                           .get("points", []) if p[2]], float).reshape(-1, 2)
+        for a in answers:
+            x, y = a["x"] - u.X, a["y"] - u.Y
+            if u.blanked([[x, y]])[0]:
+                continue
+            if near(labels, a["x"], a["y"]):
+                k = KINDS[0]
+            elif any(near(m.get(frame[pos], np.zeros((0, 2))), x, y) for m in modelPreds):
+                k = KINDS[1]
+            else:
+                k = KINDS[2]
+            out[k][a["a"]] += 1
+    return out
 
 
 def todo(name):
@@ -225,13 +267,24 @@ def main():
     models = [(name, path) for name, path in MODELS if os.path.exists(path)]
     rows = {"classical detector": {}, "classical tracker": {}}
     rows.update({"%s — detector" % name: {} for name, _p in models})
+    int8 = all(os.path.exists(INT8[1] % u.name) for u in units)
+    if int8:
+        rows["%s — detector" % INT8[0]] = {}
+    review = {}
     for u in units:
-        rows["classical detector"][u.name] = perFrame(u, u.detector())
-        rows["classical tracker"][u.name] = perFrame(u, u.tracker())
+        preds = {"classical detector": u.detector(), "classical tracker": u.tracker()}
         x = u.crops()
         for name, path in models:
             keep = logits(path, x) >= 0.0                    # p >= 0.5
-            rows["%s — detector" % name][u.name] = perFrame(u, u.detector(keep))
+            preds["%s — detector" % name] = u.detector(keep)
+        if int8:
+            with np.load(INT8[1] % u.name) as f:
+                preds["%s — detector" % INT8[0]] = byFrame(f["frame"], f["x"], f["y"])
+        for row, pred in preds.items():
+            rows[row][u.name] = perFrame(u, pred)
+        if u.reviewed:
+            review[u.name] = reviewCounts(u, [preds["%s — detector" % name]
+                                              for name, _p in models])
 
     L = ["# Detection accuracy on units never used in training", "",
          "Hand-labelled frames (`edge/label.py`) inside the detection area; each quarter "
@@ -264,6 +317,16 @@ def main():
                 "precision": P, "recall": R, "f1": F, "ci": ci,
                 "falsePerFrame": float(w["counts"][1]),
                 "missedPerFrame": float(w["counts"][2])}
+    if review:
+        L += ["", "## The blind review, by where each spot came from", "",
+              "Spots inside the detection area. The reviewer saw every spot alike, in "
+              "random order, with its source withheld.", "",
+              "| unit | spot | droplet (y) | not one (n) | can't tell (u) |",
+              "|---|---|---|---|---|"]
+        for name, kinds in review.items():
+            for k, c in kinds.items():
+                L.append("| %s | %s | %d | %d | %d |" % (name, k, c["y"], c["n"], c["u"]))
+        out["review"] = review
     os.makedirs(a.out, exist_ok = True)
     with open(os.path.join(a.out, "SCORE.md"), "w", encoding = "utf-8") as f:
         f.write("\n".join(L) + "\n")

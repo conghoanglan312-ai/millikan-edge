@@ -51,6 +51,20 @@ Detector stage on the hand-labelled test session (`results/fp32`, `results/int8`
 - INT8 and FP32 make the same decision on 99.90% of 41,038 validation crops on the
   real NPU.
 
+On two apparatus units never used in training, drawn at random, 100 hand-labelled
+frames each with the same blind second look (`results/unseen`):
+
+| | precision | recall | F1 | false detections / frame |
+| :-- | --: | --: | --: | --: |
+| classical | 69.8% | 87.6% | 77.7% | 11.7 |
+| + classifier, INT8 | 93.5% | 87.4% | 90.3% | **1.9** |
+
+- On the noisy unit false detections fall from 21.7 to 2.2 a frame for 0.4 points of
+  recall; on the clean one, where the classical detector is already 93.7% precise,
+  the classifier changes almost nothing (F1 91.2% → 91.4%). FP32 scores the same.
+- A model retrained with four more units scores the same here (F1 90.1%) and on the
+  test session, so the board keeps the first.
+
 On the board — RK3588S, Ubuntu 22.04, RKNN runtime 2.3.2 (`results/board`):
 
 | | per frame | FPS | detector + classifier | peak memory |
@@ -97,6 +111,8 @@ python edge/convert_batched.py          # batched NPU models                 (in
 python edge/replay.py after             # the classifier in the pipeline, test session
 python edge/int8_test.py                # INT8 on the test session           (in WSL)
 python edge/score.py                    # every row against the hand labels
+python edge/label.py sample|label|review <recording>   # hand labels for a new unit
+python edge/score_unseen.py             # the units never used in training
 python3 edge/board_bench.py ...         # on the board: model, accuracy, pipeline
 ```
 
@@ -106,9 +122,8 @@ python3 edge/board_bench.py ...         # on the board: model, accuracy, pipelin
 ## Status
 
 Done: the classifier, INT8 on the NPU, before/after on accuracy, latency and memory;
-recordings from six more apparatus units and a model retrained on four of them.
-Next: the test on the two units never used in training (hand labels in progress), and
-a live session on units held back for it.
+the test on two apparatus units never used in training. Next: a live session on
+units held back for it.
 
 ## Origin
 

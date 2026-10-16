@@ -395,6 +395,7 @@ the board.
 | 29 Sep 2026 | ✓ board arrived; arrival checks passed except the camera (§8.1) |
 | 29 Sep 2026 | ✓ "before" numbers frozen; auto-labels extracted from every raw fixture (§3, §4, §11) |
 | 30 Sep 2026 | ✓ WSL2 and the RKNN toolchain installed on the Vivobook (§8) |
+| 16 Oct 2026 | ✓ unseen-unit test: F1 77.7% → 90.3% on two units never trained on (§11) |
 | Oct 2026 – Jan 2027 | build window |
 | **Jan 2027** | **MUST: inference running on the board, numbers recorded** |
 | Nov–Dec 2026 | BEST: README with the before/after table, demo video |
@@ -598,12 +599,47 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   gates used, saved by `edge/autolabel.py <unit> --labelled` (both units replayed);
   rows: classical detector and tracker, and each model as an offline filter; quarters
   and units weighted equally. `--todo <unit>` writes the blind review's spots once a
-  unit is fully labelled. Owner's deadlines: 1-3 on 10-16, 3-2 on 10-21.
+  unit is fully labelled.
 - `edge/label.py`'s stretch contrast now centres on each recording's own background
   (backgrounds run from grey 25 to 122 across units; the fixed table turned unit 1-3
   white). Same table as before at bench_0908's level.
-- Still to do for the board: batched v2 models (`edge/convert_batched.py` reads v1's
-  paths) before the demo.
+- Batched v2 models for the board were not built: the unseen-unit test kept the first
+  model (below).
+
+### The unseen-unit test: the classifier holds, the first model stays (2026-10-16)
+
+- **Labels** (`labels/unit1-3_1015/`, `labels/unit3-2_1015/`): 100 frames a unit plus
+  10 repeats; 2,791 sure droplets in the detection area on 1-3 and 3,359 on 3-2 —
+  three to four times bench_0908's density. Blind review: 918 spots on 1-3, 2,771 on
+  3-2. `--todo` now skips spots in the blanked parts of the detection area, which are
+  never scored (about 600 on 3-2).
+- **Score** (`results/unseen/SCORE.md`), both units pooled, each unit and each quarter
+  weighted the same:
+
+  | row | precision | recall | F1 | false / frame |
+  | :-- | --: | --: | --: | --: |
+  | classical detector | 69.8% | 87.6% | 77.7% | 11.66 |
+  | classical tracker | 84.0% | 83.0% | 83.5% | 4.87 |
+  | first model, FP32 | 93.5% | 87.4% | 90.3% | 1.86 |
+  | first model, INT8 (simulator) | 93.5% | 87.4% | 90.3% | 1.86 |
+  | retrained, FP32 | 93.6% | 86.8% | 90.1% | 1.83 |
+
+- **Per unit:** 3-2 is the noisy one — the classical detector keeps 21.65 false a frame
+  at 57.3% precision; the classifier cuts that to 2.16 (93.1%) for recall 86.5 →
+  86.1%. On 1-3 the classical detector is already 93.7% precise (1.68 false a frame);
+  the classifier leaves it at 94.1% (1.56), recall unchanged.
+- **The review by source** (withheld from the reviewer): on 3-2, of 1,917 unlabelled
+  detections both models dropped, 1,909 were judged not droplets and 1 a droplet;
+  645 of 659 hand labels that some row missed were confirmed. Of the unlabelled
+  detections a model kept, 57 of 180 (3-2) and 71 of 151 (1-3) were droplets the
+  labeller had missed.
+- **INT8 = FP32 here too:** same decision on 100.00% of 2,668 blobs (1-3) and 99.90% of
+  5,168 (3-2) — `edge/int8_test.py --fixtures unit1-3_1015 unit3-2_1015`.
+- **Decision (owner): the first model stays.** Four more training units moved neither
+  test (F1 90.1% vs 90.3% here, 92.7% vs 92.6% on bench_0908), and the first model is
+  the one built and measured on the board. `results/fp32_v2`, `int8_v2` stay as the
+  record that more units did not help.
+- No more lab visits for data: the one left is the live demo on the reserved units.
 
 ### Next, needing only minutes of the owner
 

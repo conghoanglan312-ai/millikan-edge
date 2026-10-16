@@ -40,7 +40,7 @@ so a changed label file shows up as a changed hash.
 | `TEST_SCORE_bench_0908.md` | INT8 on the test set: F1 92.9%, 0.48 false detections a frame (FP32 92.6% / 0.49, same filter) | `edge/int8_test.py`, `edge/score.py` |
 | `model_int8_b8/16/32.rknn` | batched models for the NPU gate | `edge/convert_batched.py` |
 
-## `fp32_v2/`, `int8_v2/` — retrained 2026-10-15 with four more apparatus units
+## `fp32_v2/`, `int8_v2/` — retrained 2026-10-15 with four more apparatus units; not used on the board, it scored the same on both tests
 
 | file | what | made by |
 | :-- | :-- | :-- |
@@ -49,10 +49,14 @@ so a changed label file shows up as a changed hash.
 | `fp32_v2/TEST_SCORE_bench_0908.md` | every row on the test session; retrained FP32 92.2 / 93.3 / F1 92.7%, 0.48 false a frame — the same as v1 on this session | `edge/int8_test.py --tag _v2`, `edge/score.py` |
 | `int8_v2/model_int8.rknn`, `QUANTIZATION.md`, `quantization.json` | INT8 vs FP32: AP 0.9713 vs 0.9697, same decision on 99.94% | `edge/convert.py --onnx results/fp32_v2/model.onnx` |
 
-## `unseen/` — units never used in training (1-3, 3-2), waiting on their hand labels
+## `unseen/` — units never used in training (1-3, 3-2), scored 2026-10-16
 
-Written by `edge/score_unseen.py` once `labels/unit1-3_1015/` and `labels/unit3-2_1015/`
-are complete; the blind second look's spots come from `edge/score_unseen.py --todo`.
+| file | what | made by |
+| :-- | :-- | :-- |
+| `SCORE.md`, `score.json` | per unit and pooled (each unit and quarter weighted the same): classical detector 69.8 / 87.6 / F1 77.7%, 11.66 false a frame; first model INT8 93.5 / 87.4 / 90.3%, 1.86 (FP32 the same; retrained FP32 90.1%, 1.83); the blind review's answers by source | `edge/score_unseen.py`, INT8 from `edge/int8_test.py --fixtures` |
+
+Truth: `labels/unit1-3_1015/`, `labels/unit3-2_1015/` (100 frames each, `edge/label.py`),
+corrected by the blind review of `edge/score_unseen.py --todo`.
 
 ## `board/` — measured on the RK3588S, 2026-10-11
 
