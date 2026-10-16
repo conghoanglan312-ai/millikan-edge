@@ -27,6 +27,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from cv import pipeline as P                                         # noqa: E402
 from cv import source as S                                           # noqa: E402
+from edge import fast as F                                           # noqa: E402
 from edge import gate as G                                           # noqa: E402
 from edge import live_board as LB                                    # noqa: E402
 
@@ -99,6 +100,7 @@ def main():
         G.install(P, G.Gate(os.path.join(LB.REPO, "results", "fp32", "model.onnx")),
                   "after")
     S.FramesSource.frames = looped(S.FramesSource.frames)
+    F.install(P)                 # as edge/live_board.py does
     P.SHOW_EVERY = 1
     P._beep = lambda: None
     P.writeLiveStatus = lambda **k: None

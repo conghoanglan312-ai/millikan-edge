@@ -42,6 +42,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import cv2                                                           # noqa: E402
 import numpy as np                                                   # noqa: E402
 from cv import pipeline as P                                         # noqa: E402
+from edge import fast as F                                           # noqa: E402
 from edge import gate as G                                           # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -239,6 +240,7 @@ def main():
     else:
         print("classifier: none (classical detector)", flush = True)
     P.writeLiveStatus = lambda **k: None
+    F.install(P)                 # same answers, ~6 ms a frame less (edge/fast.py)
     # The pipeline shows every 2nd frame because on the parent's laptop imshow +
     # waitKey cost 14 ms of a 42 ms frame (SHOW_EVERY, pipeline.py).  Here "showing"
     # only hands the frame to the sender thread, so every frame goes: measured

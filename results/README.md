@@ -64,3 +64,4 @@ corrected by the blind review of `edge/score_unseen.py --todo`.
 | :-- | :-- | :-- |
 | `README.md` + JSON | INT8 on the real NPU agrees with FP32 on 99.90%; NPU per-crop cost 0.193 ms alone, 0.045 ms in batches of 32; whole pipeline: classical 38.3 ms/frame, classifier on the NPU (batched) 41.1 ms/frame, detector + gate 8.9 ms median | `edge/board_bench.py`, `edge/npu_batch.py` |
 | `soak_npu_15min.json` | 15 minutes of the live path with its window, INT8 on the NPU: hottest zone 49.9 → 62.8 °C (throttling starts at 75 °C), every clock at its maximum throughout, 14.1 updates a second with no downward trend | `edge/soak.py` |
+| `README.md`, last section | the live path with its window costs 62 ms a frame on the busiest recording; `edge/fast.py` (same answers, checked on 10,000 replayed frames) brings it to 55.8 ms, 14.2 → 15.7 updates a second | `edge/fast.py` |

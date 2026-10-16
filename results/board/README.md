@@ -67,3 +67,21 @@ played round and round. Every thermal zone and the CPU and NPU clocks every 5 s.
   10.8–18.2, swinging with the 68 s loop and with no downward trend. That is the
   whole live path — the hunt aid's tests, rings and HUD drawn every frame — on the
   busiest recording; the 24.3 FPS above is the pipeline without its window.
+
+## The live path's own cost, and a speed-up (2026-10-17)
+
+The 24.3 FPS above runs the pipeline without its window. With the window — the hunt
+aid's tests, rings and HUD drawn every frame — `spray_labelled_0907` costs 62 ms a
+frame on the board (14.2 updates a second), ~10 ms of it decoding the recording's
+PNG frames, which a camera does not pay. Profiled: `Track.recentSpeed` took 21% of
+the time — called ~50 times a frame, often for the same track in the same frame,
+each call a Python loop over 30 points and every grid line; the hunt aid's
+`Track.windowFit` scanned each track's whole history for its last 3 s.
+
+`edge/fast.py`, installed from outside `cv/` by `edge/live_board.py` and
+`edge/soak.py`: the same arithmetic in numpy, remembered per track until it gains a
+point, and bisection for the 3 s window. Same answers — replaying 6,000 frames of
+bench_0908 and 4,000 of unit 3-2 with and without it gives identical falls, rings,
+picks and sightings (`python edge/fast.py check <fixture> <frames>`). Window on,
+unpaced, two runs each: **62.1 → 55.8 ms a frame, 14.2 → 15.7 updates a second**.
+The 15-minute heat run above predates it.

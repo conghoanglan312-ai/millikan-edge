@@ -671,6 +671,17 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   per minute 10.8–18.2 with no downward trend. That is the full live path (hunt
   aid, rings, HUD every frame) on the busiest recording; `board_bench.py`'s 24.3 FPS
   ran the pipeline without its window.
+- **Speed of the live path** (`edge/fast.py`, `results/board/README.md`): with its
+  window the live path costs 62 ms a frame on the busiest recording (~10 ms of it PNG
+  decoding, which a camera does not pay); `board_bench.py`'s 24.3 FPS ran without
+  the window. Profiled: `Track.recentSpeed` took 21% of the time. `edge/fast.py`
+  computes it and `windowFit` with the same arithmetic, cached per track: identical
+  falls, rings, picks and sightings on 6,000 frames of bench_0908 and 4,000 of unit
+  3-2; 62.1 → 55.8 ms a frame, 14.2 → 15.7 updates a second. On in `live_board.py`
+  and `soak.py`. More would mean editing `cv/` (the association loop, frame copies,
+  panel reading, polyfit), a few ms each. **The board's copies (`/root/millikan-edge`,
+  `/opt/millikan-edge`) do not have it yet** — the board was unplugged first: push
+  `edge/fast.py`, `live_board.py`, `soak.py`, then rerun `edge/board_local.sh`.
 - **Power** (`edge/soak.py --minutes 10`, the same looped recording on either
   machine): waits on a plug-in meter (功率计量插座) — board with its monitor against
   the laptop with its own screen.
@@ -681,7 +692,8 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
 - ~~Track review~~ — done 2026-10-09 (`data/review/REPORT.md`).
 - **The hunt aid's suggestions** (~25 min): `python edge/suggestions.py review` —
   477 blind clips, y / n / u; then `report`.
-- **The board on a monitor** (~5 min): HDMI monitor and USB mouse into the board,
+- **The board on a monitor** (~5 min): first the board's USB-C into the laptop, so
+  its copy can be updated (above); then HDMI monitor and USB mouse into the board,
   power on, double-click "Millikan rehearsal", click a droplet, close the window.
 - **Power:** a plug-in meter (功率计量插座) from an electronics lab; then
   `edge/soak.py --minutes 10` on the board and on the laptop, Wh × 6 = watts.
