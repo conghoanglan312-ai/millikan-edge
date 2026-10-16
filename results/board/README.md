@@ -47,3 +47,23 @@ which a live camera does not pay.
   own share is ~1.2 ms for 26 crops.
 - At 8.9 ms (p90 16.3 ms) the detector with the classifier fits a 30 fps frame
   budget (33 ms) with room for the tracker.
+
+## Heat: 15 minutes of the live session (`soak_npu_15min.json`), 2026-10-17
+
+`edge/soak.py --minutes 15`: the live path with its window on the board's own
+desktop (`--local`), classifier INT8 on the NPU (batched), on `spray_labelled_0907`
+played round and round. Every thermal zone and the CPU and NPU clocks every 5 s.
+
+| | start | after 15 min | peak |
+| :-- | --: | --: | --: |
+| hottest zone | 49.9 °C | 61.9 °C | 62.8 °C |
+| big cores (4–5 / 6–7) | 2256 / 2304 MHz | same | never lower |
+| NPU | 1000 MHz | same | never lower |
+
+- **No throttling:** every clock stayed at its maximum throughout. The board's own
+  first throttle point is 75 °C (trip point 0, passive); the warm-up levelled off at
+  about 62 °C in the last five minutes.
+- **Frame rate held:** 14.1 updates a second over the 15 minutes, per minute
+  10.8–18.2, swinging with the 68 s loop and with no downward trend. That is the
+  whole live path — the hunt aid's tests, rings and HUD drawn every frame — on the
+  busiest recording; the 24.3 FPS above is the pipeline without its window.

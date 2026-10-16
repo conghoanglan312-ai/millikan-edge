@@ -99,14 +99,15 @@ def prepare():
     print("-> %s  (%d clips)" % (CLIPS, len(clips)))
 
 
-def load():
-    z = np.load(CLIPS)
+def load(path = CLIPS):
+    z = np.load(path)
     return z["clips"], [json.loads(m) for m in z["meta"]]
 
 
-def review():
-    clips, meta = load()
-    answers = C.loadJson(ANSWERS, {})
+def review(clipsPath = CLIPS, answersPath = ANSWERS):
+    """Also edge/suggestions.py's review, on its own clips and answers."""
+    clips, meta = load(clipsPath)
+    answers = C.loadJson(answersPath, {})
     k = next((i for i in range(len(clips)) if str(i) not in answers), len(clips))
     win = "droplet?  y yes / n no / u unsure / b back / q quit"
     cv2.namedWindow(win, cv2.WINDOW_AUTOSIZE)
@@ -127,7 +128,7 @@ def review():
         t += 1
         if key in (ord("y"), ord("n"), ord("u")):
             answers[str(k)] = {"a": chr(key), **meta[k]}
-            with open(ANSWERS, "w", encoding = "utf-8") as fh:
+            with open(answersPath, "w", encoding = "utf-8") as fh:
                 json.dump(answers, fh, indent = 1)
             k, t = k + 1, 0
         elif key == ord("b") and k > 0:
@@ -135,7 +136,7 @@ def review():
         elif key == ord("q"):
             break
     cv2.destroyAllWindows()
-    print("%d of %d answered -> %s" % (len(answers), len(clips), ANSWERS))
+    print("%d of %d answered -> %s" % (len(answers), len(clips), answersPath))
 
 
 def report():

@@ -641,12 +641,50 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   record that more units did not help.
 - No more lab visits for data: the one left is the live demo on the reserved units.
 
+### Beyond accuracy: what the operator sees, the board on its own, heat (2026-10-17)
+
+- **The hunt aid's suggestions** (`edge/suggestions.py`; the measure is fixed in its
+  header, written before any replay ran): the pipeline's display path replayed with
+  nobody clicking, recording every track `candidates()` rings and every track the
+  idle auto-pick squares — test session and both unseen units, classical vs the
+  classifier after the gates (FP32). The two suggest nearly the same tracks: of 477
+  suggested objects, 410 are suggested by both, 34 only without the classifier and
+  33 only with it (test session 204 / 28 / 18, unit 1-3 110 / 4 / 12, unit 3-2
+  96 / 2 / 3). The aid's own tests (a steady fit, travel, charge) already turn away
+  most of what the classifier removes. Which of them are droplets waits on the
+  owner's blind review of all 477 (`python edge/suggestions.py review`, ~25 min),
+  then `report` writes `results/suggestions/`.
+- **The board on its own screen** (`edge/live_board.py --local`, set up once by
+  `edge/board_local.sh`): the board already runs Ubuntu's desktop with automatic
+  login and has HDMI; its pip OpenCV is headless, so opencv-python 4.10.0.84 (Qt)
+  sits apart in `/opt/cvgui`, pushed over adb (the board has no network). Desktop
+  launchers "Millikan live" (cam:0) and "Millikan rehearsal" (spray_labelled_0907)
+  run as the desktop user, NPU included; closing the window ends the session as `q`
+  does (tested); sessions land in `~/live`. The window costs ~2 ms a frame (imshow
+  0.8 ms, its event handling 1.1 ms more than none): 16.8 updates a second without
+  it, 16.4 with it, on spray_labelled_0907's first 1,500 frames. Not yet seen on a
+  real monitor.
+- **Heat** (`edge/soak.py --minutes 15`, `results/board/soak_npu_15min.json`): the
+  live path with its window, INT8 on the NPU, spray_labelled_0907 looped. Hottest
+  zone 49.9 → 62.8 °C, levelling off; every CPU and NPU clock at its maximum
+  throughout — the board's first throttle point is 75 °C. 14.1 updates a second,
+  per minute 10.8–18.2 with no downward trend. That is the full live path (hunt
+  aid, rings, HUD every frame) on the busiest recording; `board_bench.py`'s 24.3 FPS
+  ran the pipeline without its window.
+- **Power** (`edge/soak.py --minutes 10`, the same looped recording on either
+  machine): waits on a plug-in meter (功率计量插座) — board with its monitor against
+  the laptop with its own screen.
+
 ### Next, needing only minutes of the owner
 
 - ~~WSL2 and the toolchain~~ — done 2026-09-30 (§8).
-- **Track review** (~9 min): `python edge/review_tracks.py review` — 176 blind clips
-  of confirmed tracks from the three droplet recordings, y / n / u per clip; then
-  `report`. It settles decisions 2 and 4 with a person's eye instead of a proxy.
+- ~~Track review~~ — done 2026-10-09 (`data/review/REPORT.md`).
+- **The hunt aid's suggestions** (~25 min): `python edge/suggestions.py review` —
+  477 blind clips, y / n / u; then `report`.
+- **The board on a monitor** (~5 min): HDMI monitor and USB mouse into the board,
+  power on, double-click "Millikan rehearsal", click a droplet, close the window.
+- **Power:** a plug-in meter (功率计量插座) from an electronics lab; then
+  `edge/soak.py --minutes 10` on the board and on the laptop, Wh × 6 = watts.
 - **Live, not only replayed (2026-09-30).** The fork's claim is real-time on an edge
   device, so replays alone undersell it. The plan:
   - **Recorded fixtures stay the source of every published number** — they are what
@@ -654,7 +692,8 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   - **No webcam.** The live path accepts a camera only if its picture shows the
     reticle (`LiveSource.accept` = `autoROI`), so a webcam cannot run the pipeline
     live; it could only time capture.
-  - **A short lab trip after the owner's vacation, for the dongle.** The apparatus's BNC composite output
+  - ~~**A short lab trip after the owner's vacation, for the dongle.**~~ Done
+    2026-10-11 (§11, "Live on the board"). The apparatus's BNC composite output
     (视频输出) reaches the laptop through a converter that Windows recognised with
     no driver installed — which on Windows means USB video class, which the board's
     kernel has built in (§8.1). Very likely fine, never tried; the dongle's model is

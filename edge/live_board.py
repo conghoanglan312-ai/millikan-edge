@@ -1,9 +1,17 @@
-"""The live pipeline on the board, headless, with its window on the laptop.
+"""The live pipeline on the board, with its window on the laptop or on its own screen.
 
     python3 edge/live_board.py --port 8765 [--source cam:0] [--gate npu|none]
+    PYTHONPATH=/opt/cvgui python3 edge/live_board.py --local [--source ...]
 
 Started by edge/live_viewer.py over adb; connects to 127.0.0.1:PORT, which
 `adb reverse` carries to the viewer on the laptop over the USB cable.
+
+--local: the window opens on the board's own desktop (HDMI monitor, USB mouse), no
+laptop; closing it ends the session as q does.  The board's pip OpenCV is headless,
+so this needs one with a GUI first on the path: opencv-python 4.10.0.84 (Qt),
+installed with `pip3 install --no-deps --target <dir>`, kept apart from the
+system's.  edge/board_local.sh sets the board up for it: desktop launchers, no
+laptop needed at any step.
 
 The pipeline is unchanged.  Its window calls are taken over from outside cv/:
 
@@ -43,30 +51,38 @@ JPEG_QUALITY = 80
 CJK_FONT = "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"   # on the board's image
 
 
-class Window(object):
-    """Stands in for cv2 inside cv/pipeline.py; everything not GUI passes through."""
+class Screen(object):
+    """Stands in for cv2 inside cv/pipeline.py: Chinese text drawn in a CJK font,
+    everything else passed through -- the board's own screen (--local)."""
 
-    def __init__(self, sock):
-        self.sock = sock
-        self.callback = None
-        self.inbox = queue.Queue()
-        self.latest = None
-        self.wake = threading.Event()
-        self.closed = False
-        threading.Thread(target = self._send, daemon = True).start()
-        threading.Thread(target = self._receive, daemon = True).start()
+    def __init__(self):
+        self.shown = []
+        self.name = None
 
     def __getattr__(self, name):
         return getattr(cv2, name)
 
-    def namedWindow(self, *a, **k):
-        pass
+    def imshow(self, name, img):
+        self.shown.append(time.perf_counter())
+        self.name = name
+        return cv2.imshow(name, img)
 
-    def destroyAllWindows(self, *a, **k):
-        pass
+    def waitKey(self, delay = 0):
+        """q, or closing the window with the mouse -- the board may have no keyboard."""
+        key = cv2.waitKey(delay)
+        if self.name and cv2.getWindowProperty(self.name, cv2.WND_PROP_VISIBLE) < 1:
+            return ord("q")
+        return key
 
-    def setMouseCallback(self, name, callback, *a):
-        self.callback = callback
+    def smoothness(self):
+        """Updates a second and the gaps between them -- the viewer's own line."""
+        t = np.array(self.shown)
+        if len(t) < 2:
+            return "no frames shown"
+        gap = np.diff(t) * 1000.0
+        return ("%.1f updates a second, gap median %.0f ms, p90 %.0f ms, %.0f%% over "
+                "150 ms" % ((len(t) - 1) / (t[-1] - t[0]), np.median(gap),
+                            np.percentile(gap, 90), 100.0 * np.mean(gap > 150)))
 
     def putText(self, img, text, org, fontFace, fontScale, color, thickness = 1,
                 *a, **k):
@@ -110,6 +126,30 @@ class Window(object):
             if len(cache) > 512:
                 cache.clear()
         return cache.get(key)
+
+
+class Window(Screen):
+    """The laptop's window: imshow streams, clicks and keys come back."""
+
+    def __init__(self, sock):
+        Screen.__init__(self)
+        self.sock = sock
+        self.callback = None
+        self.inbox = queue.Queue()
+        self.latest = None
+        self.wake = threading.Event()
+        self.closed = False
+        threading.Thread(target = self._send, daemon = True).start()
+        threading.Thread(target = self._receive, daemon = True).start()
+
+    def namedWindow(self, *a, **k):
+        pass
+
+    def destroyAllWindows(self, *a, **k):
+        pass
+
+    def setMouseCallback(self, name, callback, *a):
+        self.callback = callback
 
     def imshow(self, name, img):
         self.latest = img
@@ -169,20 +209,27 @@ def main():
     ap.add_argument("--source", default = "cam:0")
     ap.add_argument("--gate", choices = ("npu", "none"), default = "npu")
     ap.add_argument("--out", default = "/root/live")
+    ap.add_argument("--local", action = "store_true",
+                    help = "window on the board's own screen, no laptop")
     a = ap.parse_args()
 
     sock = None
-    for _ in range(50):                      # the viewer may still be starting
-        try:
-            sock = socket.create_connection(("127.0.0.1", a.port), timeout = 5.0)
-            break
-        except OSError:
-            time.sleep(0.2)
-    if sock is None:
-        sys.exit("no viewer on 127.0.0.1:%d -- start edge/live_viewer.py on the laptop"
-                 % a.port)
-    sock.settimeout(None)
-    P.cv2 = Window(sock)
+    if a.local:
+        if "GUI:                           NONE" in cv2.getBuildInformation():
+            sys.exit("this OpenCV has no windows -- run with PYTHONPATH=/opt/cvgui")
+        P.cv2 = Screen()
+    else:
+        for _ in range(50):                  # the viewer may still be starting
+            try:
+                sock = socket.create_connection(("127.0.0.1", a.port), timeout = 5.0)
+                break
+            except OSError:
+                time.sleep(0.2)
+        if sock is None:
+            sys.exit("no viewer on 127.0.0.1:%d -- start edge/live_viewer.py on the "
+                     "laptop" % a.port)
+        sock.settimeout(None)
+        P.cv2 = Window(sock)
     if a.gate == "npu":
         gate = G.BatchedNpuGate({b: os.path.join(REPO, "results", "int8", f)
                                  for b, f in RKNN.items()})
@@ -202,10 +249,13 @@ def main():
     print("session -> %s" % outDir, flush = True)
     falls = P.trackAll(a.source, show = True, saveVideo = False, outDir = outDir)
     P.report(falls, outDir, a.source)
-    try:
-        sock.close()
-    except OSError:
-        pass
+    if a.local:
+        print("window: %s" % P.cv2.smoothness(), flush = True)
+    else:
+        try:
+            sock.close()
+        except OSError:
+            pass
     os.sync()
 
 
