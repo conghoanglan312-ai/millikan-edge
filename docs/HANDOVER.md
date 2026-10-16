@@ -679,12 +679,49 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   falls, rings, picks and sightings on 6,000 frames of bench_0908 and 4,000 of unit
   3-2; 62.1 → 55.8 ms a frame, 14.2 → 15.7 updates a second. On in `live_board.py`
   and `soak.py`. More would mean editing `cv/` (the association loop, frame copies,
-  panel reading, polyfit), a few ms each. **The board's copies (`/root/millikan-edge`,
-  `/opt/millikan-edge`) do not have it yet** — the board was unplugged first: push
-  `edge/fast.py`, `live_board.py`, `soak.py`, then rerun `edge/board_local.sh`.
+  panel reading, polyfit), a few ms each. The board's copies (`/root/millikan-edge`, `/opt/millikan-edge`)
+  have it (2026-10-17; launcher run end to end after the update).
 - **Power** (`edge/soak.py --minutes 10`, the same looped recording on either
   machine): waits on a plug-in meter (功率计量插座) — board with its monitor against
   the laptop with its own screen.
+
+- **The laptop's NPU** (`edge/laptop_npu.py`, `results/laptop_npu/`): the same model
+  as INT8 QDQ (onnxruntime's QNN recipe, the RKNN model's 499 calibration crops) on
+  the Vivobook's Hexagon NPU through Qualcomm's plugin provider. Needs native ARM64
+  Python — the usual one is x64 under emulation: Python 3.12.10 ARM64 unzipped from
+  the `pythonarm64` NuGet package into `C:\Users\LAN\tools\py312arm64`, then
+  `pip install onnxruntime-qnn numpy onnx` (onnxruntime 1.31.0, onnxruntime-qnn
+  2.7.0). The export is opset 12; per-channel DequantizeLinear needs 13+, so it is
+  converted to 17 first. Agrees with FP32 on 99.93% of 41,038 validation crops;
+  0.058 ms for one crop, 0.0037 ms a crop at batch 32 (RK3588: 0.193, 0.045).
+
+### The demo visit: checklist
+
+Units **1-1, 2-2, 3-3, 4-4 only** — reserved, never recorded for training (§4).
+
+**Bring:** the board and its 12 V adapter (push the barrel plug fully home — it has
+come loose twice); the camera dongle; a USB mouse; an HDMI monitor if the bench has
+none (ask the lab); the laptop and the USB-C cable (to set the clock, to copy the
+sessions, and as the fallback window); a phone on a stand for the video; a stopwatch.
+
+**Before leaving:** "Millikan rehearsal" has run on a monitor; the laptop is charged.
+
+**At the bench:**
+1. Board's USB-C into the laptop: `adb shell "date -s @$(date +%s)"` (no RTC: the
+   clock is wrong after every power loss, and session folders are named by it).
+2. Dongle into the board's **USB 2.0** port (the USB 3.0 port fouls the USB-C plug),
+   monitor on HDMI, mouse on USB.
+3. Double-click **"Millikan live"**. Keep droplets out for the first 30 s — it learns
+   the background.
+4. Per unit: spray, click a droplet, balance, measure as usual; time a few of the
+   same falls with the stopwatch and note them by fall number. Close the window to
+   end the session — falls and report land in `~/live/<time>/`.
+5. Film the screen and the apparatus together with the phone. A clean screen
+   recording needs the laptop window instead: `python edge/live_viewer.py --record`.
+6. Afterwards: `adb pull /home/ztl/live data/live/`.
+
+**If the board's window misbehaves:** the laptop route still works —
+`python edge/live_viewer.py` (§11, "Live on the board").
 
 ### Next, needing only minutes of the owner
 
@@ -692,8 +729,7 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
 - ~~Track review~~ — done 2026-10-09 (`data/review/REPORT.md`).
 - **The hunt aid's suggestions** (~25 min): `python edge/suggestions.py review` —
   477 blind clips, y / n / u; then `report`.
-- **The board on a monitor** (~5 min): first the board's USB-C into the laptop, so
-  its copy can be updated (above); then HDMI monitor and USB mouse into the board,
+- **The board on a monitor** (~5 min): HDMI monitor and USB mouse into the board,
   power on, double-click "Millikan rehearsal", click a droplet, close the window.
 - **Power:** a plug-in meter (功率计量插座) from an electronics lab; then
   `edge/soak.py --minutes 10` on the board and on the laptop, Wh × 6 = watts.

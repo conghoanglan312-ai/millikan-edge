@@ -77,6 +77,19 @@ A dense-spray recording, ~26 candidate blobs a frame; per-frame times include PN
 decoding, which a live camera does not pay. The detector with the classifier fits a
 30 fps frame budget (p90 16.3 ms).
 
+- **With its window** — the operator's view, hunt aid and HUD drawn every frame — the
+  same recording runs at 15.7 updates a second (55.8 ms a frame, ~10 ms of it PNG
+  decoding). Profiling found one speed estimate recomputed ~50 times a frame;
+  computing it once per track per frame took the view from 62.1 ms, with identical
+  falls and suggestions on 10,000 replayed frames.
+- **No throttling:** 15 minutes of the live view took the chip from 50 °C to 63 °C,
+  levelling off, with every CPU and NPU clock at its maximum throughout; the board
+  starts throttling at 75 °C.
+- **The same model on a laptop NPU** (Snapdragon X Elite, ONNX Runtime with
+  Qualcomm's QNN provider, same calibration crops): INT8 agrees with FP32 on 99.93%
+  of validation crops and costs 0.0037 ms a crop in batches of 32 — 12× the RK3588's
+  NPU (`results/laptop_npu`).
+
 ## What the board taught
 
 - **A tiny model is all call overhead on an NPU.** One crop per call (0.19 ms) was
@@ -93,7 +106,9 @@ decoding, which a live camera does not pay. The detector with the classifier fit
 `edge/live_viewer.py` runs the whole live session on the board — the camera
 dongle on the board, the classifier on the NPU — with its window on a laptop over
 the USB-C cable: clicks pick droplets, `q` ends the session, `--record` saves the
-video.
+video. `edge/live_board.py --local` puts the window on the board's own desktop
+instead (monitor on HDMI, mouse on USB); `edge/board_local.sh` adds desktop
+launchers, so no laptop is needed at any step.
 
 ## Reproduce
 
@@ -113,6 +128,8 @@ python edge/int8_test.py                # INT8 on the test session           (in
 python edge/score.py                    # every row against the hand labels
 python edge/label.py sample|label|review <recording>   # hand labels for a new unit
 python edge/score_unseen.py             # the units never used in training
+python edge/fast.py check <recording> <frames>   # the speed-up changes no answer
+python3 edge/soak.py --minutes 15       # on the board: heat, clocks, frame rate
 python3 edge/board_bench.py ...         # on the board: model, accuracy, pipeline
 ```
 

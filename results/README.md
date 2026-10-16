@@ -58,6 +58,12 @@ so a changed label file shows up as a changed hash.
 Truth: `labels/unit1-3_1015/`, `labels/unit3-2_1015/` (100 frames each, `edge/label.py`),
 corrected by the blind review of `edge/score_unseen.py --todo`.
 
+## `laptop_npu/` — the same classifier on a laptop NPU (Snapdragon X Elite), 2026-10-17
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `README.md`, `laptop_npu.json` | INT8 (QDQ, same calibration crops) on the Hexagon NPU agrees with FP32 on 99.93% of the 41,038 validation crops; 0.058 ms for one crop, 0.0037 ms a crop in batches of 32 (RK3588 NPU: 0.193 and 0.045 ms) | `edge/laptop_npu.py` (native ARM64 Python, onnxruntime-qnn 2.7.0) |
+
 ## `board/` — measured on the RK3588S, 2026-10-11
 
 | file | what | made by |

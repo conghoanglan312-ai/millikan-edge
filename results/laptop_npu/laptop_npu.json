@@ -1,0 +1,64 @@
+{
+ "machine": "ASUS Vivobook S15, Snapdragon X Elite X1E78100, Windows 11 ARM64",
+ "python": "3.12.10",
+ "onnxruntime": "1.31.0",
+ "onnxruntime-qnn": "2.7.0",
+ "htp_performance_mode": "burst",
+ "quantization": {
+  "calibrationCrops": 499,
+  "activations": "uint8, asymmetric",
+  "weights": "int8, per channel"
+ },
+ "accuracy": {
+  "crops": 41038,
+  "agreement@0.5": 0.9992689702227204,
+  "batch32 vs batch1 agreement@0.5": 0.9995613821336322,
+  "mean_abs_dp": 0.0019411518005654216,
+  "fp32_cpu": {
+   "ap": 0.9567732147707446,
+   "pass rate, droplet": 0.9721463681048608,
+   "pass rate, phantom track": 0.021549747822099955,
+   "pass rate, sweep blob": 0.012096774193548387,
+   "pass rate, gate reject": 0.008507370100138835
+  },
+  "int8_npu": {
+   "ap": 0.958303264300691,
+   "pass rate, droplet": 0.9726925177498634,
+   "pass rate, phantom track": 0.021320495185694635,
+   "pass rate, sweep blob": 0.009072580645161291,
+   "pass rate, gate reject": 0.008300593743538238
+  }
+ },
+ "timing": {
+  "fp32_cpu_1thread": {
+   "calls": 2000,
+   "median_ms": 0.1294,
+   "p90_ms": 0.1567,
+   "per_crop_ms": 0.1294
+  },
+  "fp32_cpu_4threads": {
+   "calls": 2000,
+   "median_ms": 0.0879,
+   "p90_ms": 0.1207,
+   "per_crop_ms": 0.0879
+  },
+  "fp32_cpu_batch32_4threads": {
+   "calls": 2000,
+   "median_ms": 1.1602,
+   "p90_ms": 1.5327,
+   "per_crop_ms": 0.0363
+  },
+  "int8_npu_1crop": {
+   "calls": 2000,
+   "median_ms": 0.0576,
+   "p90_ms": 0.089,
+   "per_crop_ms": 0.0576
+  },
+  "int8_npu_batch32": {
+   "calls": 2000,
+   "median_ms": 0.1196,
+   "p90_ms": 0.1579,
+   "per_crop_ms": 0.0037
+  }
+ }
+}
