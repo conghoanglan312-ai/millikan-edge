@@ -49,6 +49,7 @@ MODEL = os.path.join(C.RESULTS, "fp32", "model.onnx")
 OUT = os.path.join(C.DATA, "suggestions")
 CLIPS = os.path.join(OUT, "clips.npz")
 ANSWERS = os.path.join(OUT, "answers.json")
+CLIP_LEVEL = 31        # every clip's background shifted here (review_tracks.clip)
 REPORT = os.path.join(C.RESULTS, "suggestions")
 SAME_PX = 3.0           # two runs' tracks are one object if most of their shared
 SAME_SHARE = 0.5        # frames put them this close
@@ -220,7 +221,7 @@ def clips():
         objs, runs = objects(fixture)
         roi = runs["classical"]["roi"]
         for o in objs:
-            cl.append(RT.clip(fixture, o["rows"], roi))
+            cl.append(RT.clip(fixture, o["rows"], roi, level = CLIP_LEVEL))
             mt.append({"fixture": fixture, "members": o["members"]})
         print("%-14s %d suggested objects" % (fixture, len(objs)), flush = True)
     order = rng.permutation(len(cl))

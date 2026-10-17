@@ -58,6 +58,12 @@ so a changed label file shows up as a changed hash.
 Truth: `labels/unit1-3_1015/`, `labels/unit3-2_1015/` (100 frames each, `edge/label.py`),
 corrected by the blind review of `edge/score_unseen.py --todo`.
 
+## `suggestions/` — what the hunt aid points the operator at, 2026-10-17
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `REPORT.md`, `report.json` | every track the hunt aid ringed or auto-picked, replayed with and without the classifier (FP32) and judged from blind clips (477): wrong suggestions per 10 minutes 9.2 → 8.7 on the test session, 1.7 → 1.7 and 3.3 → 3.3 on the unseen units — no reduction; the measure was fixed in the script's header before any replay | `edge/suggestions.py` run / clips / review / report |
+
 ## `laptop_npu/` — the same classifier on a laptop NPU (Snapdragon X Elite), 2026-10-17
 
 | file | what | made by |

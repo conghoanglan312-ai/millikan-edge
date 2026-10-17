@@ -61,7 +61,11 @@ def tracksOf(name):
     return {int(u): s[a:b] for u, a, b in zip(uniq, first, last)}, roi
 
 
-def clip(name, rows, roi):
+def clip(name, rows, roi, level = None):
+    """`level`: first shift the clip so its median grey sits there.  STRETCH was set
+    on recordings whose background reads ~31; unit 1-3's reads ~116 (its brightness
+    turned up), and stretched as it is the whole clip is white.  The shift keeps the
+    stretch's gain, so a droplet stands out from its background as much as anywhere."""
     folder = C.fixture(name)
     pick = np.unique(np.linspace(0, len(rows) - 1, min(FRAMES, len(rows))).astype(int))
     ox, oy = (0, 0) if name in C.CROPPED else (int(roi[0]), int(roi[1]))
@@ -71,7 +75,11 @@ def clip(name, rows, roi):
         g = cv2.imread(os.path.join(folder, "f%06d.png" % int(f)), cv2.IMREAD_GRAYSCALE)
         g = cv2.copyMakeBorder(g, HALF, HALF, HALF, HALF, cv2.BORDER_CONSTANT, value = 0)
         cx, cy = int(round(x)) + ox + HALF, int(round(y)) + oy + HALF
-        out.append(cv2.LUT(g[cy - HALF:cy + HALF, cx - HALF:cx + HALF], STRETCH))
+        out.append(g[cy - HALF:cy + HALF, cx - HALF:cx + HALF])
+    if level is not None:
+        shift = int(np.median(np.stack(out))) - level
+        out = [np.clip(g.astype(np.int16) - shift, 0, 255).astype(np.uint8) for g in out]
+    out = [cv2.LUT(g, STRETCH) for g in out]
     while len(out) < FRAMES:
         out.append(out[-1])
     return np.array(out, np.uint8)

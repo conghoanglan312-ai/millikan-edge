@@ -396,8 +396,9 @@ the board.
 | 29 Sep 2026 | ✓ "before" numbers frozen; auto-labels extracted from every raw fixture (§3, §4, §11) |
 | 30 Sep 2026 | ✓ WSL2 and the RKNN toolchain installed on the Vivobook (§8) |
 | 16 Oct 2026 | ✓ unseen-unit test: F1 77.7% → 90.3% on two units never trained on (§11) |
+| 17 Oct 2026 | ✓ the board on real HDMI; live view 18.1 → 20.6 updates a second, same answers; the hunt aid's suggestions reviewed — no change (§11) |
 | Oct 2026 – Jan 2027 | build window |
-| **Jan 2027** | **MUST: inference running on the board, numbers recorded** |
+| **Jan 2027** | **MUST: inference running on the board, numbers recorded** — ✓ met 11 Oct 2026 |
 | Nov–Dec 2026 | BEST: README with the before/after table, demo video |
 | Dec 2026 | BEST: Gitee mirror |
 | Mar–May 2027 | internship applications — what this exists to support |
@@ -651,9 +652,20 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   suggested objects, 410 are suggested by both, 34 only without the classifier and
   33 only with it (test session 204 / 28 / 18, unit 1-3 110 / 4 / 12, unit 3-2
   96 / 2 / 3). The aid's own tests (a steady fit, travel, charge) already turn away
-  most of what the classifier removes. Which of them are droplets waits on the
-  owner's blind review of all 477 (`python edge/suggestions.py review`, ~25 min),
-  then `report` writes `results/suggestions/`.
+  most of what the classifier removes. The owner's blind review of all 477
+  (2026-10-17: 401 droplet, 47 not, 29 unsure; `results/suggestions/REPORT.md`):
+  **the classifier does not reduce wrong suggestions** — wrong suggestions per 10
+  minutes 9.2 → 8.7 on the test session, 1.7 → 1.7 and 3.3 → 3.3 on the unseen units;
+  the share that are not droplets 18% → 17%, 2% → 2%, 4% → 4%. Of the 34
+  suggestions only the classical detector makes, 7 are not droplets; of the 33 only
+  the classifier makes, 4; the other 36 wrong ones are made either way — the
+  classifier passes them too. So its gain is where it was measured, in detections
+  (the rings, the tracked count, what the tracker has to sort through), not in what
+  the hunt aid points the operator at, which its own tests already kept clean. The
+  clips are cut by `review_tracks.clip` with each clip's background first shifted
+  to grey level 31: unit 1-3's video reads ~116 (its brightness turned up), and the
+  stretch set on the others turned its 126 clips white. One rule for every clip,
+  set before any answer was given.
 - **The board on its own screen** (`edge/live_board.py --local`, set up once by
   `edge/board_local.sh`): the board already runs Ubuntu's desktop with automatic
   login and has HDMI; its pip OpenCV is headless, so opencv-python 4.10.0.84 (Qt)
@@ -668,8 +680,9 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   1280×850 with Qt's toolbar and status bar: it fits; the CJK text, click-to-pick and
   close-to-stop all work. "Millikan rehearsal": 23.0 updates a second over the
   first 955 frames (about the recording's own 23.5), 18.1 over the whole recording
-  (the dense spray at the end is slower; measured before the matching fix in
-  "Speed"). Two fixes to the launchers:
+  (the dense spray at the end is slower), **20.6** after the matching fix in "Speed"
+  — gap p90 99 → 73 ms, gaps over 150 ms 2% → 1%, the falls file byte for byte the
+  same. Two fixes to the launchers:
   `adb shell` runs with umask 0000, so `board_local.sh` had written them world-
   writable and GNOME refused them ("此桌面文件权限非法") — it now sets `umask 022`.
   A second double-click while the first session was still starting opened a second
@@ -758,13 +771,20 @@ stand for the video; a stopwatch.
 
 - ~~WSL2 and the toolchain~~ — done 2026-09-30 (§8).
 - ~~Track review~~ — done 2026-10-09 (`data/review/REPORT.md`).
-- **The hunt aid's suggestions** (~25 min): `python edge/suggestions.py review` —
-  477 blind clips, y / n / u; then `report`.
+- ~~**The hunt aid's suggestions**~~ — reviewed 2026-10-17: no reduction in wrong
+  suggestions (§11, "Beyond accuracy").
 - ~~**The board on a monitor**~~ — done 2026-10-17, on real HDMI through the capture
   card (§11, "Beyond accuracy").
 - **Power:** a plug-in meter (功率计量插座) from any lab — no apparatus needed, it plays
   a recording; then `edge/soak.py --minutes 10` on the board and on the laptop (battery
   full), Wh × 6 = watts.
+- **Later, the owner's C++ study (winter break):** the per-track loop (tracker and
+  the hunt aid's per-track tests) and the panel digit reader in C++, installed from
+  outside `cv/` like `fast.py` and held to the same proof (`fast.py check`, `exact`).
+  Expected: the dense spray from ~16 to ~20–23 updates a second, the fall-end stall
+  gone. Then the dongle's MJPG mode (30 fps), scored against hand labels on a
+  non-reserved unit before the live path uses it — not before, as every recording so
+  far is raw.
 - **Live, not only replayed (2026-09-30).** The fork's claim is real-time on an edge
   device, so replays alone undersell it. The plan:
   - **Recorded fixtures stay the source of every published number** — they are what

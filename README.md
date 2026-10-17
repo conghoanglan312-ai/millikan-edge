@@ -50,6 +50,11 @@ Detector stage on the hand-labelled test session (`results/fp32`, `results/int8`
   session's 19 legal falls is still measured, within 0.04 s.
 - INT8 and FP32 make the same decision on 99.90% of 41,038 validation crops on the
   real NPU.
+- What the operator is pointed at does not change: the hunt aid's rings and
+  auto-pick suggest non-droplets as often with the classifier as without (9.2 vs 8.7
+  per 10 minutes on the test session, the same on both unseen units; 477 suggested
+  tracks judged blind, `results/suggestions`). Its own tests already kept that clean;
+  the gain is in the detections underneath.
 
 On two apparatus units never used in training, drawn at random, 100 hand-labelled
 frames each with the same blind second look (`results/unseen`):
