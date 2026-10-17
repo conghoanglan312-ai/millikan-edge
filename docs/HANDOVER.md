@@ -763,6 +763,22 @@ stand for the video; a stopwatch.
 5. Film the screen and the apparatus together with the phone. The screen recording
    and the board's session folder (falls, report) land in `data/live/`.
 
+**Then raw recordings, ~25 min, the dongle moved to the laptop** — so that later
+versions of the pipeline (the C++ ports) can be measured on a demo unit, and the
+dongle's MJPG mode scored, at home, with no further lab visit. In the parent repo:
+6. `python cv/UVC_check.py` (which index is the dongle), then
+   `python test/tools/capture_bench.py` (~1.5 min, the chamber may be empty). Its
+   default row is DirectShow, its `msmf` rows Media Foundation: expect raw YUY2 at
+   ~23.6 fps and MJPG at ~30. Every recording so far is the raw one.
+7. One demo unit, raw: `$env:MILLIKAN_CAPTURE="dshow"` then
+   `python test/tools/raw_capture.py unit<r-p>_1022_demo <index>` — chamber empty
+   through the 60 s learn, then spray as usual, ~5 min, `q`. For replay only, never
+   training.
+8. Unit 1-3 or 3-2 (never trained on, not reserved), back to back with the same
+   spray routine, ~5 min each: raw as in 7 (`unit<r-p>_1022_yuyv`), then
+   `$env:MILLIKAN_CAPTURE="mjpg"` (Media Foundation) and `unit<r-p>_1022_mjpg`.
+   ~2 GB each. Check each folder's delivered rate before moving on.
+
 **If the laptop route fails:** the board's own screen still works — a monitor of
 1920×1080 or more on HDMI and a USB mouse, then double-click "Millikan live" once
 (tested on real HDMI 2026-10-17).
@@ -782,9 +798,10 @@ stand for the video; a stopwatch.
   the hunt aid's per-track tests) and the panel digit reader in C++, installed from
   outside `cv/` like `fast.py` and held to the same proof (`fast.py check`, `exact`).
   Expected: the dense spray from ~16 to ~20–23 updates a second, the fall-end stall
-  gone. Then the dongle's MJPG mode (30 fps), scored against hand labels on a
-  non-reserved unit before the live path uses it — not before, as every recording so
-  far is raw.
+  gone; cut-off 15 Feb 2027, after which Claude ports them and the owner reads and
+  defends them. Then the dongle's MJPG mode (30 fps), scored against hand labels
+  on the raw/MJPG pair recorded on the demo trip before the live path uses it —
+  not before, as every recording so far is raw.
 - **Live, not only replayed (2026-09-30).** The fork's claim is real-time on an edge
   device, so replays alone undersell it. The plan:
   - **Recorded fixtures stay the source of every published number** — they are what
