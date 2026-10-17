@@ -12,6 +12,9 @@
 # by itself (gdm3 automatic login), so power on -> desktop -> double-click a launcher.
 # Closing the window ends the session, as q does.  Sessions land in ~/live.
 set -e
+# adb's shell runs with umask 0000: files it writes are writable by everyone, and
+# GNOME refuses to start a launcher like that ("此桌面文件权限非法").
+umask 022
 APP=/opt/millikan-edge
 GUI=/opt/cvgui
 U=ztl
@@ -27,11 +30,14 @@ cp -r /root/millikan-edge/cv /root/millikan-edge/edge /root/millikan-edge/result
 
 cat > $APP/run_local.sh <<EOF
 #!/bin/sh
-# The live session on this screen.  \$1: the source, cam:0 unless given.
+# The live session on this screen.  \$1: the source, cam:0 unless given.  One at a
+# time: the session takes a few seconds to open its window, and a second double-click
+# meanwhile started a second session beside it -- two windows, one session folder
+# (2026-10-17).
 mkdir -p $H/live
 cd $APP
-PYTHONPATH=$GUI exec python3 edge/live_board.py --local --source "\${1:-cam:0}" \\
-    --out $H/live >> $H/live/last_session.log 2>&1
+exec flock -n /tmp/millikan-live.lock env PYTHONPATH=$GUI python3 edge/live_board.py \\
+    --local --source "\${1:-cam:0}" --out $H/live >> $H/live/last_session.log 2>&1
 EOF
 chmod +x $APP/run_local.sh
 chown -R $U:$U $APP

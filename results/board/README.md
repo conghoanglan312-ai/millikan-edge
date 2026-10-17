@@ -85,3 +85,27 @@ bench_0908 and 4,000 of unit 3-2 with and without it gives identical falls, ring
 picks and sightings (`python edge/fast.py check <fixture> <frames>`). Window on,
 unpaced, two runs each: **62.1 → 55.8 ms a frame, 14.2 → 15.7 updates a second**.
 The 15-minute heat run above predates it.
+
+**Where the dense spray goes (2026-10-17).** Timed frame by frame, the recording's
+first 955 frames (~30 live tracks) cost 41 ms and its last 637 (the dense spray, ~92
+live tracks, up to 239) 76 ms: about 22 ms plus 0.42 ms per live track. Profiled over
+the dense part, `assign` — matching tracks to blobs — was the largest single cost,
+filling its cost matrix one track–blob pair at a time (~3,600 pairs a frame).
+`edge/fast.py` now builds the matrix in one numpy expression over all pairs, the
+same float64 operations on the same operands. Checked call by call
+(`python edge/fast.py exact <recording>`, both versions on every call, the matrices
+compared bit for bit): identical on the board on all 1,592 frames (2,993 matrices),
+and on the laptop on four recordings. Window on, unpaced, two runs each:
+
+| | first 955 frames | dense spray (last 637) | whole recording |
+| :-- | --: | --: | --: |
+| before | 41.0 ms | 76.4 ms (13.1 a second) | 55.2 ms (18.1 a second) |
+| `assign` batched | 39.2 ms | **61.4 ms (16.3 a second)** | **48.1 ms (20.8 a second)** |
+
+Per live track 0.42 → 0.22 ms. Every figure includes ~10.5 ms of PNG decoding.
+
+**The occasional stall is a fall completing.** When a fall ends, the pipeline reads
+the latched balance voltage by recognising the digits on every panel crop kept during
+the fall (~70) and taking a vote: ~230 ms once per fall, up to 900 ms. Garbage
+collection is not involved (its longest pause, 48 ms, once a run). Left as it is:
+it comes after the fall's clock has stopped.

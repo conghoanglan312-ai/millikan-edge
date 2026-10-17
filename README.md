@@ -78,10 +78,12 @@ decoding, which a live camera does not pay. The detector with the classifier fit
 30 fps frame budget (p90 16.3 ms).
 
 - **With its window** — the operator's view, hunt aid and HUD drawn every frame — the
-  same recording runs at 15.7 updates a second (55.8 ms a frame, ~10 ms of it PNG
-  decoding). Profiling found one speed estimate recomputed ~50 times a frame;
-  computing it once per track per frame took the view from 62.1 ms, with identical
-  falls and suggestions on 10,000 replayed frames.
+  same recording costs 48.1 ms a frame (~10 ms of it PNG decoding), down from 62.1 ms.
+  Profiling found a speed estimate recomputed ~50 times a frame and the
+  track-to-blob matching filled pair by pair; both now run in numpy with the same
+  arithmetic — falls and suggestions identical on 10,000 replayed frames, every
+  matching cost matrix identical to the bit. Its densest stretch (~90 live tracks)
+  went from 76.4 to 61.4 ms a frame.
 - **No throttling:** 15 minutes of the live view took the chip from 50 °C to 63 °C,
   levelling off, with every CPU and NPU clock at its maximum throughout; the board
   starts throttling at 75 °C.
@@ -129,6 +131,7 @@ python edge/score.py                    # every row against the hand labels
 python edge/label.py sample|label|review <recording>   # hand labels for a new unit
 python edge/score_unseen.py             # the units never used in training
 python edge/fast.py check <recording> <frames>   # the speed-up changes no answer
+python edge/fast.py exact <recording>   # ...nor a bit of any matching cost matrix
 python3 edge/soak.py --minutes 15       # on the board: heat, clocks, frame rate
 python3 edge/board_bench.py ...         # on the board: model, accuracy, pipeline
 ```

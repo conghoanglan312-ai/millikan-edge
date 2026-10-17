@@ -662,8 +662,19 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   run as the desktop user, NPU included; closing the window ends the session as `q`
   does (tested); sessions land in `~/live`. The window costs ~2 ms a frame (imshow
   0.8 ms, its event handling 1.1 ms more than none): 16.8 updates a second without
-  it, 16.4 with it, on spray_labelled_0907's first 1,500 frames. Not yet seen on a
-  real monitor.
+  it, 16.4 with it, on spray_labelled_0907's first 1,500 frames.
+  On real HDMI 2026-10-17 — the board's output into the HDMI capture card, shown on
+  the laptop (the board's own mouse). The board picks 1920×1080. The window is about
+  1280×850 with Qt's toolbar and status bar: it fits; the CJK text, click-to-pick and
+  close-to-stop all work. "Millikan rehearsal": 23.0 updates a second over the
+  first 955 frames (about the recording's own 23.5), 18.1 over the whole recording
+  (the dense spray at the end is slower; measured before the matching fix in
+  "Speed"). Two fixes to the launchers:
+  `adb shell` runs with umask 0000, so `board_local.sh` had written them world-
+  writable and GNOME refused them ("此桌面文件权限非法") — it now sets `umask 022`.
+  A second double-click while the first session was still starting opened a second
+  session, with two windows and one session folder — `run_local.sh` now holds a
+  `flock`, and a second launch exits.
 - **Heat** (`edge/soak.py --minutes 15`, `results/board/soak_npu_15min.json`): the
   live path with its window, INT8 on the NPU, spray_labelled_0907 looped. Hottest
   zone 49.9 → 62.8 °C, levelling off; every CPU and NPU clock at its maximum
@@ -678,12 +689,29 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   computes it and `windowFit` with the same arithmetic, cached per track: identical
   falls, rings, picks and sightings on 6,000 frames of bench_0908 and 4,000 of unit
   3-2; 62.1 → 55.8 ms a frame, 14.2 → 15.7 updates a second. On in `live_board.py`
-  and `soak.py`. More would mean editing `cv/` (the association loop, frame copies,
-  panel reading, polyfit), a few ms each. The board's copies (`/root/millikan-edge`, `/opt/millikan-edge`)
-  have it (2026-10-17; launcher run end to end after the update).
+  and `soak.py`.
+  The owner then saw the view slow down in the dense spray (2026-10-17). Timed frame
+  by frame, cost follows the number of live tracks — about 22 ms plus 0.42 ms a track;
+  the spray's last 637 frames carry ~92 (up to 239). There `assign` (matching tracks
+  to blobs) was the largest cost: its cost matrix filled one pair at a time.
+  `fast.py` now builds it as one numpy expression with the same float64 operations;
+  `python edge/fast.py exact <recording>` runs both on every call and compares the
+  matrices bit for bit — identical on the board (all 1,592 frames of the spray) and on
+  the laptop (spray, unit 1-3 and unit 3-2 whole, bench_0908's first 15,000 frames).
+  Dense spray 76.4 → 61.4 ms a frame (13.1 → 16.3 updates a second), whole recording
+  55.2 → 48.1 ms (18.1 → 20.8), two runs each. The occasional stall is a fall
+  completing: the latched voltage is read from ~70 panel crops at once, ~230 ms a
+  fall; left alone, as the clock has stopped by then. The parent's own frame-rate fix
+  (Media Foundation's MJPG at 30 fps over DirectShow's raw YUY2 at 23.6) is about
+  the camera, not this: the board's dongle offers the same two (MJPG 30.0, YUYV
+  22.9), but the dense spray is bound by processing, and every recording the
+  classifier was trained and scored on is raw. What is left is spread thin — Qt's
+  painting, the detector, panel reading, the hunt aid's fits — a few ms each. The
+  board's copies (`/root/millikan-edge`, `/opt/millikan-edge`) have it.
 - **Power** (`edge/soak.py --minutes 10`, the same looped recording on either
-  machine): waits on a plug-in meter (功率计量插座) — board with its monitor against
-  the laptop with its own screen.
+  machine): waits on a plug-in meter (功率计量插座) — the board on its own against the
+  laptop on its own (battery full, not charging). No apparatus: it plays a recording,
+  so any wall socket will do.
 
 - **The laptop's NPU** (`edge/laptop_npu.py`, `results/laptop_npu/`): the same model
   as INT8 QDQ (onnxruntime's QNN recipe, the RKNN model's 499 calibration crops) on
@@ -699,29 +727,32 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
 
 Units **1-1, 2-2, 3-3, 4-4 only** — reserved, never recorded for training (§4).
 
-**Bring:** the board and its 12 V adapter (push the barrel plug fully home — it has
-come loose twice); the camera dongle; a USB mouse; an HDMI monitor if the bench has
-none (ask the lab); the laptop and the USB-C cable (to set the clock, to copy the
-sessions, and as the fallback window); a phone on a stand for the video; a stopwatch.
+**The window is on the laptop.** The lab's monitors are too small for it: it needs
+about 1280×850 and the benches have small screens, which would cut off the balance
+banner at the bottom. The board does all the work; the laptop only shows the
+picture and sends the clicks back over the USB-C cable.
 
-**Before leaving:** "Millikan rehearsal" has run on a monitor; the laptop is charged.
+**Bring:** the board and its 12 V adapter (push the barrel plug fully home — it has
+come loose twice); the camera dongle; the laptop and the USB-C cable; a phone on a
+stand for the video; a stopwatch.
+
+**Before leaving:** the laptop is charged.
 
 **At the bench:**
 1. Board's USB-C into the laptop: `adb shell "date -s @$(date +%s)"` (no RTC: the
    clock is wrong after every power loss, and session folders are named by it).
-2. Dongle into the board's **USB 2.0** port (the USB 3.0 port fouls the USB-C plug),
-   monitor on HDMI, mouse on USB.
-3. Double-click **"Millikan live"**. Keep droplets out for the first 30 s — it learns
+2. Dongle into the board's **USB 2.0** port (the USB 3.0 port fouls the USB-C plug).
+3. On the laptop: `python edge/live_viewer.py --record`. It starts the session on the
+   board and opens its window here. Keep droplets out for the first 30 s — it learns
    the background.
 4. Per unit: spray, click a droplet, balance, measure as usual; time a few of the
-   same falls with the stopwatch and note them by fall number. Close the window to
-   end the session — falls and report land in `~/live/<time>/`.
-5. Film the screen and the apparatus together with the phone. A clean screen
-   recording needs the laptop window instead: `python edge/live_viewer.py --record`.
-6. Afterwards: `adb pull /home/ztl/live data/live/`.
+   same falls with the stopwatch and note them by fall number. `q` ends the session.
+5. Film the screen and the apparatus together with the phone. The screen recording
+   and the board's session folder (falls, report) land in `data/live/`.
 
-**If the board's window misbehaves:** the laptop route still works —
-`python edge/live_viewer.py` (§11, "Live on the board").
+**If the laptop route fails:** the board's own screen still works — a monitor of
+1920×1080 or more on HDMI and a USB mouse, then double-click "Millikan live" once
+(tested on real HDMI 2026-10-17).
 
 ### Next, needing only minutes of the owner
 
@@ -729,10 +760,11 @@ sessions, and as the fallback window); a phone on a stand for the video; a stopw
 - ~~Track review~~ — done 2026-10-09 (`data/review/REPORT.md`).
 - **The hunt aid's suggestions** (~25 min): `python edge/suggestions.py review` —
   477 blind clips, y / n / u; then `report`.
-- **The board on a monitor** (~5 min): HDMI monitor and USB mouse into the board,
-  power on, double-click "Millikan rehearsal", click a droplet, close the window.
-- **Power:** a plug-in meter (功率计量插座) from an electronics lab; then
-  `edge/soak.py --minutes 10` on the board and on the laptop, Wh × 6 = watts.
+- ~~**The board on a monitor**~~ — done 2026-10-17, on real HDMI through the capture
+  card (§11, "Beyond accuracy").
+- **Power:** a plug-in meter (功率计量插座) from any lab — no apparatus needed, it plays
+  a recording; then `edge/soak.py --minutes 10` on the board and on the laptop (battery
+  full), Wh × 6 = watts.
 - **Live, not only replayed (2026-09-30).** The fork's claim is real-time on an edge
   device, so replays alone undersell it. The plan:
   - **Recorded fixtures stay the source of every published number** — they are what
