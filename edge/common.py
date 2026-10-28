@@ -53,6 +53,13 @@ FIXTURE_INFO = {
     "unit4-2_1015":        ("2026-10-15 12:02", "pool"),
     "unit4-1_1015":        ("2026-10-15 12:18", "pool"),
     "unit1-3_1015":        ("2026-10-15 12:35", "unseen"),
+    # 2026-10-27, the demo trip. 3-3 is a reserved unit: replay only, never training.
+    # The 3-2 pair is the MJPG test: the same unit recorded raw, then MJPG, labelled
+    # blind as A and B, assigned at random; revealed after the blind review (2026-10-28):
+    # A = unit3-2_1027_mjpg (11:59, 30.0 fps), B = unit3-2_1027_yuyv (11:38, 23.6 fps).
+    "unit3-3_1027_demo":   ("2026-10-27 11:23", "replay"),
+    "unit3-2_1027_A":      ("2026-10-27 11:59", "mjpg"),
+    "unit3-2_1027_B":      ("2026-10-27 11:38", "mjpg"),
 }
 
 # Saved already ROI-cropped (a bug in the first raw_capture.py), so the ROI comes from

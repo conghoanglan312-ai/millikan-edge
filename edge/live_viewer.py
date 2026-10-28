@@ -2,6 +2,9 @@
 
     python edge/live_viewer.py                      the camera on the board
     python edge/live_viewer.py --record             ...and save what you see as MP4
+    python edge/live_viewer.py --capture mjpg       the dongle's MJPG mode, 30 fps
+                                                    (results/mjpg: usable with the
+                                                    classifier, not without)
     python edge/live_viewer.py --source frames:/root/test/fixtures/spray_labelled_0907
                                                     a recording, for a rehearsal
 
@@ -60,6 +63,8 @@ def main():
     ap.add_argument("--source", default = "cam:0")
     ap.add_argument("--gate", choices = ("npu", "none"), default = "npu")
     ap.add_argument("--record", action = "store_true")
+    ap.add_argument("--capture", default = "",
+                    help = "MILLIKAN_CAPTURE on the board, e.g. mjpg (cv/source.py)")
     ap.add_argument("--headless", type = float, default = 0)
     ap.add_argument("--click", default = None)
     ap.add_argument("--click-at", type = float, default = 10.0)
@@ -72,8 +77,9 @@ def main():
     srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     srv.bind(("127.0.0.1", a.port))
     srv.listen(1)
-    cmd = ("cd /root/millikan-edge && MILLIKAN_PARENT=/root python3 -u edge/live_board.py "
-           "--port %d --source %s --gate %s" % (a.port, a.source, a.gate))
+    cmd = ("cd /root/millikan-edge && MILLIKAN_PARENT=/root MILLIKAN_CAPTURE=%s "
+           "python3 -u edge/live_board.py --port %d --source %s --gate %s"
+           % (a.capture, a.port, a.source, a.gate))
     board = subprocess.Popen([adb, "shell", cmd], stdout = subprocess.PIPE,
                              stderr = subprocess.STDOUT, text = True, errors = "replace")
     log, session = [], {"dir": None}

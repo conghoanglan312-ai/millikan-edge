@@ -1,0 +1,10 @@
+# The laptop side of the fork (Windows, Python 3.11, x64): replay, scoring, labelling,
+# the soak and the live viewer. These are the versions the published numbers were
+# made with. Training and RKNN conversion run in WSL2 (edge/setup_wsl.sh); the board
+# has its own runtime (docs/HANDOVER.md §8.1).
+#     pip install -r edge/requirements.txt
+numpy==2.4.6
+opencv-python==5.0.0.93
+scipy==1.17.1
+pandas==3.0.5
+onnxruntime==1.30.0

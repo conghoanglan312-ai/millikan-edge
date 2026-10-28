@@ -397,6 +397,7 @@ the board.
 | 30 Sep 2026 | ✓ WSL2 and the RKNN toolchain installed on the Vivobook (§8) |
 | 16 Oct 2026 | ✓ unseen-unit test: F1 77.7% → 90.3% on two units never trained on (§11) |
 | 17 Oct 2026 | ✓ the board on real HDMI; live view 18.1 → 20.6 updates a second, same answers; the hunt aid's suggestions reviewed — no change (§11) |
+| 27 Oct 2026 | ✓ live on reserved units 1-1 and 3-3: 11 legal falls, each within 0.9 s of a phone-video timing; raw and MJPG recordings of unit 3-2 for the MJPG test (§11) |
 | Oct 2026 – Jan 2027 | build window |
 | **Jan 2027** | **MUST: inference running on the board, numbers recorded** — ✓ met 11 Oct 2026 |
 | Nov–Dec 2026 | BEST: README with the before/after table, demo video |
@@ -405,9 +406,13 @@ the board.
 
 **Done means:**
 
-- [ ] model (or classical pipeline) running inference on the RK3588
-- [ ] before/after recorded: latency, FPS, memory, accuracy delta
-- [ ] reproducible — someone else could follow the repo and get the same numbers
+- [x] model (or classical pipeline) running inference on the RK3588 — 11 Oct 2026, live
+  on reserved units 27 Oct
+- [x] before/after recorded: latency, FPS, memory, accuracy delta — `results/`
+- [x] reproducible — 27 Oct 2026, from a fresh clone: the FP32 replay of the test
+  session came out bit-identical and `edge/score.py` gave the published table row for
+  row (the INT8 rows reuse the WSL step's output); laptop packages pinned in
+  `edge/requirements.txt`
 
 Everything past that is upside.
 
@@ -722,9 +727,16 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   painting, the detector, panel reading, the hunt aid's fits — a few ms each. The
   board's copies (`/root/millikan-edge`, `/opt/millikan-edge`) have it.
 - **Power** (`edge/soak.py --minutes 10`, the same looped recording on either
-  machine): waits on a plug-in meter (功率计量插座) — the board on its own against the
-  laptop on its own (battery full, not charging). No apparatus: it plays a recording,
-  so any wall socket will do.
+  machine). The laptop on its battery, Windows' own discharge reading every 5 s
+  (2026-10-20, nothing else on its ports, screen at full brightness): 8–9 W idle,
+  15–17 W in the live view (18.9 updates a second); the two readings the battery gives
+  — its rate and its falling capacity — differ by ~2 W, hence the ranges. A first run
+  with an iPad charging from the laptop read 26 W idle and was discarded. The board
+  from a lab bench supply at 12.0 V (GW Instek GPP-6030): the run itself is done
+  (2026-10-27 13:14:23–13:24:25, 18.3 updates a second, every clock at its maximum,
+  37 → 47 °C; `data/soak/board_power_1027/`), but the supply's recorder saved to its
+  internal memory and its storage menus froze whenever the recording was to be copied
+  out — the watts are still to be read.
 
 - **The laptop's NPU** (`edge/laptop_npu.py`, `results/laptop_npu/`): the same model
   as INT8 QDQ (onnxruntime's QNN recipe, the RKNN model's 499 calibration crops) on
@@ -771,17 +783,64 @@ dongle's MJPG mode scored, at home, with no further lab visit. In the parent rep
    default row is DirectShow, its `msmf` rows Media Foundation: expect raw YUY2 at
    ~23.6 fps and MJPG at ~30. Every recording so far is the raw one.
 7. One demo unit, raw: `$env:MILLIKAN_CAPTURE="dshow"` then
-   `python test/tools/raw_capture.py unit<r-p>_1022_demo <index>` — chamber empty
+   `python test/tools/raw_capture.py unit<r-p>_1027_demo <index>` — chamber empty
    through the 60 s learn, then spray as usual, ~5 min, `q`. For replay only, never
    training.
 8. Unit 1-3 or 3-2 (never trained on, not reserved), back to back with the same
-   spray routine, ~5 min each: raw as in 7 (`unit<r-p>_1022_yuyv`), then
-   `$env:MILLIKAN_CAPTURE="mjpg"` (Media Foundation) and `unit<r-p>_1022_mjpg`.
+   spray routine, ~5 min each: raw as in 7 (`unit<r-p>_1027_yuyv`), then
+   `$env:MILLIKAN_CAPTURE="mjpg"` (Media Foundation) and `unit<r-p>_1027_mjpg`.
    ~2 GB each. Check each folder's delivered rate before moving on.
 
 **If the laptop route fails:** the board's own screen still works — a monitor of
 1920×1080 or more on HDMI and a USB mouse, then double-click "Millikan live" once
 (tested on real HDMI 2026-10-17).
+
+### Live on the reserved units (2026-10-27) — `results/live/README.md`
+
+- **Units 1-1 and 3-3, live on the board** (2-2 and 4-4 were optional and skipped):
+  5 and 6 legal falls, 21.5 and 21.3 updates a second. The camera set the pace — the
+  raw mode delivered ~21.5 of 25 frames a second while the board spent 17–20 ms a
+  frame. The operator timed each fall from a phone video of the screen, blind to the
+  board's numbers: every fall within 0.87 s, on average 0.53 s (1-1, 19 s falls) and
+  0.35 s (3-3, 34 s falls); the board's is the shorter in 9 of 10.
+- **Raw recordings, all at full rate with no frame dropped**, on D: and linked into
+  the parent's `test/fixtures/`: `unit3-3_1027_demo` (23.6 fps, a reserved unit: replay
+  only, never training — for measuring later versions, e.g. the C++ ports);
+  `unit3-2_1027_yuyv` (23.6 fps) and `unit3-2_1027_mjpg` (30.0 fps), the MJPG test.
+  For the blind labelling the pair is linked a second time as `unit3-2_1027_A` and
+  `_B` (common.FIXTURE_INFO role "mjpg"), which is which revealed after the review.
+- **What the day taught:** the board's USB link to the laptop did not come up twice
+  after it was replugged; switching the board off and on fixed it both times. Under
+  Media Foundation (`MILLIKAN_CAPTURE=mjpg`) `raw_capture.py`'s device 0 opened the
+  laptop's own webcam — pass device 1. A droplet drifting through the 60 s learn spoils
+  it; waiting a few minutes after a spray before starting is cheaper than restarting.
+- **MJPG, a first look without labels** (the pipeline with the FP32 classifier over
+  both whole recordings): falls and the panel's voltage came through MJPG as through
+  raw — 11 legal falls in each. But MJPG frames carry more candidate blobs (15.7 a
+  frame vs 11.2) and the classifier kept 42% of them against 89%; droplet-like blobs
+  stand out less (median peak 51 vs 60 grey levels over background). Whether it is
+  rejecting compression artefacts or real droplets is what the hand labels decide.
+
+### MJPG against raw, hand-labelled (2026-10-28) — `results/mjpg/SCORE.md`
+
+- **The test:** 100 frames of each 3-2 recording, labelled blind as A and B (assigned
+  at random; A = MJPG, B = raw), with the blind second look on every disagreement
+  (1,561 and 670 spots); 41 and 42 minutes of labelling.
+- **The classical detector breaks on MJPG:** precision 84.6% → 37.5%, false
+  detections 1.86 → 11.47 a frame — compression artefacts pass its gates.
+- **The classifier holds:** INT8 (simulator) F1 85.4% raw, 85.1% MJPG; precision
+  93.3% → 97.9%, false 0.70 → 0.14 a frame; recall 78.7% → 75.3%, the intervals
+  overlapping (74.9–82.5 vs 72.6–78.4). FP32 the same within half a point; INT8 and
+  FP32 agree on 99.53% of the blobs in each. So the camera's faster mode is usable
+  only with the classifier, for ~3 points of recall.
+- **On the board (2026-10-28, no apparatus):** with `MILLIKAN_CAPTURE=mjpg` the
+  board's dongle switches to MJPG and delivers 30.0 fps (300 frames); decoding one of
+  these frames as JPEG costs the board ~5 ms, reading it as PNG 9.2 ms. The 27 Oct
+  live sessions spent 17–20 ms a frame in the pipeline and ~30 ms waiting for the raw
+  camera, so a 33 ms MJPG frame should leave room — a prediction for the live run
+  (`python edge/live_viewer.py --capture mjpg`). A replay through the board's own
+  desktop window managed 20.5 updates a second on this recording, but that path also
+  draws the window on the board and reads PNGs; it is not the live viewer's.
 
 ### Next, needing only minutes of the owner
 
@@ -791,9 +850,12 @@ dongle's MJPG mode scored, at home, with no further lab visit. In the parent rep
   suggestions (§11, "Beyond accuracy").
 - ~~**The board on a monitor**~~ — done 2026-10-17, on real HDMI through the capture
   card (§11, "Beyond accuracy").
-- **Power:** a plug-in meter (功率计量插座) from any lab — no apparatus needed, it plays
-  a recording; then `edge/soak.py --minutes 10` on the board and on the laptop (battery
-  full), Wh × 6 = watts.
+- **Power, the board's watts** (§11, "Power"): they sit in the GPP-6030's internal
+  memory as `MEM:\RECORD00` (readback ±(0.3% + 10 mA), one reading a second). Copy
+  them out with the USB stick removed first (the stick held 13,000 files — the likely
+  cause of the frozen menus), via Advance → F5 Recorder → F4 存储 → ›. If they will not
+  come out, run it again and film the supply's main screen instead: 2 min idle, then
+  `edge/soak.py --minutes 10` started over USB-C, the cable then unplugged.
 - **Later, the owner's C++ study (winter break):** the per-track loop (tracker and
   the hunt aid's per-track tests) and the panel digit reader in C++, installed from
   outside `cv/` like `fast.py` and held to the same proof (`fast.py check`, `exact`).
@@ -820,6 +882,5 @@ dongle's MJPG mode scored, at home, with no further lab visit. In the parent rep
     frame, a short live run. ~30 min. Optional, same trip: record raw sessions with
     droplets (`test/tools/raw_capture.py`) — positives currently come from only two
     days (§11).
-  - **One lab session at the end**, once INT8 runs on the board: the board live on
-    the apparatus, a few falls against a stopwatch, the demo video. That is the
-    headline, and the tie to the parent's real-time claim.
+  - ~~**One lab session at the end**~~ — done 2026-10-27 (§11, "Live on the reserved
+    units").

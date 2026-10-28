@@ -244,13 +244,17 @@ def todo(name):
 def main():
     ap = argparse.ArgumentParser(description = __doc__,
                                  formatter_class = argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--out", default = OUT)
+    ap.add_argument("--out", default = None)
     ap.add_argument("--todo", metavar = "UNIT")
+    ap.add_argument("--role", default = "unseen",
+                    help = "score the recordings with this common.FIXTURE_INFO role; "
+                           "mjpg = the raw/MJPG pair of 2026-10-27 -> results/mjpg/")
     a = ap.parse_args()
     if a.todo:
         todo(a.todo)
         return
-    names = [n for n, (_t, role) in C.FIXTURE_INFO.items() if role == "unseen"]
+    a.out = a.out or (OUT if a.role == "unseen" else os.path.join(C.RESULTS, a.role))
+    names = [n for n, (_t, role) in C.FIXTURE_INFO.items() if role == a.role]
     units = []
     for n in names:
         if not os.path.exists(os.path.join(C.DATA, "autolabel", n + ".npz")):
@@ -286,7 +290,15 @@ def main():
             review[u.name] = reviewCounts(u, [preds["%s — detector" % name]
                                               for name, _p in models])
 
-    L = ["# Detection accuracy on units never used in training", "",
+    title = {"unseen": "Detection accuracy on units never used in training",
+             "mjpg": "Detection accuracy, raw vs MJPG capture: unit 3-2, 2026-10-27"}
+    L = ["# " + title.get(a.role, a.role), ""]
+    if a.role == "mjpg":
+        L += ["Unit 3-2 recorded twice back to back, labelled blind as A and B (assigned "
+              "at random, revealed after the blind review): **A = MJPG** (Media "
+              "Foundation, 30.0 fps), **B = raw YUY2** (DirectShow, 23.6 fps). Different "
+              "sprays, so different droplets.", ""]
+    L += [
          "Hand-labelled frames (`edge/label.py`) inside the detection area; each quarter "
          "of a session and each unit weighted the same; 95%% bootstrap intervals (%d "
          "resamples). Match radius %.0f px. Model rows filter the classical blobs at the "
@@ -301,7 +313,7 @@ def main():
           "|---|---|---|---|---|---|---|"]
     out = {}
     groups = [(u.name, [u.name]) for u in units]
-    if len(units) > 1:
+    if len(units) > 1 and a.role == "unseen":      # pooling raw with MJPG means nothing
         groups.append(("all unseen", [u.name for u in units]))
     for label, members in groups:
         for row, perUnit in rows.items():

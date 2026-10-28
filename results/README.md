@@ -64,6 +64,22 @@ corrected by the blind review of `edge/score_unseen.py --todo`.
 | :-- | :-- | :-- |
 | `REPORT.md`, `report.json` | every track the hunt aid ringed or auto-picked, replayed with and without the classifier (FP32) and judged from blind clips (477): wrong suggestions per 10 minutes 9.2 → 8.7 on the test session, 1.7 → 1.7 and 3.3 → 3.3 on the unseen units — no reduction; the measure was fixed in the script's header before any replay | `edge/suggestions.py` run / clips / review / report |
 
+## `live/` — the board live on units held back for it (1-1, 3-3), 2026-10-27
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `README.md` | 11 legal falls measured live (21.3–21.5 updates a second); each within 0.87 s of the operator's timing from a phone video of the screen, on average 0.53 s (1-1) and 0.35 s (3-3); one droplet's charge per unit | the board's sessions; the phone timings by hand |
+| `falls_*.csv`, `charges_*.csv` | the board's own session output, unedited | `edge/live_viewer.py` → `edge/live_board.py` |
+| `demo_fall_1-1.gif` | 10 s of a live fall, 2× speed | cut from the board's screen recording |
+
+## `mjpg/` — the camera's MJPG mode (30 fps) against its raw mode, 2026-10-28
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `SCORE.md`, `score.json` | unit 3-2 recorded raw and then MJPG, 100 frames of each hand-labelled blind (as A and B) with the blind second look: the classical detector falls from 84.6% to 37.5% precision on MJPG (1.86 → 11.47 false a frame); the INT8 classifier scores the two alike — F1 85.4% raw, 85.1% MJPG, 0.70 vs 0.14 false a frame, recall 78.7% vs 75.3% | `edge/score_unseen.py --role mjpg`, INT8 from `edge/int8_test.py --fixtures` |
+
+Truth: `labels/unit3-2_1027_A/` (MJPG), `labels/unit3-2_1027_B/` (raw), from `edge/label.py`.
+
 ## `laptop_npu/` — the same classifier on a laptop NPU (Snapdragon X Elite), 2026-10-17
 
 | file | what | made by |

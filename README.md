@@ -70,6 +70,13 @@ frames each with the same blind second look (`results/unseen`):
 - A model retrained with four more units scores the same here (F1 90.1%) and on the
   test session, so the board keeps the first.
 
+The camera dongle's faster MJPG mode (30 frames a second instead of ~22) was scored the
+same way: one of those units recorded raw and then MJPG, 100 frames of each labelled
+blind (`results/mjpg`). Compression artefacts pass the classical gates — precision
+84.6% → 37.5%, false detections 1.9 → 11.5 a frame — but with the INT8 classifier the
+two modes score alike: F1 85.4% raw, 85.1% MJPG, 0.70 and 0.14 false detections a
+frame, for 3 points of recall. The faster mode is usable only with the classifier.
+
 On the board — RK3588S, Ubuntu 22.04, RKNN runtime 2.3.2 (`results/board`):
 
 | | per frame | FPS | detector + classifier | peak memory |
@@ -110,6 +117,14 @@ decoding, which a live camera does not pay. The detector with the classifier fit
 
 ## Live
 
+![A legal fall on unit 1-1, tracked live by the board, at 2× speed](results/live/demo_fall_1-1.gif)
+
+On two apparatus units held back from every recording (1-1 and 3-3, 27 Oct 2026), the
+board ran the session live — the camera dongle on the board, the classifier on the
+NPU, 21.3–21.5 updates a second — and measured 11 legal falls. Timed independently
+from a phone video of the screen, every fall agrees within 0.9 s: on average 0.53 s
+on 19 s falls and 0.35 s on 34 s ones (`results/live`).
+
 `edge/live_viewer.py` runs the whole live session on the board — the camera
 dongle on the board, the classifier on the NPU — with its window on a laptop over
 the USB-C cable: clicks pick droplets, `q` ends the session, `--record` saves the
@@ -123,6 +138,7 @@ Requirements: a Linux (or WSL2) machine for training and conversion, and the
 project's raw recordings — lossless frame folders, tens of GB, not in this repo.
 
 ```
+pip install -r edge/requirements.txt    # the laptop side: Python 3.11, versions pinned
 bash edge/setup_wsl.sh                  # venv: torch 2.2, RKNN-Toolkit2 2.3.2, onnx
 python edge/autolabel.py <recording>    # replay -> crops + tracker labels
 python edge/review_tracks.py prepare    # blind clips; `review` to answer them
@@ -147,8 +163,9 @@ python3 edge/board_bench.py ...         # on the board: model, accuracy, pipelin
 ## Status
 
 Done: the classifier, INT8 on the NPU, before/after on accuracy, latency and memory;
-the test on two apparatus units never used in training. Next: a live session on
-units held back for it.
+the test on two apparatus units never used in training; a live session on units held
+back for it; the camera's MJPG mode scored against hand labels. Next: the live path on
+MJPG, and the board's power draw.
 
 ## Origin
 
