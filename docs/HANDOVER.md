@@ -42,8 +42,9 @@ The history carries two authors: 122 commits by the repo owner, 42 by a teammate
 module — `cv/pipeline.py`, `cv/api.py`, `cv/source.py`, the panel reader, the
 live tutor's rules — is the owner's. `git log --author` settles any question.
 
-Keep this repo **private until the competition result is known**, whatever the
-parent's status.
+**Public since 2026-10-28**, the owner's decision, made when supervisors for the
+graduation project were to be contacted; the parent was already public. The history
+was scanned for keys before the switch: none (`.env.example` holds placeholders).
 
 ---
 
