@@ -75,7 +75,8 @@ same way: one of those units recorded raw and then MJPG, 100 frames of each labe
 blind (`results/mjpg`). Compression artefacts pass the classical gates — precision
 84.6% → 37.5%, false detections 1.9 → 11.5 a frame — but with the INT8 classifier the
 two modes score alike: F1 85.4% raw, 85.1% MJPG, 0.70 and 0.14 false detections a
-frame, for 3 points of recall. The faster mode is usable only with the classifier.
+frame, for 3 points of recall. The faster mode is usable only with the classifier, and
+live on the board it lifts the view from ~21 to 27.6 updates a second.
 
 On the board — RK3588S, Ubuntu 22.04, RKNN runtime 2.3.2 (`results/board`):
 
@@ -99,6 +100,10 @@ decoding, which a live camera does not pay. The detector with the classifier fit
 - **No throttling:** 15 minutes of the live view took the chip from 50 °C to 63 °C,
   levelling off, with every CPU and NPU clock at its maximum throughout; the board
   starts throttling at 75 °C.
+- **2.9 W:** the live view on the board draws 2.9 W at its 12 V input (1.1 W idle),
+  read from a bench supply over 10 minutes. The laptop running the same work on its
+  battery draws 15–17 W (8–9 W idle) — about a fifth of the power, at the same ~18
+  updates a second (`results/power`).
 - **The same model on a laptop NPU** (Snapdragon X Elite, ONNX Runtime with
   Qualcomm's QNN provider, same calibration crops): INT8 agrees with FP32 on 99.93%
   of validation crops and costs 0.0037 ms a crop in batches of 32 — 12× the RK3588's
@@ -123,7 +128,8 @@ On two apparatus units held back from every recording (1-1 and 3-3, 27 Oct 2026)
 board ran the session live — the camera dongle on the board, the classifier on the
 NPU, 21.3–21.5 updates a second — and measured 11 legal falls. Timed independently
 from a phone video of the screen, every fall agrees within 0.9 s: on average 0.53 s
-on 19 s falls and 0.35 s on 34 s ones (`results/live`).
+on 19 s falls and 0.35 s on 34 s ones. On a third held-back unit, with the camera in
+its MJPG mode, the live view ran at 27.6 updates a second (`results/live`).
 
 `edge/live_viewer.py` runs the whole live session on the board — the camera
 dongle on the board, the classifier on the NPU — with its window on a laptop over
@@ -164,8 +170,9 @@ python3 edge/board_bench.py ...         # on the board: model, accuracy, pipelin
 
 Done: the classifier, INT8 on the NPU, before/after on accuracy, latency and memory;
 the test on two apparatus units never used in training; a live session on units held
-back for it; the camera's MJPG mode scored against hand labels. Next: the live path on
-MJPG, and the board's power draw.
+back for it; the camera's MJPG mode, scored against hand labels and run live; the
+board's power draw. Next: a faster live loop — capturing frames in their own thread, and
+the per-droplet work in C++ — measured live in March 2027.
 
 ## Origin
 

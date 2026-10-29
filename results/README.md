@@ -68,7 +68,7 @@ corrected by the blind review of `edge/score_unseen.py --todo`.
 
 | file | what | made by |
 | :-- | :-- | :-- |
-| `README.md` | 11 legal falls measured live (21.3–21.5 updates a second); each within 0.87 s of the operator's timing from a phone video of the screen, on average 0.53 s (1-1) and 0.35 s (3-3); one droplet's charge per unit | the board's sessions; the phone timings by hand |
+| `README.md` | 11 legal falls measured live (21.3–21.5 updates a second); each within 0.87 s of the operator's timing from a phone video of the screen, on average 0.53 s (1-1) and 0.35 s (3-3); one droplet's charge per unit. 2026-10-29: unit 2-2 live in MJPG mode, 27.6 updates a second, 6 legal falls | the board's sessions; the phone timings by hand |
 | `falls_*.csv`, `charges_*.csv` | the board's own session output, unedited | `edge/live_viewer.py` → `edge/live_board.py` |
 | `demo_fall_1-1.gif` | 10 s of a live fall, 2× speed | cut from the board's screen recording |
 
@@ -79,6 +79,15 @@ corrected by the blind review of `edge/score_unseen.py --todo`.
 | `SCORE.md`, `score.json` | unit 3-2 recorded raw and then MJPG, 100 frames of each hand-labelled blind (as A and B) with the blind second look: the classical detector falls from 84.6% to 37.5% precision on MJPG (1.86 → 11.47 false a frame); the INT8 classifier scores the two alike — F1 85.4% raw, 85.1% MJPG, 0.70 vs 0.14 false a frame, recall 78.7% vs 75.3% | `edge/score_unseen.py --role mjpg`, INT8 from `edge/int8_test.py --fixtures` |
 
 Truth: `labels/unit3-2_1027_A/` (MJPG), `labels/unit3-2_1027_B/` (raw), from `edge/label.py`.
+
+## `power/` — the board against the laptop, the same work, 2026-10-20 and 10-29
+
+| file | what | made by |
+| :-- | :-- | :-- |
+| `README.md` | the live view on the board: 1.1 W idle, **2.9 W** running (12 V bench supply, 202 readings over 10 min, ±0.06 W on the mean); the laptop on battery: 8–9 W idle, 15–17 W running; both ~18 updates a second | `edge/soak.py --minutes 10` on each |
+| `board_readings_20261029.csv` | every reading of the supply's screen, one every 2 s, and which were used | the run filmed, read by Windows' OCR |
+| `laptop_battery_20261020.csv` | Windows' battery discharge rate and capacity every 5 s | a logger reading `root/wmi BatteryStatus` |
+| `board_soak_20261029.json`, `laptop_soak_20261020.json` | each run's updates a second, temperatures, clocks | `edge/soak.py` |
 
 ## `laptop_npu/` — the same classifier on a laptop NPU (Snapdragon X Elite), 2026-10-17
 

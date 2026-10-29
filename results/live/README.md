@@ -13,6 +13,20 @@ training, validation or any test before this (HANDOVER §4).
 The camera, not the pipeline, set the pace: the dongle's raw mode delivers about 22
 frames a second, and each frame took the board 17–20 ms.
 
+## The camera's MJPG mode, live (2026-10-29)
+
+After MJPG passed its hand-labelled test (`results/mjpg`), unit 2-2 — the third
+reserved unit — ran live with the dongle in MJPG mode (`live_viewer.py --capture mjpg`):
+
+| unit | board session | legal falls | window, updates a second | camera delivered | pipeline per frame |
+| :-- | :-- | --: | --: | --: | --: |
+| 2-2, MJPG | `20261029_110745` | 6 | **27.6** | 27.6 of 30 fps | 15.7 ms |
+
+27.6 updates a second against 21.3–21.5 in raw mode (+29%). Not the full 30: the loop
+waits for a frame (~21 ms) and then processes it (~16 ms), one after the other, so about
+one frame in ten is missed. Falls 19.86–21.13 s; one droplet's charge 1.479 × 10⁻¹⁹ C
+from 5 falls at 158 V (spread 2.0%, −7.7% from e). No independent timing this time.
+
 ## Fall times against an independent timing
 
 The operator filmed the laptop's screen with a phone and, blind to the board's
@@ -47,6 +61,6 @@ falls at 152 V (spread 2.3%, −10.7%).
 
 | file | what |
 | :-- | :-- |
-| `falls_1-1.csv`, `falls_3-3.csv` | every traverse the board measured, legal or not, as written by the session |
-| `charges_1-1.csv`, `charges_3-3.csv` | the charge per fall and per droplet, as written by the session |
+| `falls_1-1.csv`, `falls_3-3.csv`, `falls_2-2_mjpg.csv` | every traverse the board measured, legal or not, as written by the session |
+| `charges_1-1.csv`, `charges_3-3.csv`, `charges_2-2_mjpg.csv` | the charge per fall and per droplet, as written by the session |
 | `demo_fall_1-1.gif` | 10 s of unit 1-1's third fall at 2× speed, from the board's screen recording; to keep the file small, pixels that barely changed between frames are held from the previous frame |

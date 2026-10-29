@@ -1,0 +1,560 @@
+{
+ "minutes": 10.0,
+ "gate": "fp32",
+ "source": "C:\\Users\\LAN\\Documents\\GitHub\\Physics-Experiment-Assistant\\test\\fixtures\\spray_labelled_0907",
+ "window": "18.9 updates a second, gap median 45 ms, p90 75 ms, 2% over 150 ms",
+ "perMinute": [
+  {
+   "minute": 1,
+   "updatesPerSecond": 26.516666666666666,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 2,
+   "updatesPerSecond": 20.366666666666667,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 3,
+   "updatesPerSecond": 22.3,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 4,
+   "updatesPerSecond": 16.366666666666667,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 5,
+   "updatesPerSecond": 17.316666666666666,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 6,
+   "updatesPerSecond": 18.483333333333334,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 7,
+   "updatesPerSecond": 16.4,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 8,
+   "updatesPerSecond": 15.566666666666666,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 9,
+   "updatesPerSecond": 17.35,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  },
+  {
+   "minute": 10,
+   "updatesPerSecond": 18.116666666666667,
+   "hottestC": null,
+   "bigCoreMHzMin": NaN,
+   "npuMHzMin": NaN
+  }
+ ],
+ "log": [
+  {
+   "s": 0.0,
+   "shown": 0
+  },
+  {
+   "s": 5.0,
+   "shown": 152
+  },
+  {
+   "s": 10.0,
+   "shown": 307
+  },
+  {
+   "s": 15.0,
+   "shown": 471
+  },
+  {
+   "s": 20.0,
+   "shown": 647
+  },
+  {
+   "s": 25.0,
+   "shown": 823
+  },
+  {
+   "s": 30.0,
+   "shown": 994
+  },
+  {
+   "s": 35.0,
+   "shown": 1082
+  },
+  {
+   "s": 40.1,
+   "shown": 1166
+  },
+  {
+   "s": 45.1,
+   "shown": 1249
+  },
+  {
+   "s": 50.1,
+   "shown": 1363
+  },
+  {
+   "s": 55.1,
+   "shown": 1479
+  },
+  {
+   "s": 60.1,
+   "shown": 1592
+  },
+  {
+   "s": 65.1,
+   "shown": 1696
+  },
+  {
+   "s": 70.1,
+   "shown": 1778
+  },
+  {
+   "s": 75.1,
+   "shown": 1887
+  },
+  {
+   "s": 80.1,
+   "shown": 2005
+  },
+  {
+   "s": 85.1,
+   "shown": 2125
+  },
+  {
+   "s": 90.1,
+   "shown": 2257
+  },
+  {
+   "s": 95.1,
+   "shown": 2388
+  },
+  {
+   "s": 100.1,
+   "shown": 2520
+  },
+  {
+   "s": 105.1,
+   "shown": 2635
+  },
+  {
+   "s": 110.2,
+   "shown": 2695
+  },
+  {
+   "s": 115.2,
+   "shown": 2756
+  },
+  {
+   "s": 120.2,
+   "shown": 2815
+  },
+  {
+   "s": 125.2,
+   "shown": 2903
+  },
+  {
+   "s": 130.2,
+   "shown": 3010
+  },
+  {
+   "s": 135.2,
+   "shown": 3119
+  },
+  {
+   "s": 140.2,
+   "shown": 3239
+  },
+  {
+   "s": 145.2,
+   "shown": 3315
+  },
+  {
+   "s": 150.2,
+   "shown": 3417
+  },
+  {
+   "s": 155.2,
+   "shown": 3529
+  },
+  {
+   "s": 160.2,
+   "shown": 3650
+  },
+  {
+   "s": 165.2,
+   "shown": 3776
+  },
+  {
+   "s": 170.2,
+   "shown": 3907
+  },
+  {
+   "s": 175.2,
+   "shown": 4042
+  },
+  {
+   "s": 180.3,
+   "shown": 4158
+  },
+  {
+   "s": 185.3,
+   "shown": 4235
+  },
+  {
+   "s": 190.3,
+   "shown": 4280
+  },
+  {
+   "s": 195.3,
+   "shown": 4335
+  },
+  {
+   "s": 200.3,
+   "shown": 4385
+  },
+  {
+   "s": 205.3,
+   "shown": 4457
+  },
+  {
+   "s": 210.3,
+   "shown": 4551
+  },
+  {
+   "s": 215.3,
+   "shown": 4641
+  },
+  {
+   "s": 220.3,
+   "shown": 4751
+  },
+  {
+   "s": 225.3,
+   "shown": 4867
+  },
+  {
+   "s": 230.3,
+   "shown": 4952
+  },
+  {
+   "s": 235.3,
+   "shown": 5050
+  },
+  {
+   "s": 240.3,
+   "shown": 5141
+  },
+  {
+   "s": 245.3,
+   "shown": 5247
+  },
+  {
+   "s": 250.4,
+   "shown": 5352
+  },
+  {
+   "s": 255.4,
+   "shown": 5456
+  },
+  {
+   "s": 260.4,
+   "shown": 5563
+  },
+  {
+   "s": 265.4,
+   "shown": 5682
+  },
+  {
+   "s": 270.4,
+   "shown": 5795
+  },
+  {
+   "s": 275.4,
+   "shown": 5852
+  },
+  {
+   "s": 280.4,
+   "shown": 5910
+  },
+  {
+   "s": 285.4,
+   "shown": 5968
+  },
+  {
+   "s": 290.4,
+   "shown": 6028
+  },
+  {
+   "s": 295.4,
+   "shown": 6109
+  },
+  {
+   "s": 300.5,
+   "shown": 6179
+  },
+  {
+   "s": 305.5,
+   "shown": 6260
+  },
+  {
+   "s": 310.5,
+   "shown": 6361
+  },
+  {
+   "s": 315.5,
+   "shown": 6460
+  },
+  {
+   "s": 320.5,
+   "shown": 6525
+  },
+  {
+   "s": 325.5,
+   "shown": 6607
+  },
+  {
+   "s": 330.5,
+   "shown": 6693
+  },
+  {
+   "s": 335.5,
+   "shown": 6783
+  },
+  {
+   "s": 340.5,
+   "shown": 6883
+  },
+  {
+   "s": 345.5,
+   "shown": 6991
+  },
+  {
+   "s": 350.5,
+   "shown": 7095
+  },
+  {
+   "s": 355.6,
+   "shown": 7197
+  },
+  {
+   "s": 360.6,
+   "shown": 7293
+  },
+  {
+   "s": 365.6,
+   "shown": 7391
+  },
+  {
+   "s": 370.6,
+   "shown": 7433
+  },
+  {
+   "s": 375.6,
+   "shown": 7481
+  },
+  {
+   "s": 380.6,
+   "shown": 7541
+  },
+  {
+   "s": 385.6,
+   "shown": 7597
+  },
+  {
+   "s": 390.6,
+   "shown": 7669
+  },
+  {
+   "s": 395.6,
+   "shown": 7768
+  },
+  {
+   "s": 400.6,
+   "shown": 7864
+  },
+  {
+   "s": 405.7,
+   "shown": 7955
+  },
+  {
+   "s": 410.7,
+   "shown": 8063
+  },
+  {
+   "s": 415.7,
+   "shown": 8172
+  },
+  {
+   "s": 420.7,
+   "shown": 8281
+  },
+  {
+   "s": 425.7,
+   "shown": 8377
+  },
+  {
+   "s": 430.7,
+   "shown": 8475
+  },
+  {
+   "s": 435.7,
+   "shown": 8581
+  },
+  {
+   "s": 440.7,
+   "shown": 8685
+  },
+  {
+   "s": 445.7,
+   "shown": 8779
+  },
+  {
+   "s": 450.7,
+   "shown": 8875
+  },
+  {
+   "s": 455.7,
+   "shown": 8973
+  },
+  {
+   "s": 460.8,
+   "shown": 9022
+  },
+  {
+   "s": 465.8,
+   "shown": 9074
+  },
+  {
+   "s": 470.8,
+   "shown": 9112
+  },
+  {
+   "s": 475.8,
+   "shown": 9152
+  },
+  {
+   "s": 480.8,
+   "shown": 9204
+  },
+  {
+   "s": 485.8,
+   "shown": 9275
+  },
+  {
+   "s": 490.8,
+   "shown": 9342
+  },
+  {
+   "s": 495.8,
+   "shown": 9431
+  },
+  {
+   "s": 500.8,
+   "shown": 9511
+  },
+  {
+   "s": 505.8,
+   "shown": 9607
+  },
+  {
+   "s": 510.9,
+   "shown": 9676
+  },
+  {
+   "s": 515.9,
+   "shown": 9759
+  },
+  {
+   "s": 520.9,
+   "shown": 9849
+  },
+  {
+   "s": 525.9,
+   "shown": 9943
+  },
+  {
+   "s": 530.9,
+   "shown": 10041
+  },
+  {
+   "s": 535.9,
+   "shown": 10149
+  },
+  {
+   "s": 540.9,
+   "shown": 10261
+  },
+  {
+   "s": 545.9,
+   "shown": 10368
+  },
+  {
+   "s": 550.9,
+   "shown": 10476
+  },
+  {
+   "s": 556.0,
+   "shown": 10585
+  },
+  {
+   "s": 561.0,
+   "shown": 10638
+  },
+  {
+   "s": 566.0,
+   "shown": 10703
+  },
+  {
+   "s": 571.0,
+   "shown": 10758
+  },
+  {
+   "s": 576.0,
+   "shown": 10844
+  },
+  {
+   "s": 581.0,
+   "shown": 10945
+  },
+  {
+   "s": 586.0,
+   "shown": 11050
+  },
+  {
+   "s": 591.1,
+   "shown": 11142
+  },
+  {
+   "s": 596.1,
+   "shown": 11247
+  }
+ ]
+}

@@ -399,6 +399,9 @@ the board.
 | 16 Oct 2026 | ✓ unseen-unit test: F1 77.7% → 90.3% on two units never trained on (§11) |
 | 17 Oct 2026 | ✓ the board on real HDMI; live view 18.1 → 20.6 updates a second, same answers; the hunt aid's suggestions reviewed — no change (§11) |
 | 27 Oct 2026 | ✓ live on reserved units 1-1 and 3-3: 11 legal falls, each within 0.9 s of a phone-video timing; raw and MJPG recordings of unit 3-2 for the MJPG test (§11) |
+| 28 Oct 2026 | ✓ MJPG scored against hand labels: classical precision 84.6% → 37.5%, the classifier's F1 85.4% → 85.1%; the repo made public (§11) |
+| 29 Oct 2026 | ✓ live on MJPG, unit 2-2: 27.6 updates a second; power: the board 2.9 W, the laptop 15–17 W (§11) |
+| Mar 2027 | the owner's capture thread and C++ ports measured live — one lab visit |
 | Oct 2026 – Jan 2027 | build window |
 | **Jan 2027** | **MUST: inference running on the board, numbers recorded** — ✓ met 11 Oct 2026 |
 | Nov–Dec 2026 | BEST: README with the before/after table, demo video |
@@ -733,11 +736,14 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   15–17 W in the live view (18.9 updates a second); the two readings the battery gives
   — its rate and its falling capacity — differ by ~2 W, hence the ranges. A first run
   with an iPad charging from the laptop read 26 W idle and was discarded. The board
-  from a lab bench supply at 12.0 V (GW Instek GPP-6030): the run itself is done
-  (2026-10-27 13:14:23–13:24:25, 18.3 updates a second, every clock at its maximum,
-  37 → 47 °C; `data/soak/board_power_1027/`), but the supply's recorder saved to its
-  internal memory and its storage menus froze whenever the recording was to be copied
-  out — the watts are still to be read.
+  from a lab bench supply at 12.0 V (GW Instek GPP-6030), 2026-10-29: **1.1 W idle,
+  2.9 W in the live view** (18.3 updates a second) — about a fifth of the laptop.
+  The supply's screen was filmed through the run and read every 2 s by Windows' OCR:
+  202 readings, ±0.06 W on the mean; where a frame also gave the current, 12 V × amps
+  matched the watts in 109 of 122 (`results/power/README.md`). The first board run
+  (2026-10-27) used the supply's recorder, which saves to its internal memory; its
+  storage menus froze whenever the recording was to be copied out, so that run's
+  readings were never read — filming the main screen needs none of those menus.
 
 - **The laptop's NPU** (`edge/laptop_npu.py`, `results/laptop_npu/`): the same model
   as INT8 QDQ (onnxruntime's QNN recipe, the RKNN model's 499 calibration crops) on
@@ -842,6 +848,13 @@ dongle's MJPG mode scored, at home, with no further lab visit. In the parent rep
   (`python edge/live_viewer.py --capture mjpg`). A replay through the board's own
   desktop window managed 20.5 updates a second on this recording, but that path also
   draws the window on the board and reads PNGs; it is not the live viewer's.
+- **Live on MJPG (2026-10-29), unit 2-2, the third reserved unit:** 27.6 updates a
+  second against 21.3–21.5 raw (+29%), 6 legal falls (`results/live/README.md`). Not
+  30: the loop waits for a frame (~21 ms), then processes it (~16 ms), in turn, so about
+  one frame in ten is missed. Capturing in a thread of its own would overlap the two —
+  the first step of the owner's C++ study below. The first attempt refused to start
+  ("no camera showing the grid"): the apparatus was not cabled to the converter, whose
+  solid blue no-signal screen is what the board saw.
 
 ### Next, needing only minutes of the owner
 
@@ -851,13 +864,11 @@ dongle's MJPG mode scored, at home, with no further lab visit. In the parent rep
   suggestions (§11, "Beyond accuracy").
 - ~~**The board on a monitor**~~ — done 2026-10-17, on real HDMI through the capture
   card (§11, "Beyond accuracy").
-- **Power, the board's watts** (§11, "Power"): they sit in the GPP-6030's internal
-  memory as `MEM:\RECORD00` (readback ±(0.3% + 10 mA), one reading a second). Copy
-  them out with the USB stick removed first (the stick held 13,000 files — the likely
-  cause of the frozen menus), via Advance → F5 Recorder → F4 存储 → ›. If they will not
-  come out, run it again and film the supply's main screen instead: 2 min idle, then
-  `edge/soak.py --minutes 10` started over USB-C, the cable then unplugged.
-- **Later, the owner's C++ study (winter break):** the per-track loop (tracker and
+- ~~**Power**~~ — done 2026-10-29: the board 2.9 W in the live view, the laptop
+  15–17 W (§11, "Power"; `results/power`).
+- **Later, the owner's C++ study (winter break):** first a capture thread (frames read
+  in their own thread, stamped when captured, so the 21 ms wait overlaps the 16 ms of
+  processing — MJPG live toward 30 updates a second); then the per-track loop (tracker and
   the hunt aid's per-track tests) and the panel digit reader in C++, installed from
   outside `cv/` like `fast.py` and held to the same proof (`fast.py check`, `exact`).
   Expected: the dense spray from ~16 to ~20–23 updates a second, the fall-end stall
