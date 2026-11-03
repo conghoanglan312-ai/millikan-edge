@@ -319,7 +319,7 @@ adapter.
 
 | | |
 | :-- | :-- |
-| NPU | 6 TOPS, INT4/INT8/INT16. Identical on every RK3588/RK3588S; the listing's "AI" tag names the board line, not a better chip |
+| NPU | 6 TOPS, INT4/INT8/INT16 on paper; RKNN-Toolkit2 2.3.2 refuses `w4a16` and `w8a16` for rk3588, and takes `w8a8`, `w16a16i` and per-layer INT8/INT16 (tried in the simulator only, 2026-11-03). Identical on every RK3588/RK3588S; the listing's "AI" tag names the board line, not a better chip |
 | CPU | 4× Cortex-A76 + 4× Cortex-A55, up to 2.4 GHz |
 | OS | Ubuntu 22.04.5 LTS, installed by the vendor (the spec sheet lists only Android 12) |
 | camera | 1× USB 3.0 + 1× USB 2.0 host (MIPI CSI also present) |
@@ -398,7 +398,7 @@ the board.
 | 30 Sep 2026 | ✓ WSL2 and the RKNN toolchain installed on the Vivobook (§8) |
 | 16 Oct 2026 | ✓ unseen-unit test: F1 77.7% → 90.3% on two units never trained on (§11) |
 | 17 Oct 2026 | ✓ the board on real HDMI; live view 18.1 → 20.6 updates a second, same answers; the hunt aid's suggestions reviewed — no change (§11) |
-| 27 Oct 2026 | ✓ live on reserved units 1-1 and 3-3: 11 legal falls, each within 0.9 s of a phone-video timing; raw and MJPG recordings of unit 3-2 for the MJPG test (§11) |
+| 27 Oct 2026 | ✓ live on reserved units 1-1 and 3-3: 11 legal falls, the 10 timed from a phone video within 0.9 s; raw and MJPG recordings of unit 3-2 for the MJPG test (§11) |
 | 28 Oct 2026 | ✓ MJPG scored against hand labels: classical precision 84.6% → 37.5%, the classifier's F1 85.4% → 85.1%; the repo made public (§11) |
 | 29 Oct 2026 | ✓ live on MJPG, unit 2-2: 27.6 updates a second; power: the board 2.9 W, the laptop 15–17 W (§11) |
 | Mar 2027 | the owner's capture thread and C++ ports measured live — one lab visit |
@@ -415,7 +415,7 @@ the board.
 - [x] before/after recorded: latency, FPS, memory, accuracy delta — `results/`
 - [x] reproducible — 27 Oct 2026, from a fresh clone: the FP32 replay of the test
   session came out bit-identical and `edge/score.py` gave the published table row for
-  row (the INT8 rows reuse the WSL step's output); laptop packages pinned in
+  row (the classical, "replacing" and INT8 rows reuse the original run's intermediate files); laptop packages pinned in
   `edge/requirements.txt`
 
 Everything past that is upside.
@@ -737,7 +737,8 @@ in `data/live/`; the board's session folder (falls.csv, report) is copied there 
   — its rate and its falling capacity — differ by ~2 W, hence the ranges. A first run
   with an iPad charging from the laptop read 26 W idle and was discarded. The board
   from a lab bench supply at 12.0 V (GW Instek GPP-6030), 2026-10-29: **1.1 W idle,
-  2.9 W in the live view** (18.3 updates a second) — about a fifth of the laptop.
+  2.9 W in the live view** (18.3 updates a second). Not like for like with the laptop's total: no monitor here,
+  its screen on there; above idle, 1.7 W against ~7 W.
   The supply's screen was filmed through the run and read every 2 s by Windows' OCR:
   202 readings, ±0.06 W on the mean; where a frame also gave the current, 12 V × amps
   matched the watts in 109 of 122 (`results/power/README.md`). The first board run
@@ -807,8 +808,8 @@ dongle's MJPG mode scored, at home, with no further lab visit. In the parent rep
 - **Units 1-1 and 3-3, live on the board** (2-2 and 4-4 were optional and skipped):
   5 and 6 legal falls, 21.5 and 21.3 updates a second. The camera set the pace — the
   raw mode delivered ~21.5 of 25 frames a second while the board spent 17–20 ms a
-  frame. The operator timed each fall from a phone video of the screen, blind to the
-  board's numbers: every fall within 0.87 s, on average 0.53 s (1-1, 19 s falls) and
+  frame. The operator timed 10 of the 11 falls from a phone video of the screen, blind to the
+  board's numbers: all within 0.87 s, on average 0.53 s (1-1, 19 s falls) and
   0.35 s (3-3, 34 s falls); the board's is the shorter in 9 of 10.
 - **Raw recordings, all at full rate with no frame dropped**, on D: and linked into
   the parent's `test/fixtures/`: `unit3-3_1027_demo` (23.6 fps, a reserved unit: replay

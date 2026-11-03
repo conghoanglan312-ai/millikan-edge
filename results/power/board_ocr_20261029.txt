@@ -1,0 +1,414 @@
+﻿00000	00.00< | ooo.oou 0.00< | 00.00 | ooo.oo„ 0.00
+00002	00.01 ( | 000.00, 0.00- | 00.00< | ooo.oo„ o
+00004	O cv | 12.00 | 002.59* 021 | 00.00 | 000.00* 0.00
+00006	O cv | 1201 | 002.61 w 02 | 00.0 | 000.00B 0.0
+00008	C3Y app-6030 | O cv | 12006 | 003.47* 0289C | 00.000(
+00010	GPP-6030 | O cv | 12.00 | 002.71w 022 | 00.00
+00012	O cv | GPP-eoao | 1200( | 001.14* 0.09! | 00.00
+00014	GPP-6030 | O cv | 00259*
+00016	C'z2 GPP-eoao | 12.00€ | O cv | 00727, 0.60€
+00018	GPP-E030 | 120065v | @ cv | 001.06* 0.0887 A
+00020	GY2 IfETQ( GPP-6030 | O cv | 12.006 | 0.089
+00022	C'! GPP-E030 | @ cv | 12.006 | 001.06* 0.088
+00024	GPP-6030 | 1200! | 00255, 021,
+00026	
+00028	C'? ( GPP-E030 | O cv | 12.006
+00030	City GPP-soao | 12.ooc
+00032	GYA GPP-E030 | @ cv | 12.0(
+00034	@ cv | app-eoao | 12.006 | 001.06, 0.088
+00036	IÄSTE'( OPP-B030 | 12.006 | 001.06* 0.088
+00038	GPP-E030 | @ cv | 120061 v | 001.08, 0.0909A | oo.oooov | 000.00. 0.0000A
+00040	Z.UUOWv | 001 .06. 0.0887A | oo.oooov | 000.00. 0.0000A | O O.OV | OCPæp«t)
+00042	12006 | 001.06. 0.088 | oo.ooc | 000.00. 0.00( | O O.Ov ovp | OCP<
+00044	0 cv | 001.06. | 00.00< | 000.00* 0.00 | O O.Ov ovp
+00046	@ cv | 12006: | 00245. 0204 | 00.000 | 000.00. 0.00 | 0 0.0 v ovp | OCPu
+00048	O cv | 120063 | 001.06, 0.0890 | 00.0000 | 000.00. 0.000
+00050	@ cv | 12.0063v | 001.06* 0.0884A | oo.oooov | 000.00* 0.0000A
+00052	12.0061 v | O cv | 001.61, 0.1348A | oo.oooov | 000.00. 0.0000A
+00054	G pp-E030 | 12.0064v | 001.06* 0.0888A | Vset | I sot | OVP | OCP | Vset
+00056	ape-€oao | 120062v | O cv | 00883 | A | oo.oooov | Vset | OCP | Vset | Iset
+00058	O cv | 00106. 0.0883A | oo.oooov | 000.00. 0.0000A | Vset 12.cm | I sot 3.0000 | OVP 65.0 | OCP 3.50 | V.et 00.000 | Isot 0.0000 | OVP 65.0 | OCP 3.50
+00060	OPP-6030 | 12.0062v | 00106. 00887 | oo.oooov | Vet 12.0 | Int 3.00 | OVP 65.0 | OCP 3.5C | Vset OO.C
+00062	GW tnSTEK GPP-G030 | O cv | 120059v | 001.06, 0.0886 | oo.oooov | Vset 12 | Iset 3. | OVP | OCP 3. | Vset OC | Isot O.
+00064	120062v | (D cv | 00106, 0.0886 | oo.oooov | 000.00. 0.0000A | Vset 1 | Iset | OVP | OCP | Vset | I set | OVP
+00066	12.0061v | O cv | 0.0886A | oo.oooov | 000.00. 0.0000 | A | OVP | OCP | Vsot | I set | OVP | OCP
+00068	120061V | 001.02, 0.0853A | oo.oooov | 000.00. 0.0000A | Ise | OW | oc | Vse | Ise | ov
+00070	GO? tnSTEK GPP-60ao | 120063v | O cv | 00102. 0.0857 A | oo.oooov | 000.00. 0.0000A | ov | oc
+00072	Gti-I tn5TEl( opp-eoao | O cv | 120062v | 001.02, 0.0854A | oo.oooov | 00000 | ov | oc | vs | 18 | ov
+00074	lflSTEK GPP-€oao | 120063v v | 00158, 0.1317A | oo.oooov | 000.00. 0.0000A r,
+00076	GW tn5TEl( OPP.-6030 | O cv | 120062v | 00104, 0.0873 | oo.oooov
+00078	'D ev | m102.
+00080	(D cv | 120063 | V | 00102, 00855A | oo.oooov | 000.00. 0.0000. | O O.OV | OCPasp«t) | Voet | I sot | OVP | OCP | Vsot | Isot | OVE' | OCP | Vsot
+00082	GW lfl5TEK app-zoao | @ cv 12.0062v | 001.02, 0.0854A | oo.oooov | 000.00. 0.0000A | Vsa | ow
+00084	GW tn5TEK OPØ-6030 | O cv | 120060v | 00102. 0.0854A | oo.oooov | 000.00. 0.0000A | ov | oc | oc
+00086	GW apo-8030 | O cv | 120059v | 001.02, 0.0854A | oo.oooov | 000.00. 0.0000A
+00088	Gi-u It-t5TEI( GPP-8030 | O cv | 120062v | 001.02, 0.0855A | oo.oooov | 000.00, 0.0000A | 1 | 0
+00090	OPP-E030 | O cv | 120059v | .02, 0.0853A | oo.oooov | 000.00, 0.0000A
+00092	GW tnSTEK OPP-B030 | @ cv | 120060v | 001.02. 0.0854A | oo.oooov | nnnnn nnnnn
+00094	GW tn5TEl( GPP-6030 | 120060v | O cv | .02. 0.0853A | oo.oooov
+00096	120059v | 00251. 02091 | oo.oooov
+00098	@ cv | 120060v | 00102, 0.0857A | oo.oooov
+00100	GW If75TEt{ OPP-E030 | 120060v | O cv | 001.02. 0.0857.
+00102	GW Inst-EK GPP-E030 | 120062v | 00102. 0.0855A
+00104	GW '175TEK app-6030 | 120060v | 001.03, 00858A
+00106	GW tn5TEK GPP-6030 | (D cv | 120060v | 001.02, 0.0854A
+00108	GW InSTEI( GPP-€oao | 120058v | 00102, 0.0856A
+00110	GPP-6030 | 120058v | 001.03. 0.0860A
+00112	GW 'T15TEK app-6030 | O cv | 120056v | 001.02, 0.0856A
+00114	GW tn5TEK OPP-6030 | O cv | 120058v | 001 02, 0.0854A
+00116	tn5TEi( OPP-6030 | O cv | 120058v | 001.02, 0.0856A
+00118	OPP-B030 | Ocv | 120058v | 00159. 0.1332A | oo.oooov
+00120	001.49.'ö.iä4éA | oooooov | 000.00. 00000. | C) O.Ov ovp | OCPanp«ø V,
+00122	
+00124	
+00126	
+00128	
+00130	00000.
+00132	ooono. | 00,
+00134	(D cv 12.Ü3 | 00105. 00876. | oo.oooov | 000.00. 00000 | Vet | OVI' | Dep | Vet | let | OVE' | OCP
+00136	v | 00104. om73A | 00.0000. | 12M | let a.00( | Vet OO.« | O.OC
+00138	(D cv | opø-aoao | 120051 | V | 00222, 0.1854A | oo.oooov | 000.00. 0.0000A | Vsot | Vsot | OVI' | OCP
+00140	h Ans:'. | G u' ITISTEK | (D cv | 00165. 0.1378A | Vsot 12. | Isot 3.0 | OVI' | Vet 00.
+00142	GU' Ins-rEK | @ cv | 120052v | Vsot 12.00 | Isot 3.OOC
+00144	ITISTEK | (D cv | apo-6030 | 120053v | Vsot 1: | Isot 3.
+00146	c, 'u ln.5TEK OPØ-Ø030 | 120052v | (D cv | 00497. 0.4147A | Vsot 12.000 | Isot 3. | ovp O
+00148	G lu 1175TEK | 120055v | (D cv | 00241, 02014A | Vsøt 12.0( | Isot 3.00( | OVI'
+00150	OVE
+00152	cv! 12.0052 | 12.000 | M054. 02121 A
+00154	002B.
+00156	02130. | -4 | vet 12.000 | a.oow | 0.0"
+00158	EK app-.B030 | 120051v | 022t6A | oo.oooov | Vset 12.000 | Iset 3.0000 | Voet 00.000 | I set 0.0000 | OVP 65.0 | System
+00160	120051v | (D cv | 00288. 01999* | 00.0000, | 000.00. 0.0000. | o | OCPq.sep«t) | OVP
+00162	GPO | @ cv | 00384. | 00.00
+00164	GW ITISTEK OPP-G030 | 120052v | O cv | 00259, 02164A | oo.oooov
+00166	GI-UTISTEK GPP-B030 | (D cv | 120051 | 0.108€ | 00.000
+00168	O cv | 005.59, | 00. | 000.00, o
+00170	(D cv | 003.07, | ooo.oow
+00172	O cv | 002B7w | 00.
+00174	O cv | 005.04w 0.4 | 00.0 | 000.00, 0.0
+00176	00290, 0241 | 00.000 | ooo.oow 0.000 | O O.OV | oc
+00178	120052 | (D cv | 005.06* 0.4220 | oo.oooc | 000.00. o.oooc
+00180	1200 | O cv | 00421, 035 | 00.0
+00182	GW IK15TEK GPP-6030 | (D cv | 120051 | 00248, 0207 | 00.000
+00184	GU IT15TEK GPP-EOSO | (D cv | 120053v | 00495* 0.4130A | 00.0000 v
+00186	rnSTEK | (D cv | GPP-6030 | 120052v | 00258, 02151 A
+00188	GW 1115TEK GPP-6030 | (D cv | 12.005: | 003.40, 0284
+00190	GWjn5TEK | (D cv | 120053v
+00192	(j) CV | 120050v | 004.19. 03497A | oo.oooov
+00194	IT15TEI( GPP-6030 | 1200 | (D cv | 005.71 w 047 | 00.00
+00196	1175TEl( GPP-603C | (D cv | 12C | 00239, 0.1
+00198	GID IT15TEl( GPP-S030 | 120 | (D cv | 002.44, 02
+00200	GW Inst GPP-BOaa | (D cv | 12C | 003.14,
+00202	GW tnSTEK GPP-E030 | O cv | 120 | 00290. 02
+00204	GW ITISTEK GPP-6030 | (D cv | 1200 | 2.52, 021
+00206	GU tnSTEK GPP-G030 | O cv | 120
+00208	Gt•u IC15TEK GPP-6030 | (D cv
+00210	Gi-u IT15TEK GPP-E030 | (D cv | 120050v
+00212	Gi-u li15TEK GPP-6030 | O cv | 120051
+00214	app-€oao | (D cv
+00216	ITIS'TEK aPP-E030 | O cv
+00218	GW tn5TEl( GPP-6030 | 12004% | O cv | 00251, 02098A
+00220	GUJjn5TEK GPP-€030 | (D cv | 1200Z | 00283,
+00222	GUJln5TEJ< GPP.-eoao | 120050v
+00224	GUJtn5TEK
+00226	(D cv | Vset 12.0(
+00228	GW tn5TEK OPP-6030 | (D cv | 120048v | Vset 12.000 | Iset 3.0000
+00230	GW Ins-TEK GPP-6030 | (D cv | 120050v | 00240* 02005A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVE) 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000
+00232	GI-Y 1115TEK GPP-8030 | 120049v | 00282, 02352A | 00.0000— | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000
+00234	GUJtn5TEK | (D cv | GPP-E030 | 120049v | 002.53, 02108A | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50 | Vsøt 00.000
+00236	EK GPP-6030 | 120048v | 133, 0.1112A | Vset 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50
+00238	GPP-G030 | 12.0047 v | 3.46* 02888A | Vset 12.000 | Iset 3. | OVI) 65.0 | OCP 3.50 | Vset 00.000
+00240	15TEK OPP-E030 | ) cv | 120048v | 002.61* 02178A | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000
+00242	ITISTEK GPP-6030 | (D cv | 120047v | 00254, 02118A | Vset 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50
+00244	V tn5TEK GPP-6030 | (D cv | 120047v | 00126, 0.1050A | Vsøt 12.000 | Iset 3.0000 | OVE) 65 n | OCP 3.50 | Vset 00.000
+00246	120047 | v | 0242, 02016A | oo.oooov | 0000. 0.0000A | Vset 12.000 | Isot 3.0000 | ()VP 65 0 | Vset 00.000 | Iset 0.0000 | OW 66.0 | OCP 3.50
+00248	GUJtnSTEK OPP-6030 | O cv | 120047v | 00257, 02145A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50
+00250	GU'ITISTEK
+00252	
+00254	
+00256	IOSTEK GPP-€030
+00258	15TEK GPP-6030
+00260	1115TEK GPP-G030
+00262	InsrEK | Vset 12.000
+00264	GUJ Ins-rEK | (D cv | apo-6030 | 120050v | 00127, 0.1063A | Vset 12.1 | Iset 3.0 | OW | OCP 3.51 | Vset 00.1
+00266	GW acv-6030 | Vsot
+00268	GUJKETEK OPP-6030 | (D cv | 120049V | Vsc
+00270	GW IT15TEK GPP-6030 | 00272. o | (D cv | 120049v | Vset | Iset | OVI'
+00272	1115TEK OPP-E030 | (D cv | 120048v | Vsøt 1: | Iset 3 | OVI'
+00274	GUJlflSTEK 6030 | O cv | 120049v | Vsøt 1 | Iset | OW
+00276	GUJtnSTEK GPP-6030 | (D cv | 120048v | 002.3% O.t099A | Vset | Iset | OVP | OCP
+00278	GWInSTEK | O cv | 120048v I. | ov
+00280	ITISTEK GPP-6030 | 120049v | O cv | 002.83, 02039A
+00282	GUJIIISTEK GPP-G030 | 120050v | O cv | 003.14, 02620A
+00284	GUJITISTEK GPP-E030 | 120049v | 00524, 0.4372A
+00286	GUJtnSTEK | O cv | 120050v | 00257, 02148A | oo.oooov | ov | oc | vs | Is
+00288	(j) CV | 120050v | 00254* 02117A | oo.oooov | 000.00. 0.0000A | Vset | Isot | OVI) | OCP | Vset ( | Iset | OVI) | OCP
+00290	Gtætn5TEK | (j) CV | 120048v | 00223. 0.1859A | oo.oooov | Vsot 12.00 | Iset 3.000 | OVP 65.0 | OCP 3.50 | Vset 00.00 | I set 0.000
+00292	GUJtn5TEK | 120048v | (D cv | 00327. 02731 A | oo.oooov | OVI | OCI
+00294	GU IIISTEK GPP-6030 | O cv | 120048v
+00296	If'1STEK OPP-6030 | 120047v | (D cv | 00286, 02389A
+00298	GUIT15TEK GPP-E030 | 120046v | O cv | 00245, 02043A
+00300	GUJlfl5TEK 6030 | 12.0047v | (D cv | 001.18* 0.0985A | oo.oooov | 0
+00302	GLUIIISTEK app-soao | 120047v | O cv | 002.34, 0.1955A | oo.oooov | oc
+00304	GUJ1115TEK GPP-6030 | 120045v | (j) CV | 00336* 02801 A
+00306	GUJU75TEK | 120045v | 00243* 02027A | Is | 0 | Vs
+00308	c;wtns-rEK | ærsr= | (D cv | GPD-6030 | 120045v | 00251, 02091 A | oo.oooov | Vset 12 | Iset 3.1 | OVI) 65 | OCP 3.. | Vset 00 | Iset 0.1 | OVP 65
+00310	(D cv | GPP-6030 | 120044v | 00393. 03282A | oo.oooov | Vset IS | Iset 3. | OVP | OCP a. | Vsøt OC | Iset O. | OVP
+00312	GUJlnSTEK | O cv | 120047v | 00277, 02312A | Vsot | Iset 3. | OCP 3.
+00314	GUJlnSTEK GPP-6030 | (D cv | 120045v | 00249, 02079A | Vset Ifi | Iset 3. | OW | OCP a. | Vsot OC
+00316	GUJtnSTEK | (D cv | 120045v | 00220, 0.1837A | Vsøt 12.1 | Iset 3.0 | OW 65.1 | OCP 3.51
+00318	GUjrn5TEK GPP-6030 | O cv | 120046v | 00276* 02303A | Vset 12.1 | Iset 3.(X | OVP 65.( | OCP 3.5( | Vsot 00.1
+00320	GUJtn5TEK GPP-6030 | (D cv | 120046v | 00253, 02115A | oo.oooov | 000.00. 0.0000A | Vset 12. | Isot 3.0 | OVI) 65. | OCP 3.5 | Vset 00. | Iset 0.0 | OVP 65.
+00322	osæ-eoao | (j) CV | 120047v | 004.06, 03385A | oo.oooov | 000.00. 0.0000 | Vsot 12.000 | 3.0000 | OVP 65.0 | OCP 3 SO | Vsøt nooo | I sot 0.0000 | OW 65.0 | OCP 3.50
+00324	G'"tns-rEK | (j) CV | 120050v | 00303, 02525A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OW 650 | OCP a 50 | Vsøt 00.000 | I sot 0.0000 | OVP 65.0
+00326	IT15TEK apø-€oao | (D cv | 120048v | 00221. 0.1847A | oo.oooov | Vsot 12.000 | Iset 3.0000 | OVP | OCP 'J 50 | Vset 00.000 | Iset 0.0000
+00328	GUJtnSTEK | (D cv | 120048v | 002.86. 02387A | oo.oooov | Vset 12.000 | Isot 3.0000 | OVP 65 n | OCP | Vset 00.000 | Isot 0.0000 | OVI) 65.0
+00330	GUUtn5TEK | O | cv | 120049v | Vset 12.000 | Int
+00332	GUIn5TEK | (D cv | 120047v | Vset 12.000 | Iset 3.0000
+00334	GLYlf15TEK | (D cv | 120046v | Vsot 12.000 | I set 3.0000
+00336	rnSTEK | O cv | 120047v | Vset 12.000 | Isot 3.0000
+00338	(D cv | 120048v | 002.76, 02302A | oo.oooov | 000.00. 0.0000A | Vet 12.000 | Iset 3.0000 | OW 65 n | OCP a 60 | Vsot 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00340	(D cv | 120047v | 002.76, 02306A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP | Voet 00.000
+00342	GW trt5TEK GPØ-6030 | O cv | 120047v | 00297, 02481 A | oo.oooov | Vsøt 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000
+00344	J 1115TEK GPP-6030 | c | cv | 120049v | 00253. 021 OBA | oo.oooov | Vset 12.000 | I set 3.0000 | OVI' 65 n | OCP a | Vsot 00.000 | Iset 0.0000
+00346	GW 1115TEK GPP-6030 | 120048v | CD cv | 005.15, 0.4297A | Vsøt 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.60 | vset 00.000
+00348	ICISTEK GPP--E030 | (j) CV | 120047v | 002.77, 02312A | Vet 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000
+00350	GPP-6030 | (D cv | 120050v | 003.12, 02605A | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vet 00.000
+00352	I IÄSTEK GPP-E030 | D cv | 120048v | 00252W 02101 A | Vsot 12.000 | Iset 3.0000 | OVP 66.0 | OCP 3.50 | Vset 00.000
+00354	GLYtn5TEK | (D cv | 120048v | 00217, 0.1810A | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP g so
+00356	O cv | GPP-E030 | 120047v | Vsøt 12.000 | I set 3.0000 | OW 65 n
+00358	OSTEK | D cv 12.0048v | 00254, 02124. | 12.mo | OvP 650 | 00.000
+00360	(D | cv | 120048v | 00254, 02117A | oo.oooov | 000.00. 0.0000A | O O.OV | OCPosp«ø | Vset 1 | 3.0000 | OW 65.0 | OCP 'J 50 | Vsot 00.000 | Isot 0.0000 | OW 65.0 | OCP 380 | Vsot 5.0
+00362	(D cv | 120049 v | 00225. 0.1877A | oo.oooov | 000.00. 0.0000A | o o.ov | OCPasep.•o | Vset 12.000 | Iset 3.0000 | OVI) 65 0 | OCP a.50 | Vsøt 00.000 | Iset 0.0000 | OVI) 65.0 | OCP 3.50 | Vset 5.0
+00364	(D cv | 120049v | 00268, 02234A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | Iset 3.0000 | OW 65 n | OCP 3.50 | Vset 00.000 | Iset | OVI) 65.0 | OCP 3.50
+00366	ITISTEK GPP-6030 | (D cv | 120048v | 00249, 02081 A | oo.oooov | Vsøt 12.000 | I sot 3.0000 | OVI) 65.0 | OCP a.so | Vset 00.000 | Isot 0.0000 | OVP 65.0
+00368	SW tn5TEK OPP-6030 | (D cv | 120047v | 00267, 02231 A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0
+00370	G'" Ins-TEK | O cv | 120048v | 00421, | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.60 | Vsot 00.000 | Iset 0.0000 | OVP 65.0
+00372	GW 1115TEK apø-6030 | CD cv | 120048v | 00241, 02012A | oo.oooov | 000.00. 0.0000A | Vsot 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0
+00374	(D cv | 120048v | 00246, 02054A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP a "0 | Vset 00.000 | Iset 0.0000 | OVP 65.0
+00376	IC15TEK | (D cv | 120049 v | 00383* 03191A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vsøt 00.000 | Iset 0.0000
+00378	ITISTEK app-6030 | CD cv | 120047v | 00254, 02117A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI' 65.0 | OCP a.50 | Vset 00.000 | Iset 0.0000
+00380	GUJ1nSTEK | (D cv | 120049v | 002.50. 02086A | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000
+00382	GUJtn5TEK | (D cv | 120048v | 002.52. 02100A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000 | Iset 0.0000 | OVI) 65.0
+00384	GWtn5TEK | 120047v | 00258. 02154A | oo.oooov | Vsot 12.000 | Isot 3.0000 | ove 65.0 | OCP 3.50 | Vsot 00.000 | Iset 0.0000
+00386	(D cv | 120048v | 004.60, 02834A | oo.oooov | 000.00. 0.0000A | 0 0.0 v ovp | OCPæp«o | Vsøt 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vsot 00.000 | I set 0.0000 | OW 65.0 | OCP 3.50 | Vset 6.0
+00388	(j) CV | 00253, | 120046v | oo.oooov | 000.00. 0.0000A | Vet 12.000 | I sot 3.0000 | OW 65.0 | OCP 3.60 | Vset 00.000 | I sot 0.0000 | OVP 65.0 | OCP 3.50
+00390	(D cv | 120048v | 00210, 0.182JA | oo.oooov | 000.00. 0.0000m | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP a so | Vsot 00.000 | I "t 0.0000 | OVP 65.0 | OCP 3.50
+00392	(D cv | 120045v | 0.4438A | oo.oooov | 000.00. 0.0000A | OVP | OCPæp«ø | Vet 12.000 | Iset 3.0000 | OVI) 65.0 | OCP a 50 | Vsot 00.000 | Isot 0.0000 | OW 65.0 | OCP 3.50 | Vset
+00394	120044v | 00525. 04377A | oo.oooov | 000.00. 0.0000A | Vet 12.000 | Isot 3.0000 | OW 6b.O | OCP 3.50 | Vsot 00.000 | Isot 0.0000 | OVP 65.0 | OCP 3.50
+00396	(D cv | 120047v | 002.52, 02103A | Vset 12.000 | Iset 3.0000 | OVP 65.0
+00398	(D cv | 120048v | 00263* 02192A | Vset 12.0 | Iset 3.00 | OVI) 65.0 | OCP 3.50
+00400	InsTEK | (j) CV | 120045 v | 00225. 0.1875A | oo.oooov | Vset 12.000 | Iset 3.0000 | OW 65 n | OCP a 50 | Vset 00.000 | I sot 0.0000
+00402	lii5TEK app-€oao | (j) CV | 120047v | 00258, 02154A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000 | Isot 0.0000 | OVE) 65.0
+00404	If1STEK OPP-E030 | O cv | 120047v | 004.18, 0.3487A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00406	GW tn5TEK OPP-6030 | (D cv | 120047 | v | 00248, 02066A | oo.oooov | Vset 12.000 | Isot 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000 | I set 0.0000 | OVP 65.0
+00408	(D cv | 120048v | 00224, 0.1874A | oo.oooov | 000.00. 0.0000A | Vsot 12.OOC | Iset 3.OOOC | OVP 65.0 | OCP 3.50 | Vet 00.000 | Iset 0.0000 | OVP 65.0 | OCP
+00410	O cv | 120048v | 00226, 0.1885A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP | Vset 00.000 | 0.0000 | OVP 65.0 | OCP 3.50
+00412	GWInSTEK | cv | apsa-6030 | 120047v | 00224, 0.1869A | oo.oooov | 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | 00.000 | Iset 0.0000
+00414	(D cv | 120049 v | 00275. 02298A | oo.oooov | 000.00. 0.0000A | 0 0.0 v ovp | OCPcspa-o | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP a.50 | Vset 00.000 | I set 0.0000 | OVP 65.0 | OCP 3.50 | Vsøt 6.0
+00416	cv | 120051 | v | 00248. 02070A | oo.oooov | 000.00. 0.0000A | 0.0v ovp | OCPonp«ø | Vset 12O0 | Iset 3.0000 | OVP 05.0 | OCP a 50 | Vsot 00.000 | I set omoo | OVP 65.0 | OCP 3.50 | Vet 5.0
+00418	120048v | 251, 02098A | oo.oooov | 0.00. 0.0000A | 0.0 v ()VP | OCPLOP«-O | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OW 65.0 | OCP 3.50 | Vset 5.0 | System | CHI
+00420	120047v | 0.1991 A | oo.oooov | 0.00. 0.0000A | 0.0v ovp | OCPcsp«t) | Vset 12.000 | Iset 3.0000 | ()VP 650 | OCP 50 | Vset 00.000 | Isot 0.0000 | OW 65.0 | OCP 360 | Voet 5.0 | Systor
+00422	0.1922A | oo.oooov | 00.00, 0.0000. | 0.0v ovp | I set 3.0000 | OVI) 65.0 | OCP a so | Vset 00.000 | I set 0.0000 | OVP 65.0 | OCP 3.50 | Vsot 5.0 | Syste | , CHI
+00424	(D cv | 120049 v | 003.01, 02514A | oo.oooov | 000.00. 0.0000A | O O.Ov ovp | OCPCNP.•Ø | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | 5.0
+00426	120046v | 225* 0.1882A | oo.oooov | 0.00. 0.0000A | Vset 12.000 | I set 3.0000 | OW | OCP 3.50 | Vsøt 00.000 | Iset 0.0000 | OVI) 65.0 | OCP 3.50 | Sy
+00428	120047v | 52, 02105A | oo.oooov | 00. 0.0000A | Vset 12.000 | lset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | I wt 0.00m | OVP 65.0 | Systerr
+00430	(D cv | 000.00 | 120045v | 00127, 0.1059A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI) 60.0 | OCP 3.50 | Vsot 00.000 | I set 0.0000 | OW 65.0
+00432	Ovp 65 0
+00434	(D cv | 120048v | 005.14, | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OVE) 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OVI) 65.0 | OCP 3.50
+00436	(D cv | 120048v | 003.04, 02534A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | lset 0.0000 | OVI) 65.0 | OCP 3.50
+00438	tns-rEK | (D cv | GPP-6030 | 120045v | 00258. 02153A | oo.oooov | Vsøt 12.000 | Isot 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0
+00440	tn5TEK | (j) CV | OPP-6030 | 120048v | 002.45W 02044A | oo.oooov | Vsøt 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OW 65.0
+00442	GW ITISTEK OPP-6030 | (D cv | 120048v | 00240* 02007A | oo.oooov | Vset 12.000 | I set 3.0000 | OVI) 650 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00444	GW Irt5TEK GPP-€030 | O cv | 120048v | 00253, 02109A | oo.oooov | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP g.50 | Vet 00.000 | Iset 0.0000
+00446	ærsrec | (D cv | opø--E030 | 120048v | 002.24, 0.1874A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00448	GW 1115TEK GPP-6030 | 120045v | O cv | 00454, 03787A | oo.oooov | vset 12.00 | Iset 3.000 | OVP 65 n | OCP 3.50 | Vset 00.00 | leet 0.000
+00450	ITISTEK GPP-6030 | (D cv | 120045v | 00265, 02130A | oo.oooov | Vset 12.00 | I set 3.000 | OVP 65.0 | OCP 3.50 | Vsot 00.00 | Iset 0.000 | pvp
+00452	InsTEK | CD cv | app-6030 | 120045v | 00224, 0.1868A | oo.oooov | Vset 12.00 | Iset 3.000 | OVI) 65.0 | OCP 3.50 | Vset 00.00 | Iset 0.000
+00454	GW TISTEK | .1 | (D cv | GPP-6030 | 120044v | 00226, 0.1885A | oo.oooov | Vset 12.0C | Iset 3.000 | OVI) 650 | OCP | Vet 00.00 | Iset 0.000 | OVP 65.0
+00456	120043v | 002.61, 02182A | oo.oooov | 000.00, 0.0000A | Vset 12.0C | Iset 3.00C | OVP 65.0 | OCP | Vsot 00.00 | Iset 0.000 | OVP 65.0
+00458	(D cv | 120044v | 003.02, 02518A | oo.oooov | 000.00, 0.0000A | Vset 12.0 | Iset 3.001 | OW 65.0 | OCP 3.50 | Vset 00.01 | Iset 0.00( | OVP 65.0 | OCP 3.50
+00460	(D cv | 120044v | 00129, 0.1079A | oo.oooov | 000.00. 0.0000A | Vset 12.00 | Iset 3.000 | OVI) 65.0 | OCP a.50 | Vset 00.00 | Iset 0.000( | OVP 65.0 | OCP 3.50
+00462	(D cv | 120045v | 00225, 0.1876A | oo.oooov | 000.00. 00000. | Vset 12.00( | Iset 3.000( | OW 651) | OCP 3.50 | Vset 00.00( | I set 0.000( | OVI) 65.0
+00464	O cv | 120046v | 004.47, | oo.oooov | 000.00. o | Vset 12.0( | Iset 3.00( | OVE) 65.0 | ocp 3.50 | Vset 00.0< | Iset 0.00( | OVP 65.0
+00466	CD cv | 120045v | 00275, 02297A | oo.oooov | 0000. onnnn. | Vsøt 12.0( | Iset 3.00( | OVI) 65.0 | OCP g go | Vset 00.0( | I set 0.00( | OVP 65.0
+00468	ærsr= | (D cv | 6030 | 120045v | 00242, 02019A | oo.oooov | Vset 12.00 | Iset 3.000 | OVI) 65.0 | OCP a.50 | Vset 00.00 | Iset 0.000
+00470	(D cv | 120044v | 00284, 02373A | oo.oooov | 000.00. o. | Vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.60 | Vset 00.000 | Iset 0.0000 | OVI) 65.0
+00472	(D cv | 120044v | 00208, 0.1739A | oo.oooov | 000.00. 0.0000A | Vsot 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vsøt 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00474	GPP-6030 | 0) cv | 120044v | 001 90, 0.1585A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000
+00476	(D cv | 120046v | 00246, 02050A | Vsot 12.000 | 3.0000 | OVP 65.0 | OCP 3.50
+00478	GW tf15TEK aPP-6030 | (j) CV | 120045v | 00453. 0.3780A | Vset 12.000 | I sot 3.0000 | OVP 65.0 | OCP 3.50
+00480	GW IC15TEK app-60ao | (D cv | 120045 | v | 003.00. 02502 | Vsot 12.000 | Iset 3.0000 | OVP 65.0
+00482	GUJtflSTEl< apc'-B030 | (D cv | 120047 | v | 00538, 0.4487A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50
+00484	NJ InSTEK GPP-E030 | (D cv | 120047v | 00252, 02101 A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vet OOOO | Iset 0.0000
+00486	12004 | v | 003.45, 02878A | oo.oooov | 000.00, 0.0000, | O O.OV | OCPæp«ø | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | Vset 5.0
+00488	cv | 120045v | 002.34. 0.1954A | oo.oooov | 00000. 0.0000 | Vset 12.000 | lset 3.0000 | OVP 65.0 | OCP 3 50 | Vset 00.000 | I set 0.0000 | OVP 65.0 | OCP 3.50
+00490	(D cv | 12.0045 | V | 00294B 02457A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OVE) 65.0 | OCP | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00492	(D cv | 120044v | 00207, 0.1728A | oo.oooov | 000.00. 0.0000A | O O.OV | OCPa-S8Pa-t) | Vsøt 12.000 | Iset 3.0000 | OVI) 65.0 | OCP a.so | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | Vset 5.
+00494	120044 | cv | v | 00222, 0.1856A | oo.oooov | Vsot 12.000 | I sot 3.0000 | OW 05.0 | OCP a 50 | Vtot 00.000 | 0.0000 | OVI) 65.0
+00496	GWIfl5TEK GPP-E030 | (D cv | 120045v | 00233, 0.1942A | Vset 12.C | Iset 3.00 | OVI) 65.0 | OCP 3.50
+00498	GW lfl5TEK C3PP-E030 | O cv | 120045v | 005.19, 0.4326A | Vset 12.00( | Iset 3.000( | OVP 65.0 | OCP 3.50
+00500	GW 1115TEK GPP-E030 | O cv | 120044v | 00225* 0.188 | Vset 12.C | Iset 3.0C | OVP 65.C
+00502	tnSTEK | (D cv | 120047v | Vset 12.00C | Iset 3.000C
+00504	GW lflSTEK GPØ-6030 | (D cv | 120045v | Vset 12.0( | Iset 3.00(
+00506	GW IT15TEK GPP-6030 | (D cv | 120045v | Vset 12.00C | Iset 3.000C | OVI) 65.0
+00508	GWtn5TEK GPP-6030 | (D cv | 120045v | Vset 12.000 | Iset 3.0000
+00510	GWjn5TEK OPP-6030
+00512	Gtutns-rEK GPP-6030 | (D cv | Vset 12.000
+00514	GWIn5TEK GPP-6030 | (j) CV | 120044v | 00220, 0.1890A | Vset 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50
+00516	lfl5TEK app-6030 | O cv | 12004dv | Vset 12.000 | I set 3.0000 | OVI) 65.0
+00518	GW If7STEK GPP-6030 | (D cv | 120044v | Vset 12.000 | I set 3.0000
+00520	tn5TEK app-eoao | (D cv | Vset 12.000
+00522	U tn5TEl( GPP-6030 | (j) CV | 120045v | Vset 12.000 | Iset 3.0000
+00524	STEK GPP-6030 | cv | 12.0044v Vet 12.000 | Iset 3.0000
+00526	GUtnSTEK | (D cv | Vet 12.000
+00528	GP IT15TEK GPP-soao | (D cv | 120044v | 00338, 02818A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50
+00530	GW ITISTEK GPP-E030 | 120043v | 00260, 02167A | oo.oooov | vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00532	GUtnSTEK CIPP-6030 | (j) cv | 120044v | 00134. 0.1119A | Vset 12.000 | Iset 3.0000 | OVP 650 | OCP a so
+00534	UJITISTEK GPSXE030 | (D cv | Vset 12.000 | 120045v | Iset 3.0000 | OVI) 65.0 | 00274, 02290A
+00536	J ITISTEK GPP-E030 | prsrec | 1 CV | Vset 12.000 | 120047v | I set 3.0000 | OVP 65
+00538	K GPP-E030 | jrsrec | cv | Vset 12.000 | 120046v | Iset 3.0000
+00540	ITISTEK app-€oao | (j) CV | Vset 12.000 | 120045v | Iset 3.0000
+00542	GW tnSTEK GPP-6030 | (D cv | 120045 | v | Vset 12.000 | Iset 3.0000
+00544	tnSTEK app-soao | CV | 120046v | 1005.72. 04767 | Vset 12.000 | Iset 3.0000 | OVP 65.0
+00546	GPP-6030 | 120045v | 351, 02926A | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50
+00548	3Utn5TEK GPP-6030 | 0) cv | 120047v | 002.46. 02056A | Vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.5
+00550	GUtn5TEK OPP-eoao | O cv | 120043v | 02349 | Vsøt 12.000 | Iset 3.0000 | OW 65.0
+00552	GW IT15TEK GPP-6030 | (D cv | 120045v | 00409, 00415A | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50
+00554	(D cv | 120044v | 002.55, 02125A | oo.oooov | 00000. 0.0000A | Vet 12.000 | Iset 3.0000 | OVE) | OCP a 50 | Vsot 00.000 | let 0.0000 | OVI) 65.0 | OCP 3.50
+00556	GUJ tn5TEK | O cv | GPP-6030 | 120043 v | 003.01. 02515A | oo.oooov | Vsot 12.000 | I sot 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | I sot 0.0000
+00558	GUIT15TEK GPP-€030 | (D cv | 120042v | 002.61, 02176A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVE) 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00560	GW InSTEK GPP-6030 | (D cv | 120044v | 00293. 02442A | 00.0 | Vset 12.000 | I set 3.0000 | OVI' 65.0 | OCP 3.50 | Vet 00.000
+00562	GU trtSTEK OPP-E030 | 120045v | (D cv | 00351. 0.2931 | oo.oooov | Vset 12.000 | Isot 3.0000 | OW 65.0 | OCP 3.50 | Vsot 00.000 | n mnn
+00564	GUJlfl5TEK GPP-6030 | (D cv | 120045v | 00284, 02373A | 00.0000 | Vset 12.01 | Iset 3.00( | OW 65.0 | OCP 3.50 | Vset 00.0
+00566	GUJTISTEK GPP-6030 | O cv | 120046v | 00275, 022991 | oo.oooov | Vset 12.0 | Iset 3.00 | OVP 65.0 | OCP 3.50 | Vset 00.0
+00568	GW ITISTEK OPP-E030 | (D cv | 120046v | 003.18, 02649A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVE) | OCP 3.50 | Vset 00.000 | I set 0.0000
+00570	GW tn5TEK aPP-E030 | (D cv | 120046v | 00404. 0.3366A | oo.oooov | Vset 12.000 | I sot 3.0000 | OVE) 65.0 | OCP 3.50 | Vsot 00.000 | Iset 0.0000 | OVP 65.0
+00572	0) CV | 120044v | 00326, 02722A | 00.0000 v | 000.00. 0.0000A | Vsøt 12.000 | 3.0000 | OVP 65.0 | OCP 3.50 | Vsøt 00.000 | I set 0.0000 | OVP 65.0
+00574	(D | cv | 120043v | 00287, 02398A | 00.0000, | 000.00. 0.0000 | Vset 12.000 | Iset 3.moo | OW 65.0 | OCP 3.50 | Vet 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00576	120045v | )5.79. 0.4826A | oo.oooov | 00.00. 0.0000A | Vset 12.000 | I wt 3.0000 | OVI) 65.0 | OCP ago | Vsot 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | Systol
+00578	OPP-6030 | 120043v | cv | 00252, 02104A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVE) 65.0 | OCP a.so | Vet 00.000 | Iset 0.0000 | OVP 65.0
+00580	OPP.-6030 | gyJ | 120044v | 02.77, 02313A | oo.oooov | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vet 00.000 | Iset 0.0000
+00582	GPP-S030 | 120045 v | 02.60K 02174A | oo.oooov | Vset 12.000 | 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset O.
+00584	GPP-E030 | 120045v | 5.77, 0.4808A | oo.oooov | Vsøt 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00586	app-6030 | 120046v | 02094A | oo.oooov | Vsøt 12.000 | Iset 3.0000 | ovp 650 | OCP 350 | vsøt 00.000 | I set 0.0000 | Svstem
+00588	TEK | 120044v | 0251. 02096A | oo.oooov | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | System
+00590	prsrec | 0) cvj | OPP-6030 | 120044v | 003.13, 02612A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI' 65.0 | OCP a 60 | Vset 00.000 | I set 0.0000 | OVI) 65.0 | sys
+00593	GWtnSTEK GPP-E030 | (D cv | 120045v | 002.52* 02100A | oo.oooov | Vsøt 12.000 | I set 3.0000 | ow 65.0 | OCP 3.50 | Vsøt 00.000 | Iset 0.0000
+00595	GUJtn5TEK app-€oao | 120044v | 0) cv | 001.77, 0.1478A | oo.oooov | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00597	If'15TEK | IO cv | OPP-6030 | 120043v | 002.48. 02072A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 66.0 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OVI) 65.0
+00599	GPP-6030 | 120045v | cv | 00292. 02440A | oo.oooov | Vset 12.000 | I set 3.0000 | OVI) 65 n | OCP 3.50 | vsot 00.000 | Iset O. | OVI) 65.0
+00601	K Capp-6030 | _pyJ | 120044v | 02252A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVE) 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000
+00603	K GPP-B030 | 120044v | cv | 00526. 0.4386A | oo.oooov | vset 12.000 | Iset 3.0000 | OVP 650 | OCP a so | Vset 00.000 | I set 0.0000 | OVI) 65.0 | 5,
+00605	K OPP-6030 | 120044v | 002.56. 02138A | oo.oooov | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0
+00607	GPP-6030 | 120042v | gyJ | 02339A | oo.oooov | Vsøt 12.000 | Iset 3.0000 | OVI' 65.0 | OCP a 50 | Vsøt 00.000 | I sot 0.0000 | OW 65.0
+00609	opp-6030 | 12.0044v | 02.64, 02200A | oo.oooov | vsot 12.000 | I set 3.0000 | OVI) 65.0 | OCP | Vset 00.000 | Iset 0.0000 | OW 65.0 | Systen
+00611	EK GPP-60 | 120041 v | )2.33W 0.1942A | oo.oooov | 00.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OW 650 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OW 65.0 | OCP 3.50 | Systerr
+00613	GPP-6030 | 120044v | 0.4940A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVE) 650 | OCP | Vset 00.000 | Iset 0.0000 | OVI) 65.0 | System
+00615	12004öv | )3.01. 02511 A | oo.oooov | 0.0000A | Vset 12.000 | Iset 3.0000 | OVI) 650 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OW 65.0 | OCP 3.50 | Syste
+00617	120043v | .53* 02111A | oo.oooov | 1.00. 0.0000A | vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.60 | vsøt 00.000 | I set 0.0000 | OVI) 65.0 | OCP 3.50 | System
+00619	120044v | 02425A | oo.oooov | 00, | Vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP '3.50 | Vsøt 00.000 | I set 0.0000 | OW 65.0 | OCP 3.50 | System
+00621	GPP-€030 | 120047v | 0.1028A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI) 650 | OCP a.so | Vset 00.000 | Iset 0.0000 | OVI) 65.0 | System
+00623	GPØ-6030 | 120045v | 2.52* 02104A | oo.oooov | vsøt 12.000 | I set 3.0000 | OVP 650 | OCP 3.50 | Vset 00.000 | I set 0.0000
+00625	GPØ-6030 | 120045v | 02237A | oo.oooov | Vsøt 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | Svstem
+00627	cv | 120043v | 2.45. 02043A | oooooov | 300.00. 0.0000 | Vset 12.000 | I set 3.0000 | OVI) | OCP 3.50 | Vset 00.000 | I set 0.0000 | OVP 65.0 | OCP 3.50 | Syst
+00629	(D cv | 120043v | 002.56, 02133A | 00.0000 | 000.00. 0.0000. | 3 | Vsot 12.000 | Isot 3.0000 | OCP 3.60 | Vsot 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00631	(D cv | 120041 v | 002.31. 0.1928A | oo.oooov | 000.00. 0.0000 | Vsøt 12.000 | I sot 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00633	Q) cv | 120041 v | 002.30. 0.1924A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | I set 3.0000 | OW 65.0 | OCP a.so | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | 3 | OCPæp«o
+00635	(j) CV | 120043v | 00279. 02330A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00637	tn5TEK | (j) CV | OPP-6030 | 120044v | 004.43. 03692A | oooooov | 00000. 0.0000 | Vsot 12.000 | Iset 3.0000 | OVI) | OCP a.so | Vsot 00.000 | I set 0.0000 | OW 65.0 | OCP 3.50
+00639	cnsrEK | (D cv | GPP-6030 | 120044v | 00284, 02370A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | I set 3.0000 | OVI) 650 | OCP 3.50 | Vset 00.000 | I sot 0.0000 | OW 65.0 | OCP 3.50
+00641	GW InsrEK | (D cv | apo-6030 | 120044v | 003.05. 02542A | oo.oooov | 000.00. 0.0000 | Vet 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Isot 0.0000 | OVP 65.0 | OCP 3.50
+00643	InSTEK | (D cv | app-6030 | 120044v | 00249. 02075A | 00.0000 v | 00000. 0.0000A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000 | Isot 0.0000 | OW 65.0 | OCP 3.50
+00645	GW ITISTEK OPP-6030 | 0) cv | 120043v | 00227. 0.1897A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP a.so | Vsot 00.000 | Iset 0.0000 | OVI) 65.0 | OCP 3 so
+00647	(D cv | 120044v | 002.47, 02059A | oooooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OVI) | OCP 3.50 | Vset 00.000 | 0.0000 | OVP 65.0 | OCP 3.50
+00649	lflSTEK app-aoao | (D cv | 120043v | 002.31. 0.1927A | oo.oooov | 0.00004 | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.60 | Vset 00.000 | Iset 0.0000 | OVP 65.0
+00651	OPP-€030 | 120044v | 002.56, 02135A | oo.oooov | 000.00. 0.0000. | Vsøt 12.000 | Isot 3.0000 | OCP 3.50 | Vs,t 00.000 | Isot 0.0000 | OVP 65.0 | OCP 3.50
+00653	GW lfl5TEK GPP-G030 | 120045v | O cv | 004.02. 03353A | oo.oooov | vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OW 65.0
+00655	105TEK | (D cv | OPP-6030 | 120046v | 00289, 02414A | oo.oooov | 000.00. 0.0000 | Vsøt 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vsøt 00.000 | Iset o.oom | OVP 65.0 | OCP
+00657	GUJ1n5TEK | (D cv | 30 | 120047V | 00295. 02459A | oo.oooov | 000.00. 0.0000 | I set 3 | OW | OCP | Vsøt | Iset | OCP
+00659	120045v | O cv | 00298. 02485A | oo.oooov | 000.00. 0.0000A | vset 12.1 | Iset | OW 65.1 | OCP | Vsøt 00.' | Isot 0.0 | OVP 65. | OCP 3.5
+00661	120047v | (D cv | 00230, 0.1921 A | oo.oooov | 000.00. 0.0000A | Vset 12.0( | I set 3.00( | OVP | OCP 3.50 | vset 00.0 | Iset 0.00 | OVP 65.0 | OCP 3.50
+00663	(D cv | 120044v | 00321, 02676A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OW | OCP 3.50 | Vsøt | Iset 0.0000 | OVI) 65.0 | OCP 3.50
+00665	tn5TEK | (D cv | GPP-6030 | 120046v | 00247, 02060A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vet 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00667	ITISTEK GPP-6030 | (D cv | 120044v | 002.56, 02139A | oo.oooov | 000.00. 0.0000A | Vsøt 12.OOC | Iset 3.000C | OW 65.0 | OCP | Vet 00.00( | Isot O. | OW 65.0 | OCP 3.50
+00669	(D cv | Gpp--6030 | 120045v | 00243, 02026A | oo.oooov | 000.00. 0.0000A | Vsøt 12.000 | Iset 3.0000 | OW 65 n | OCP 3.50 | Vet 00.000 | I sot 0.0000 | OVI) 65.0
+00671	GW lflSTEK GPP-6030 | (D cv | 120045v | 00227. 0.1892A | oo.oooov | Vet 12.0< | Isot 3.00( | OW 65.0 | OCP 3.50 | Vset 00. | Iset O.OC | ovp 65.01
+00673	Gi-u tnSTEK GPP-B030 | (D cv | 120044v | 00192. 0.1607A | oo.oooov | Oat | Vset 12.0C | Iset 3.00C | OVI' 65.0 | OCP 9.50 | Vsot 00. | Iset O. | OVP 65.0
+00675	tnsTEK | (D cv | ape-6030 | 120046v | 002.51. 02096A | oo.oooov | Vset 12.000 | I sot 3.0000 | OW 65.0 | OCP 3.50 | Vset OO.OOC | Iset O.
+00677	GW ITISTEK app-6030 | 120043v | (D cv | 00226. 0.1887A | oo.oooov | vset 12.( | Iset 3.0( | OW 65.( | OCP a.5( | Vsot 00.1 | Iset 0.0
+00679	GWIfl5TEK app-6030 | 120043v | (D cv | 00279. 02328A | oo.oooov | vsot 12.C | Iset 3.0C | ovp 65.( | OCP 3.5( | vset 00.( | Isot 0.0( | OW 65.(
+00681	GW ITISTEK GPO-6030 | (D cv | 120045v | 00253, 02114A | oo.oooov | Vset 12.OC | Iset 3.00C | OVP 65.0 | OCP 3.60 | Vset 00.0( | Iset 0.00(
+00683	GUJtn5TEK app-6030 | 120042v | (D cv | 003.06, 02555A | oo.oooov | Vset 12.00 | Iset 3.000 | OVP 65.0 | OCP 3.50 | Vsot OO.OC | I sot 0.00C | OVP 65.0
+00685	InsrEK | (D cv | GPP-6030 | 120043v | 00251, 02092A | oo.oooov | 000.00. 0.0000A | Vset 12.00( | Iset 3.000( | OW 65.0 | OCP a.so | Vset 00.00 | Iset 0.000 | OVP 65.0 | OCP 3.50
+00687	(j) CV | 120044v | 00243. 02027. | oo.oooov | 000.00. 0.0000 | Vset 12.000 | I sot 3.0000 | OVP 65.0 | OCP | Vset 00.000 | Isot 0.0000 | OVP 65.0 | OCP 3.50
+00689	(D cv | 120045v | 003.05. 02542A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00691	120045v | 0) cv | 00234. 0.1954A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | Iset 3.0000 | OVI) 66.0 | OCP 'J GO | Vset 00.000 | I set 0.0000 | OVP 65.0 | OCP a.50
+00693	(D cv | 120044v | 00254, 02120A | oo.oooov | 000.00. 0.0000A | (ä) | Vset 12.000 | Iset 3.0000 | OVID 65.0 | OCP 3.50 | Vset 00.000 | I set 0.0000 | OW 65.0 | OCP 3.50
+00695	(D cv | 120047v | 003.15, 02631 | 00.0000 v | 000.00. 0.0000A | OVP | OCPan | Vsøt 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OW 65.0 | OCP 3.50
+00697	120046v | (D cv | 00580, 0.4836A | oo.oooov | 00000. 0.0000A | Vsøt 12.000 | Iset 3.0000 | OVI) 65.0 | OCP '8.50 | Vsøt 00.000 | Iset O. | OW 65.0 | OCP 3.50
+00699	GW IC15TEK GPP-60aa | (j) CV | 120045v | 00227. 0.1893A | oo.oooov | 000.00. 0.0000 | Vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50
+00701	120045v | Q) cv | 00281 • 02342A | oo.oooov | 000.00. 0.0000A | 0 0.0 v ()VP | OCPanp«t) | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vsot 00.000 | Isot 0.0000 | OVP 65.0 | OCP 3.50 | Vset 5.0
+00703	(D cv | 120045v | 002.7u 02256A | 000000 v | 000.00. 0.0000. | O O.OV | Vsot 12.000 | Iset 3.0000 | OVP 650 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | Voet 5.0
+00705	120045v | (j) CV | 00400, 0.3335A | oo.oooov | 000.00. 0.0000A | O O.OV | OCP0-æp«t) | Vset 12.000 | I set 3.0000 | OW 65.0 | OCP a.so | Vsøt 00.000 | Iset 0.0000 | OVP 65.0 | OCP 3.50 | Vsot 5.0
+00707	120044 | (j) CV | v | 00231, 0.1932A | oo.oooov | 000.00. 0.0000. | 0 0.0 v ()VP | OCPa.æp«t) | Vsøt 12.000 | Isot 3.0000 | OVI' | OCP a so | Vsot 00.000 | Iset 0.0000 | OVI) 65.0 | OCP 3.50 | Vset 5.0
+00709	120044v | (D cv | 00254, 02117A | oo.oooov | 000.00. 0.0000A | 0 0.0 v ()VP | OCPanp«t) | Vset 12.000 | I set 3.0000 | OVI' 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000 | OW 65.0 | OCP 3.50 | Voet 5.0
+00711	120045v | cv | 002.68, 02234A | oo.oooov | 000.00. 0.0000A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3 50 | Vset 00.000 | I sot 0.0000 | OVP 65.0 | OCP 3.60
+00713	Gi-u tnSTEK GPP-E030 | 120044v | (D cv | 002.44, 02038A | oo.oooov | vset 12.000 | I set 3.0000 | OW 6b n | OCP 'J.50 | vset 00.000 | I set 0.0000 | OW 65.0
+00715	Guj ITIS'TEK | (D cv | aPP-6030 | 120043v | 00261. 02181 A | oo.oooov | Vset 12.000 | I set 3.0000 | OVP 65.0 | OCP 3 so | Vsøt 00.000 | I set 0.0000 | OVP 65.0
+00717	1175TEK GPP-6030 | 120043v | (D cv | 002.62, 02190A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00719	GUJtn5TEK | (D cv | 120044v | 00244. 02033A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 66.0 | OCP 3.50 | Vsot 00.000 | 0.0000
+00721	GW InSTEK | (D cv | 120047v | 002.54. 02116A | oo.oooov | Vsot 12.000 | I set 3.0000 | OW 65.0 | OCP 8.50 | Vset 00.000 | Iset 0.0000
+00723	Gi-u lfl5TEK GPP-6030 | (j) CV | 120047v | 00299, 02495A | Vset 12.000 | I set 3.0000 | OW 65.0 | OCP 3.50
+00725	GW IT15TEK OPP-6030 | (D cv | 12.0047v | 002.51, 02096A | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50
+00727	GW tn5TEK OPP-6030 | (D cv | 120046v | 00226. 0.1885A | Vset 12.000 | Isot 3.0000 | OVI) 65.0 | OCP 3.50
+00729	tnSTEK OPP-6030 | 120047v | (D cv | 002.56. 02133A | vsøt 12.000 | Iset 3.0000 | OVP 65.0 | OCP 350
+00731	iWlfl5TEK OPP-B030 | 0) cv | 120046v | 002.51, 02092A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000
+00733	U 105TEK opø-6030 | (D cv | 120046v | 002.46. 02055A | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000
+00735	tn5TEK | I CV | 120047v | 00246. 02055A | Vset 12.000 | I set 3.0000 | OVI) 650 | OCP 3.50 | VsetOO.OOO
+00737	ASTEK OPP-6030 | cv | 120047v | 00243. 02026A | Vset 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Voet 00.000
+00739	03 | ) cv | 120048v | 002.52, 02102A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000
+00741	app.-6030 | 120048v | 1.11' 0.0926A | oo.oooov | Vset 12.000 | I set 3.0000 | OVI) 650 | OCP a go | Vet 00.000 | I set 0.0000
+00743	) cv | 120046v | 001.04, 0.08?0A | oo.oooov | 000.00. 0.0000A | 0.0 v ()VP | OCPanp«t) | Vset 12.000 | I set 3.0000 | ovp 65.0 | OCP 3.60 | Vset 00.000 | I set 0.0000 | OVI) 65.0 | OCP 3.50
+00745	(j) CV | 120046v | 001.62, 0.1357A | oo.oooov | 000.00. 0.0000A | OCPasp«t) | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP | Vset 00.000 | I set 0.0000 | OVP 65.0 | OCP 3.50 | Vset 5.0
+00747	ITISTEK GPP-eoao | (D cv | 120046v | 001.04. 0.0837A | oo.oooov | Vset 12.000 | I set 3.0000 | OVI) 65.0 | OCP 3.50 | Vset 00.000 | Isot 0.0000 | OVI) 65.0
+00749	(D cv | GPP-G030 | 120048v | .03, 0.0866A | oo.oooov | Vsøt 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vset 00.000 | Iset 0.0000
+00751	GUJIIISTEK GPP-E030 | 120048v | (D cv | 001.04. 0.0867A | oo.oooov | o onnnn | Vsøt 12.0 | Iset 3.00 | OVP 65.0 | OCP 3 50 | Vset 00.0 | I set 0.00 | OVP 65.0
+00753	GW IT15TEK OPP-6030 | (D cv | 120048v | 001.13. 0.0946A | Vsot | Iset 3. | OVP 6! | OCP 3.
+00755	GLY lt7STEK GPP-6030 | (D cv | 120049 | V | 001.03. 0.0866A | Vset 12.00C | Iset 3.000C | OVP 65.0 | OCP 3.5
+00757	GWITISTEK GPP-6030 | (D cv | 120047 | v | 00103. 00866A | Vsot 12.000 | Iset 3.0000 | OVI) 65.0
+00759	lfl5TEK OPP-aoao | (D cv | 120045v | 001.03, 0.0863A | Vsot 12.000 | Iset 3.0000 | OVI) 65.0 | OCP 3.50
+00761	GI" Ins-TEK | (D cv | 120047 | v | 001.04, 00867A | Vsot 12.000 | Iset 3.0000 | OVP 65.0
+00763	GUITISTEK | (D cv | 120049v | 001.05. 0.0879A | Voet 12.000 | Isot 3.0000 | OW 65.0
+00765	GUJ1n5TEK | (D cv | 120049 | V | 001.10. 0.0921 A | Vsot 12.000 | Iset 3.0000 | OVP 65.0 | 0
+00767	GW tnSTEK app-6030 | 120049v | (D cv | 00159. 0.1329A | vsot 12.000 | 3.0000 | OVP 65.0
+00769	(D cv | 120049v | 00104. 0.0869A | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP
+00771	GUJIIISTEK OPP-6030 | (D cv | 120051v | 00103. 0.0860A | Vsot 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50
+00773	tnSTEK OPP-6030 | 120050v | (D cv | 001.04, 0.0867A | Vsot 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Vet 00.000
+00775	GUJtnSTEK apø-eoao | (D cv | 120050v | 001.03. 0.0863A | oo.oooov | Vset 12.000 | Isot 3.0000 | OVP 65.0 | OCP 3.50 | Vsot 00.000 | I sot 0.0000 | OVI' 65.0
+00777	C!) cv | 120049v | 001.03. 0.0868A | oo.oooov | 000.00. 0.0000. | Vset 12.n | I set 3.0000 | OVI) 65 0 | OCP | Vsot 00.000 | I sot 0.0000 | OVP 65.0 | OCP 3.50
+00779	0) CVI | 120048v | 001.02, 00857A | oo.oooov | 000.00. 0.0000A | OCPa.ep«ø | Vset 12.000 | Iset 3.0000 | OVI) 65.0 | OCP g so | Vset 00.000 | I sot 0.0000 | OVP 65.0 | OCP 3.50 | Vsøt 5.0 | Syst'
+00781	cv 12.0049v | 00103. 0.0861 A | oo.oooov | 000.00. 0.0000 | 3 | 0.0v ow | OCP«.BM | Vet 12.000 | 1 —t 3.0000 | ovp 65 0 | CCP aso | Vet 00.000 | let o.no | OVP 650 | OCP 3.50 | Vet 5.0
+00783	InSTE% osv-6030 | 120050v | cv | 001.03, 00863A | oooooov | vsot 12.000 | I sot 3.0000 | OW | OCP a 50 | Vsot 00.000 | Isot 0.0000
+00785	GU opø-aoso | 120048v | 001.03. 0.0858A | 000000 v | 00000. 00000. | Vsot 12.000 | 3.0000 | ovi' 65 0 | Vsot 00.000 | 0.0000 | OVI' | OCP | Sys
+00787	cv | 120047v | 001.04. 0.086dA | oo.oooov | 00000. 00000A | 3 | OCPCOP«t) | OVP | Vset 12.000 | Iset 3.0000 | OVI' 65 0 | Vsot 00.000 | 0.0000 | OW 65.0 | OCP 3.50 | Voet 5.0
+00789	GUUISTEK opø.aoao | 120048v | 0) cv | 00159, 0.1328. | oo.oooov | 000.00. 0.0000. | Vset 12.000 | Isot 3.0000 | OVI' 6b U | Vsot 00.000 | I sot 0.0000 | OW 65.0 | OCP 3.50
+00791	GUJ1flSTE-K | 120049 | v | 00103. 0.0858A | 00.0000 v | 000.00. 0.0000 | Vet 12.000 | I set 3.0000 | OVI) 65 0 | OCP 3 SO | 00.000 | Isot 0.0000 | OVP 65.0 | OCP aso
+00793	cormo
+00795	o, 0.0000, | OCPOSPort) Vset 5.0
+00797	
+00799	EYJ | apo-aoao | 120049v | 0135, 0.1131A | oooov | 12.000 | Isot 3.0000 | OVi' 65 f) | OCP a 50 | Vsot 00.000 | 0.0000
+00801	GLO If15TEK | 120048v | (D cv | 00125. 0.1048A | 12.000 | Isot 3.0000 | OVi' 650 | OCP a 50 | 00.000
+00803	Vs.t 12.000 | 120046v | 3.0000 | OW 65.0
+00805	tn5TEK OPØ-.OOSO | (D cv | 120046v | 12.000 | OVP 65.0
+00807	GUJIn5TEK OPA-60ao | 120048v | 00122, 0.1017A | oo.oooc | Vet 12.000 | Iset 3.0000 | OVI) | 60 | Vsot 00.000 | Iset 0.0000
+00809	GUJtn5TEK | (D cv | 12.0049v | 00121. 0.1015A | Vsot 12.000 | I set 3.0000 | OVP 660 | OCP 3 50
+00811	tn5TEK GPP-€030 | (D cv | 120050v | 00180, 0.1503A | 00.000 | Voet 12.000 | Iset 3.0000 | OW 65.0 | OCP 3.50 | Voet 00.000
+00813	120050v | 121, 0.1014A | oo.oooov | Vset 12.000 | Iset 3.0000 | OW 65 n | OCP 3 so | Vsot 00.000
+00815	U ln5TEK OPP-6030 | (D cvJ | 120049 v | 00122, 0.1017A | oo.oooov | Vset 12.000 | Iset 3.0000 | OVP 65.0 | OCP 3.50 | Vset 00.000
+00817	GW InSTEK | (j) CV | 120048v | 00121. 0.1014A | oo.oooov | 000.00. 0.0000A | Vet 12.000 | Iset 3.0000 | OW 65.0 | OCP a 50 | Vsot 00.000 | 0.0000 | OVP 65.0 | OCP 3.50
+00819	EU' tn5TEK | (D cv | 12 | vsot 12.000
+00821	GU'jn5TEK | (D cv | 120047v | Vet 12.000 | Iset 3.0000
+00823	(D cv | o pø-8030 | 120046v | 00121, 0.1016A | oo.oooov | Vset 12 | Iset 3.( | OW 65 | OCP 3.: | Vset 00 | Isot O.C
+00825	Gi-u IIISTEK apø-ooao | (D cv 120047 v | 00121. 0.1014A | oo.oooov | 000.00. o | Vsøt 12.000 | Iset 3.0000 | OVP 65.0 | OCP 350 | Vsot 00.000 | 0.0000 | OVP 65.0
+00827	GW IT15TEK OPP-6030 | 120047v | (D cv | 00121. 0.1014A | oo.oooov | 000.00. 0.0000 | Vsot 12.000 | Isot 3.0000 | OVP 650 | OCP aso | 00.000 | Iset o.omo | OVI) 65.0 | OCP 3.50

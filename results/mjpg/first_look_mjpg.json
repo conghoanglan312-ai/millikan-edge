@@ -1,0 +1,27 @@
+{
+ "fixture": "unit3-2_1027_mjpg",
+ "frames": 12579,
+ "wall_s": 495.0,
+ "blobs_per_frame": 15.65,
+ "kept_per_frame": 6.54,
+ "kept_share": 0.418,
+ "droplet_like": 82274,
+ "droplet_contrast_p25_p50_p75": [
+  32.0,
+  51.0,
+  81.0
+ ],
+ "noise_contrast_p50": -4.0,
+ "prob_hist_0_to_1_by_0.1": [
+  91590,
+  13702,
+  4456,
+  2568,
+  2250,
+  2032,
+  2251,
+  2830,
+  5466,
+  69695
+ ]
+}
