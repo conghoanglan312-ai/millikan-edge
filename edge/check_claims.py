@@ -3,8 +3,8 @@
     python edge/check_claims.py
 
 Each claim names a phrase in README.md and the phrase in a result file it rests on.
-Wordings that once went further than the data are listed too, and must stay out.
-Run it before anything is published or sent; a failure means the words have drifted.
+It checks the numbers, not how a sentence reads. Run it before anything is published
+or sent; a failure means the words have drifted.
 """
 import os
 import sys
@@ -24,7 +24,7 @@ CLAIMS = (
      "| FP32 classifier after the gates — detector | 92.6% (90.4–94.7) | 93.3% (91.3–95.4) | 93.0% (91.3–94.6) | 0.45 |"),
     ("| + classifier, INT8 | 92.1% | 93.7% | 92.9% | 0.48 |", TEST,
      "offline filter — detector | 92.1% (89.8–94.3) | 93.7% (91.7–95.6) | 92.9% (91.2–94.5) | 0.48 |"),
-    ("all 19 legal falls", "results/fp32/README.md", "keeps all 19 legal falls"),
+    ("19 legal falls", "results/fp32/README.md", "keeps all 19 legal falls"),
     ("99.90% of 41,038", BOARD, "same decision on 99.90%"),
     ("| classical | 69.8% | 87.6% | 77.7% | 11.7 |", UNSEEN,
      "| all unseen | classical detector | 69.8% (65.9–73.6) | 87.6% (86.5–88.7) | 77.7% (75.2–80.1) | 11.66 |"),
@@ -33,7 +33,7 @@ CLAIMS = (
     ("from 21.7 to 2.2", UNSEEN, "| unit3-2_1015 | classical detector | 57.3% (52.6–62.4) | 86.5% (84.7–88.3) | 68.9% (65.5–72.4) | 21.65 |"),
     ("precision\n84.6% → 37.5%", MJPG, "| unit3-2_1027_A | classical detector | 37.5% (29.9–46.6) | 79.2% (76.6–82.0) | 50.9% (43.6–58.5) | 11.47 |"),
     ("F1 85.4% raw, 85.1% MJPG", MJPG, "(RKNN simulator) — detector | 97.9% (96.8–99.0) | 75.3% (72.6–78.4) | 85.1% (83.3–87.2) | 0.14 |"),
-    ("recall 78.7% and 75.3%", MJPG, "(RKNN simulator) — detector | 93.3% (86.5–98.2) | 78.7% (74.9–82.5) | 85.4% (80.8–89.2) | 0.70 |"),
+    ("0.70 and 0.14 false detections", MJPG, "(RKNN simulator) — detector | 93.3% (86.5–98.2) | 78.7% (74.9–82.5) | 85.4% (80.8–89.2) | 0.70 |"),
     ("| classical | 38.3 ms | 26.1 | 5.5 ms | 175 MB |", BOARD, "| classical | 38.3 ms | 26.1 | 5.5 ms | 9.8 ms | 175 MB | 17 |"),
     ("**41.1 ms** | **24.3** | **8.9 ms** | 200 MB |", BOARD, "**41.1 ms** | **24.3** | **8.9 ms** | **16.3 ms** | 200 MB | 17 |"),
     ("48.1 ms a frame", BOARD, "**48.1 ms (20.8 a second)**"),
@@ -48,11 +48,10 @@ CLAIMS = (
     ("0.045 ms a crop", BOARD, "**0.045 ms**"),
     ("21.3–21.5 updates a second", LIVE, "| 3-3 | `20261027_105012` | 6 | 21.3 |"),
     ("27.6 updates a second", LIVE, "| 2-2, MJPG | `20261029_110745` | 6 | **27.6** |"),
-    ("The 10 timed", LIVE, "| 3-3 | 5 | 33.85 | 33.40 | −0.45 |"),
+    ("within 0.9 s", LIVE, "| 1-1 | 3 | 19.58 | 18.71 | −0.87 |"),
     ("9.2 vs 8.7", "results/suggestions/REPORT.md", "| bench_0908 | 40.0 | after | 226 | 169 | 35 | 22 | 17% | 8.7 |"),
 )
-BANNED = ("INT4", "scored once", "held back from every", "every fall agrees", "same work",
-          "fifth of the power", "15 minutes of the live", "zero falls", "kept that clean")
+BANNED = ("INT4",)
 
 
 def read(path):

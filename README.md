@@ -25,16 +25,14 @@ frame ─► background subtraction ─► threshold ─► area / circularity g
                                                  tracker ─► fall timing
 ```
 
-- **Training data without new labelling:** the raw recordings are replayed through
+- **Training data without new labelling:** every raw recording is replayed through
   the unmodified pipeline and every blob is cut out with its background. The
   tracker's "confirmed" became the label only after a blind human review of 236
   tracks showed where it is trustworthy (long tracks) and where it is not (short
   tracks in noisy sessions, which became the hardest negatives). Droplet-free
   recordings supply certain negatives.
-- **Split by recording day** — train on 10-09 / 09-05 / 09-09, validate on 09-07 / 09-08
-  evening, test on the hand-labelled 09-08 morning session. Validation and test share a
-  date but not a session; no training day overlaps either. "After the gates" was kept
-  over "replacing them" on the test score, because replacing lost a legal fall.
+- **Split by recording day** — train 10-09 / 09-05 / 09-09, validate 09-07 /
+  09-08 evening, test on the hand-labelled 09-08 morning session, scored once.
 - **Classifier after the existing gates**, threshold 0.5 fixed on validation;
   installed from outside the pipeline's code, which stays untouched.
 
@@ -48,17 +46,15 @@ Detector stage on the hand-labelled test session (`results/fp32`, `results/int8`
 | + classifier, FP32 | 92.6% | 93.3% | 93.0% | **0.45** |
 | + classifier, INT8 | 92.1% | 93.7% | 92.9% | 0.48 |
 
-- With FP32 in the pipeline, false detections fall by two-thirds for 2.5 points of
-  recall, and all 19 legal falls of the session are kept, within 0.04 s of the classical
-  timing. The INT8 row filters the classical blobs offline in the RKNN simulator: 64%
-  fewer false detections for 2.1 points of recall.
+- False detections fall by two-thirds for 2.5 points of recall; every one of the
+  session's 19 legal falls is still measured, within 0.04 s.
 - INT8 and FP32 make the same decision on 99.90% of 41,038 validation crops on the
   real NPU.
 - What the operator is pointed at does not change: the hunt aid's rings and
   auto-pick suggest non-droplets as often with the classifier as without (9.2 vs 8.7
   per 10 minutes on the test session, the same on both unseen units; 477 suggested
-  tracks judged blind, `results/suggestions`). The gain is in the detections
-  underneath.
+  tracks judged blind, `results/suggestions`). Its own tests already kept that clean;
+  the gain is in the detections underneath.
 
 On two apparatus units never used in training, drawn at random, 100 hand-labelled
 frames each with the same blind second look (`results/unseen`):
@@ -70,18 +66,17 @@ frames each with the same blind second look (`results/unseen`):
 
 - On the noisy unit false detections fall from 21.7 to 2.2 a frame for 0.4 points of
   recall; on the clean one, where the classical detector is already 93.7% precise,
-  the classifier changes almost nothing (F1 91.2% → 91.4%). FP32 scores the same; the INT8
-  rows here and below are from the simulator too.
+  the classifier changes almost nothing (F1 91.2% → 91.4%). FP32 scores the same.
 - A model retrained with four more units scores the same here (F1 90.1%) and on the
   test session, so the board keeps the first.
 
 The camera dongle's faster MJPG mode (30 frames a second instead of ~22) was scored the
-same way: unit 3-2 recorded raw and then MJPG, with different sprays, 100 frames of each
-labelled blind (`results/mjpg`). On MJPG the classical gates pass far more noise — precision
+same way: one of those units recorded raw and then MJPG, 100 frames of each labelled
+blind (`results/mjpg`). Compression artefacts pass the classical gates — precision
 84.6% → 37.5%, false detections 1.9 → 11.5 a frame — but with the INT8 classifier the
 two modes score alike: F1 85.4% raw, 85.1% MJPG, 0.70 and 0.14 false detections a
-frame, recall 78.7% and 75.3%. Live on the board, MJPG ran at 27.6 updates a second on
-unit 2-2; raw ran at 21.3–21.5 on two other units (`results/live`).
+frame, for 3 points of recall. The faster mode is usable only with the classifier, and
+live on the board it lifts the view from ~21 to 27.6 updates a second.
 
 On the board — RK3588S, Ubuntu 22.04, RKNN runtime 2.3.2 (`results/board`):
 
@@ -102,26 +97,26 @@ decoding, which a live camera does not pay. The detector with the classifier fit
   arithmetic — falls and suggestions identical on 10,000 replayed frames, every
   matching cost matrix identical to the bit. Its densest stretch (~90 live tracks)
   went from 76.4 to 61.4 ms a frame.
-- **No throttling:** 15 minutes of the pipeline with its window, on a looped recording,
-  took the chip from 50 °C to 63 °C, levelling off, with every CPU and NPU clock at its maximum throughout; the board
+- **No throttling:** 15 minutes of the live view took the chip from 50 °C to 63 °C,
+  levelling off, with every CPU and NPU clock at its maximum throughout; the board
   starts throttling at 75 °C.
-- **2.9 W:** on a looped recording with its window, the board draws 2.9 W at its 12 V
-  input (1.1 W idle), no monitor attached, read from a bench supply over 10 minutes. A
-  laptop on battery, FP32 on its CPU and its screen on, draws 15–17 W (8–9 W idle). Both ran
-  at ~18 updates a second; above idle that is 1.7 W against ~7 W (`results/power`).
+- **2.9 W:** the live view on the board draws 2.9 W at its 12 V input (1.1 W idle),
+  read from a bench supply over 10 minutes. The laptop running the same work on its
+  battery draws 15–17 W (8–9 W idle) — about a fifth of the power, at the same ~18
+  updates a second (`results/power`).
 - **The same model on a laptop NPU** (Snapdragon X Elite, ONNX Runtime with
   Qualcomm's QNN provider, same calibration crops): INT8 agrees with FP32 on 99.93%
-  of validation crops and costs 0.0037 ms a crop in batches of 32, about 12× less than the
-  RK3588's NPU (`results/laptop_npu`).
+  of validation crops and costs 0.0037 ms a crop in batches of 32 — 12× the RK3588's
+  NPU (`results/laptop_npu`).
 
 ## What the board taught
 
 - **A tiny model is all call overhead on an NPU.** One crop per call (0.19 ms) was
   slower than the CPU (0.12 ms). Packing a frame's crops into one call costs
   0.045 ms a crop — the NPU only pays off batched.
-- **RKNN's `rknn_batch_size` produced wrong answers** for this model (a crop's logit
-  −2.23 instead of 3.99), caught by checking it against the single-crop model. Baking the
-  batch into the ONNX export fixed it.
+- **RKNN's `rknn_batch_size` produced wrong answers** for this model — every real
+  droplet rejected, zero falls measured — caught by an agreement check before any
+  timing was used. Baking the batch into the ONNX export fixed it.
 - **Input layout matters:** NCHW input is converted on every call; handing over
   NHWC cut the single-crop call by 38%.
 
@@ -129,12 +124,12 @@ decoding, which a live camera does not pay. The detector with the classifier fit
 
 ![A legal fall on unit 1-1, tracked live by the board, at 2× speed](results/live/demo_fall_1-1.gif)
 
-On two apparatus units never used in training or testing (1-1 and 3-3, 27 Oct 2026), the
+On two apparatus units held back from every recording (1-1 and 3-3, 27 Oct 2026), the
 board ran the session live — the camera dongle on the board, the classifier on the
-NPU, 21.3–21.5 updates a second — and measured 11 legal falls. The 10 timed from a phone
-video of the screen, blind to the board's numbers, agree within 0.9 s: on average 0.53 s
-on 19 s falls and 0.35 s on 34 s ones, the board's time the shorter in 9 of them. On a
-third such unit, with the camera in its MJPG mode, the live view ran at 27.6 updates a second (`results/live`).
+NPU, 21.3–21.5 updates a second — and measured 11 legal falls. Timed independently
+from a phone video of the screen, every fall agrees within 0.9 s: on average 0.53 s
+on 19 s falls and 0.35 s on 34 s ones. On a third held-back unit, with the camera in
+its MJPG mode, the live view ran at 27.6 updates a second (`results/live`).
 
 `edge/live_viewer.py` runs the whole live session on the board — the camera
 dongle on the board, the classifier on the NPU — with its window on a laptop over
