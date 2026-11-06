@@ -49,7 +49,8 @@ bottom line. Falls are matched by the session clock.
 - Every timed fall agrees within 0.87 s; on average 0.53 s (2.7%) on unit 1-1's 19 s falls
   and 0.35 s (1.0%) on unit 3-3's 34 s falls. The board's time is the shorter in 9 of
   the 10.
-- Unit 3-3's sixth legal fall (38.67 s) is a second droplet, not timed by the operator.
+- Unit 3-3's sixth legal fall (38.67 s) was not timed: by the operator's account it was
+  lost from the pipeline's view, so the operator did another fall.
 
 ## Charge, one droplet per unit
 
