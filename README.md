@@ -181,5 +181,6 @@ the per-droplet work in C++ — measured live in March 2027.
 ## Origin
 
 A fork of the competition team's repository, history included. The computer-vision
-pipeline (`cv/`) and everything in `edge/` are by the repo owner; the app and LLM
-parts (`app_js/`, `llm/`) are a teammate's and are not used here.
+pipeline (`cv/`) and everything in `edge/` are by the repo owner. The LLM assistant
+(`llm/`) is a teammate's, and the browser front end (`app_js/`) is joint work, mainly
+the teammate's interface with the repo owner's live tutor; neither is used here.
